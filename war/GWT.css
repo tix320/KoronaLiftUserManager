@@ -113,6 +113,7 @@ select {
     display: block;
     margin: 0 auto;
     height: 20px;
+    visibility: hidden;
 }
 
 .resultTextBox {
