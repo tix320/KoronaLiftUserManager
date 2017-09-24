@@ -13,7 +13,9 @@ class Widgets {
 
     private static final int MATRIX_MAX_SIZE = 10;
     private static boolean isCalculating = false;
-    private static boolean serverAvailability = false;
+    private static boolean serverAvailability = true;
+    private static boolean isStarted=false;
+    private static int matrixSize;
     private static VerticalPanel mainPanel = new VerticalPanel();
     private static HorizontalPanel checkServerPanel = new HorizontalPanel();
     private static HorizontalPanel buttonsPanel = new HorizontalPanel();
@@ -65,44 +67,35 @@ class Widgets {
                 serverAvailabilityRequest.checkConnection(new AsyncCallback<Void>() {
                     @Override
                     public void onFailure(Throwable caught) {
-                        if (!serverAvailability) ;
-                        else {
-                            setServerInfo("failed");
-                        }
+                            isStarted=true;
+                            if (serverAvailability) {
+                                setServerInfo("failure");
+                            }
                         serverAvailability = false;
                     }
 
                     @Override
                     public void onSuccess(Void result) {
-                        if (!serverAvailability) {
-                            setServerInfo("rolling");
-                            Timer waitTimer = new Timer() {
-                                @Override
-                                public void run() {
-                                    setServerInfo("success");
-                                }
-                            };
-                            waitTimer.schedule(2000);
-
-
+                        if(isStarted){
+                            isStarted=true;
+                            if (!serverAvailability) {
+                                setServerInfo("success");
+                            }
                         }
                         serverAvailability = true;
                     }
                 });
             }
         };
-        serverAvailabilityTimer.run();
-        serverAvailabilityTimer.scheduleRepeating(2500);
+        serverAvailabilityTimer.scheduleRepeating(200);
     }
 
     private static void setServerInfo(String status) {
 
-        if (status.equals("failed")) {
-            modifyCheckServerPanel("Подключение прервано", "red", Style.Visibility.VISIBLE);
-        } else if (status.equals("rolling")) {
-            modifyCheckServerPanel("Rolling.gif", "Идет подключение к серверу", "#ffcc00", Style.Visibility.VISIBLE);
+        if (status.equals("failure")) {
+            modifyCheckServerPanel("Rolling.gif", "Соединеине с сервером прервано,идет подключение...", "#ffcc00");
         } else if (status.equals("success")) {
-            modifyCheckServerPanel("Success.png", "Подключено", "green", Style.Visibility.VISIBLE);
+            modifyCheckServerPanel("Success.png", "Подключено", "green");
             Timer timer = new Timer() {
                 @Override
                 public void run() {
@@ -115,19 +108,17 @@ class Widgets {
 
     }
 
-    private static void modifyCheckServerPanel(String imageURL, String labelText, String labelTextColor, Style.Visibility visibility){
+    private static void modifyCheckServerPanel(String imageURL, String labelText, String labelTextColor){
         checkImage.setUrl(imageURL);
+        if(!checkImage.getUrl().equals("Rolling.gif")){
+            checkImage.getElement().getStyle().setVisibility(Style.Visibility.HIDDEN);
+        }
+        else{
+            checkImage.getElement().getStyle().setVisibility(Style.Visibility.VISIBLE);
+        }
         serverInfoLabel.setText(labelText);
         serverInfoLabel.getElement().getStyle().setColor(labelTextColor);
-        serverInfoLabel.getElement().getStyle().setVisibility(visibility);
-        checkImage.getElement().getStyle().setVisibility(visibility);
-    }
-
-    private static void modifyCheckServerPanel(String labelText, String labelTextColor, Style.Visibility visibility){
-        serverInfoLabel.setText(labelText);
-        serverInfoLabel.getElement().getStyle().setColor(labelTextColor);
-        serverInfoLabel.getElement().getStyle().setVisibility(visibility);
-        checkImage.getElement().getStyle().setVisibility(visibility);
+        serverInfoLabel.getElement().getStyle().setVisibility(Style.Visibility.VISIBLE);
     }
 
     private static void enableButtons(boolean value) {
@@ -155,18 +146,18 @@ class Widgets {
 
         sizeListBox.addChangeHandler(event -> createMatrixTable(sizeListBox.getSelectedValue()));
 
-        calculateButton.addClickHandler(event -> calculateDet(matrixTable.getRowCount()));
+        calculateButton.addClickHandler(event -> calculateDet());
 
-        clearButton.addClickHandler(event -> clearMatrixTable(matrixTable.getRowCount()));
+        clearButton.addClickHandler(event -> clearMatrixTable());
 
-        randomButton.addClickHandler(event -> initRandomMatrix(matrixTable.getRowCount()));
+        randomButton.addClickHandler(event -> initRandomMatrix());
 
     }
 
-    private static void initRandomMatrix(int size) {
+    private static void initRandomMatrix() {
 
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
+        for (int i = 0; i < matrixSize; i++) {
+            for (int j = 0; j < matrixSize; j++) {
                 TextBox textBox = (TextBox) matrixTable.getWidget(i, j);
                 textBox.setText(Random.nextInt(100) + "");
             }
@@ -196,30 +187,41 @@ class Widgets {
         loading.getStyle().setVisibility(Style.Visibility.HIDDEN);
     }
 
-    private static void clearMatrixTable(int size) {
+    private static void clearMatrixTable() {
         calculateButton.setEnabled(false);
         clearButton.setEnabled(false);
         resultTextBox.setText("");
 
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
+        for (int i = 0; i < matrixSize ; i++) {
+            for (int j = 0; j < matrixSize ; j++) {
                 TextBox textBox = (TextBox) matrixTable.getWidget(i, j);
                 textBox.setText("");
             }
         }
     }
 
-    private static void calculateDet(int size) {
+    private static void enableTextBoxes(boolean value){
+        for (int i = 0; i <matrixSize ; i++) {
+            for (int j = 0; j < matrixSize ; j++) {
+                TextBox textBox = (TextBox) matrixTable.getWidget(i, j);
+                textBox.setEnabled(value);
+            }
+        }
+    }
+
+    private static void calculateDet() {
+        enableTextBoxes(false);
+        sizeListBox.setEnabled(false);
         isCalculating = true;
         loading.getStyle().setVisibility(Style.Visibility.VISIBLE);
 
         enableButtons(false);
         GWTServiceAsync gwtServiceAsync = GWT.create(GWTService.class);
 
-        double[][] matrix = new double[size][size];
+        double[][] matrix = new double[matrixSize][matrixSize];
 
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
+        for (int i = 0; i < matrixSize; i++) {
+            for (int j = 0; j < matrixSize; j++) {
                 TextBox textBox = (TextBox) matrixTable.getWidget(i, j);
                 double cellValue = Double.parseDouble(textBox.getText());
                 matrix[i][j] = cellValue;
@@ -229,17 +231,20 @@ class Widgets {
         gwtServiceAsync.calculate(matrix, new AsyncCallback<Double>() {
             @Override
             public void onFailure(Throwable caught) {
+                sizeListBox.setEnabled(true);
                 isCalculating = false;
                 enableButtons(true);
+                enableTextBoxes(true);
             }
 
             @Override
             public void onSuccess(Double result) {
+                sizeListBox.setEnabled(true);
                 resultTextBox.setText("Result: " + result);
                 loading.setAttribute("value", "100");
                 isCalculating = false;
                 enableButtons(true);
-
+                enableTextBoxes(true);
                 gwtServiceAsync.setLoadingProgressNull(new AsyncCallback<Void>() {
                     @Override
                     public void onFailure(Throwable caught) {
@@ -261,6 +266,7 @@ class Widgets {
         clearButton.setEnabled(false);
         calculateButton.setEnabled(false);
         int instanceSize = Integer.parseInt(size);
+        matrixSize=instanceSize;
         matrixTable.removeAllRows();
         if (sizeListBox.getValue(0).equals("0")) sizeListBox.removeItem(0);
 
@@ -276,14 +282,14 @@ class Widgets {
                         if (keyPressEvent.getCharCode() < 48 || keyPressEvent.getCharCode() > 57)
                             textBox.cancelKey();
 
-                        if (keyPressEvent.getCharCode() == 13) calculateDet(matrixTable.getRowCount());
+                        if (keyPressEvent.getCharCode() == 13) calculateDet();
 
                     });
                     textBox.addKeyUpHandler(keyPressEvent -> {
 
                         row:
-                        for (int k = 0; k < matrixTable.getRowCount(); k++) {
-                            for (int l = 0; l < matrixTable.getRowCount(); l++) {
+                        for (int k = 0; k < matrixSize; k++) {
+                            for (int l = 0; l < matrixSize; l++) {
 
                                 TextBox tmp = (TextBox) matrixTable.getWidget(k, l);
 
