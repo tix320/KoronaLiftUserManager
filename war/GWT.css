@@ -132,4 +132,5 @@ select {
 .serverInfoLabel {
     line-height: 40px;
     margin-left: 10px;
+    font-size: 18px;
 }

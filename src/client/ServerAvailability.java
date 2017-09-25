@@ -8,7 +8,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  class ServerAvailability {
 
     private static boolean serverAvailability = true;
-    private static boolean isStarted=false;
 
      static void checkServerAvailability() {
 
@@ -37,7 +36,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
                 serverAvailabilityRequest.checkConnection(new AsyncCallback<Void>() {
                     @Override
                     public void onFailure(Throwable caught) {
-                        isStarted=true;
                         if (serverAvailability) {
                             setServerInfo("failure");
                         }
@@ -46,12 +44,10 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
                     @Override
                     public void onSuccess(Void result) {
-                        if(isStarted){
-                            isStarted=true;
                             if (!serverAvailability) {
                                 setServerInfo("success");
                             }
-                        }
+
                         serverAvailability = true;
                     }
                 });
@@ -63,9 +59,9 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
     private static void setServerInfo(String status) {
 
         if (status.equals("failure")) {
-            modifyCheckServerPanel("Rolling.gif", "Соединеине с сервером прервано,идет подключение...", "#ffcc00");
+            modifyCheckServerPanel("Rolling.gif", "Соединеине с сервером прервано,идет подключение...", "#EA4336");
         } else if (status.equals("success")) {
-            modifyCheckServerPanel("Success.png", "Подключено", "green");
+            modifyCheckServerPanel("Success.png", "Подключено", "46A853");
             Timer timer = new Timer() {
                 @Override
                 public void run() {
