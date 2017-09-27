@@ -1,0 +1,43 @@
+input{
+    margin: 5px;
+    height: 25px;
+    width: 100%;
+}
+.listCity{
+    margin: 5px;
+    height: 25px;
+    width: 100%;
+}
+.dateOfBirthday{
+    height: 25px;
+}
+
+.panelSex {
+
+}
+
+.gwt-Button{
+    margin: 10px 5px;
+}
+
+#gwt-uid-1{
+    height: 20px !important;
+}
+#gwt-uid-2{
+    height: 20px !important;
+}
+
+.gwt-Label {
+    color: #e53010;
+    margin: 7px 10px;
+    height: 25px;
+}
+
+.usersTable {
+    margin: 20px 0;
+}
+
+.gwt-ListBox {
+    margin: 10px 10px 10px 5px;
+    width: 100%;
+}
