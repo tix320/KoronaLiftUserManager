@@ -3,7 +3,7 @@ package client.modules;
 import java.util.Date;
 
 public class User {
-     private String firstName;
+    private String firstName;
     private String middleName;
     private String lastName;
     private String city;

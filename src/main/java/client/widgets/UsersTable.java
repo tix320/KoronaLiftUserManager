@@ -4,7 +4,6 @@ import client.modules.User;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.TextColumn;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -44,7 +43,7 @@ public class UsersTable extends Composite {
     }
 
     private void addColumns() {
-        usersTable.setStyleName("usersTable");
+        usersTable.setStyleName("users-table-general");
         usersTable.addColumn(columnFirstName,"Имя");
         usersTable.addColumn(columnMiddleName,"Отчество");
         usersTable.addColumn(columnLastName,"Фамилия");

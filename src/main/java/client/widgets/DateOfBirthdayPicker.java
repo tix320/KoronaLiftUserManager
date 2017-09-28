@@ -5,10 +5,10 @@ import com.google.gwt.user.datepicker.client.DatePicker;
 
 import java.util.Date;
 
- class DateOfBirthdayCalendar extends Composite {
+ class DateOfBirthdayPicker extends Composite {
     private DatePicker datePicker = new DatePicker();
 
-     DateOfBirthdayCalendar() {
+     DateOfBirthdayPicker() {
 
         datePicker.setValue(new Date());
         datePicker.setYearAndMonthDropdownVisible(true);

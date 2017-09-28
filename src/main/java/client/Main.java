@@ -13,8 +13,8 @@ public class Main implements EntryPoint {
 
      private void initWidgets(){
         mainFlowPanel = new FlowPanel();
-        userAddForm = new UserAddForm();
         usersTable = new UsersTable();
+        userAddForm = new UserAddForm();
 
         mainFlowPanel.add(userAddForm);
         mainFlowPanel.add(usersTable);

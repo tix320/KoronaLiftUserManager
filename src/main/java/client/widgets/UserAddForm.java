@@ -7,6 +7,8 @@ import java.util.Date;
 
 public class UserAddForm extends Composite {
 
+    private final String GROUP_SEX="sex";
+
     private HorizontalPanel panelMain;
     private VerticalPanel panelSubmit;
     private VerticalPanel panelError;
@@ -18,15 +20,15 @@ public class UserAddForm extends Composite {
     private RadioButton radioMale;
     private RadioButton radioFemale;
     private ListBox listCity;
-    private DateOfBirthdayCalendar dateOfBirthday;
+    private DateOfBirthdayPicker dateOfBirthdayPicker;
     private Button buttonAddUser;
     private Label arrayShowErrors[];
     private boolean arrayAreFilled[];
 
     public UserAddForm() {
          initWidgets();
-         setStyles();
          setErrorLabels();
+         setStyles();
          setPlaceHolders();
          setClickHandler();
          setItemsToCityList();
@@ -39,7 +41,7 @@ public class UserAddForm extends Composite {
         panelSubmit.add(textLastName);
         panelSubmit.add(panelSex);
         panelSubmit.add(listCity);
-        panelSubmit.add(dateOfBirthday);
+        panelSubmit.add(dateOfBirthdayPicker);
         panelSubmit.add(buttonAddUser);
 
         panelMain.add(panelSubmit);
@@ -56,9 +58,9 @@ public class UserAddForm extends Composite {
          panelError = new VerticalPanel();
          panelSex = new HorizontalPanel();
 
-         dateOfBirthday = new DateOfBirthdayCalendar();
-         radioFemale = new RadioButton("male", "женский");
-         radioMale = new RadioButton("male", "мужский");
+         dateOfBirthdayPicker = new DateOfBirthdayPicker();
+         radioFemale = new RadioButton(GROUP_SEX, "женский");
+         radioMale = new RadioButton(GROUP_SEX, "мужский");
          textFirstName = new TextBox();
          textMiddleName = new TextBox();
          textLastName = new TextBox();
@@ -100,9 +102,17 @@ public class UserAddForm extends Composite {
     }
 
     private void setStyles() {
-        panelSex.setStyleName("panelSex");
-        listCity.setStyleName("listCity");
-        dateOfBirthday.setStyleName("dateOfBirthday");
+        textFirstName.setStyleName("user-add-form-text-boxes-fio");
+        textMiddleName.setStyleName("user-add-form-text-boxes-fio");
+        textLastName.setStyleName("user-add-form-text-boxes-fio");
+        radioMale.setStyleName("user-add-form-radio-group-sex");
+        radioFemale.setStyleName("user-add-form-radio-group-sex");
+        listCity.setStyleName("user-add-form-list-city");
+        dateOfBirthdayPicker.setStyleName("user-add-form-date-of-birthday-picker");
+        buttonAddUser.setStyleName("user-add-form-button-add-user");
+        for (int i = 0; i <5 ; i++) {
+            arrayShowErrors[i].setStyleName("user-add-form-error-labels");
+        }
     }
 
     private void setClickHandler() {
@@ -117,7 +127,7 @@ public class UserAddForm extends Composite {
             String lastName = textMiddleName.getText();
             boolean sex = radioMale.isAttached() ? radioMale.getValue() : radioFemale.getValue();
             String city = listCity.getSelectedItemText();
-            Date date = dateOfBirthday.getDate();
+            Date date = dateOfBirthdayPicker.getDate();
            if(areFilled()){
                 Main.getUsersTable().add(new User(firstName, middleName, lastName, city, sex, date));
                 visibilityErrorLabels(Style.Visibility.HIDDEN);
