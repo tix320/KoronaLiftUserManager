@@ -1,47 +1,18 @@
 package client.modules;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+
 import java.util.Date;
 
+@Data
+@AllArgsConstructor
 public class User {
     private String firstName;
     private String middleName;
     private String lastName;
-    private String city;
-    private boolean sex;
+    private int cityIndex;
+    private boolean male;
     private Date dateOfBirthday;
-
-    public User(String firstName, String middleName, String lastName, String city, boolean sex, Date dateOfBirthday) {
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.city = city;
-        this.sex = sex;
-        this.dateOfBirthday = dateOfBirthday;
-    }
-
-    public String getFirstName() {
-
-        return firstName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public boolean getSex() {
-        return sex;
-    }
-
-    public Date getDateOfBirthday() {
-        return dateOfBirthday;
-    }
-
 }

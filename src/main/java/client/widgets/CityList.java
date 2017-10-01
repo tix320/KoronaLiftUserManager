@@ -2,10 +2,15 @@ package client.widgets;
 
 import java.util.ArrayList;
 
-class CityList {
+public class CityList {
+   private static ArrayList<String> listCity;
 
-     static ArrayList<String> getListCity(){
-        ArrayList<String> listCity = new ArrayList<>();
+/**
+ * Create list of cities
+ * @return ArrayList<String> of cities
+* */
+   public static ArrayList<String> getListCity(){
+        listCity = new ArrayList<>();
         listCity.add("Город");
         listCity.add("Абингдон");
         listCity.add("Амстердам");
@@ -51,5 +56,14 @@ class CityList {
         listCity.add("Иваново");
 
         return listCity;
+    }
+
+    /**
+     * Get the name of the city by index
+     * @param index is a index of city
+     * @return name of city
+     */
+    public static String getItem(int index){
+      return listCity.get(index);
     }
 }

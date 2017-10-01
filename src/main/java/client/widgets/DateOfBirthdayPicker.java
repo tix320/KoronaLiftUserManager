@@ -5,21 +5,38 @@ import com.google.gwt.user.datepicker.client.DatePicker;
 
 import java.util.Date;
 
- class DateOfBirthdayPicker extends Composite {
-    private DatePicker datePicker = new DatePicker();
+/**
+* @Creat customWidget - datePicker with year and month selection
+ */
+ public class DateOfBirthdayPicker extends Composite {
+    private DatePicker datePicker;
 
-     DateOfBirthdayPicker() {
+     public DateOfBirthdayPicker() {
+        datePicker= new DatePicker();
 
+        /* @set starting value of Date - current date  */
         datePicker.setValue(new Date());
+
+        /*  @set year an month selection*/
         datePicker.setYearAndMonthDropdownVisible(true);
         datePicker.setYearArrowsVisible(true);
         datePicker.setVisibleYearCount(50);
 
+         /*  @initialize datePicker -> widget */
         initWidget(datePicker);
     }
 
-     Date getDate(){
+    /**
+     *  Get selected date on date picker
+     *  @return value of Date*/
+     public Date getDate(){
         return datePicker.getValue();
     }
+
+    /** Set date on date picker
+     * @param date is a value of date */
+    public void setDate(Date date) {
+         datePicker.setValue(date);
+     }
 
 }

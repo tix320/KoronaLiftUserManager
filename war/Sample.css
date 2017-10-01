@@ -1,34 +1,55 @@
-.user-add-form-text-boxes-fio{
-    margin: 5px;
+button{
+    margin: 20px;
+    padding: 5px 7px;
+    text-decoration: none;
+    cursor: hand;
+    border: 1px solid #bbb;
+    border-bottom: 1px solid #a0a0a0;
+    border-radius: 3px;
+    outline-color: lightseagreen;
+    float: right;
+}
+
+.user-form-radio-group-sex{
+    margin: 10px;
+
+}
+
+.user-form-text-boxes-fio{
+    border: solid lightseagreen;
+    margin: 5px 0;
     height: 25px;
     width: 100%;
 }
-.user-add-form-radio-group-sex {
-    height: 20px !important;
-}
-
-.user-add-form-list-city{
-    margin: 5px;
+.user-form-text-boxes-fio-error{
+    border: solid red;
+    margin: 5px 0;
     height: 25px;
     width: 100%;
 }
-.user-add-form-date-of-birthday-picker{
+
+.user-form-list-city{
+    border-color: lightseagreen;
+    border-width: 3px;
+    margin: 5px 0;
     height: 25px;
+    width: 100%;
 }
 
-.user-add-form-button-add-user{
-    margin: 10px 5px;
-}
-
-
-
-.user-add-form-error-labels {
-    color: #e53010;
-    margin: 7px 10px;
-    height: 25px;
+.user-form-date-of-birthday-picker{
+    margin: 5px 0;
 }
 
 .users-table-general {
-    margin: 20px 0;
+    border: dashed #bfd1da;
+    display: inline-block;
+    float: left;
+    margin: 0 20px;
 }
 
+.user-tab-panel-general {
+    width: 250px;
+    border: dashed #bfd1da;
+    display: inline-block;
+    float: left;
+}
