@@ -162,7 +162,7 @@ public abstract class AbstractUserForm extends Composite {
         listCity.getElement().getStyle().setBorderColor("lightseagreen");
     }
 
-    /** UserAddForm and EditAddForm will override this method for manipulation with users table.
+    /** UserAddForm and UserEditForm will override this method for manipulation with users table.
      * */
     protected abstract void setClickHandler();
 }
