@@ -1,47 +1,61 @@
 package client.widgets;
 
-import client.abstraction.AbstractUserForm;
+import client.abstraction.BaseUserForm;
+
+import java.util.Map;
 
 /** Create custom widget to edit a user.
- * Users will be added to the table (UsersTable)
- * */
-public class UserEditForm extends AbstractUserForm {
+ * Users will be added to the table (UsersTable).
+ */
+public class UserEditForm extends BaseUserForm {
+
+    private final String EDIT_BUTTON_TEXT = "Изменить";
 
     /**
-     *call the constructor of AbstractUserForm to create a user edit form.
+     * Call the constructor of BaseUserForm to create a user edit form.
      */
     public UserEditForm() {
         super();
-        buttonSubmit.setText("Изменить");
+        buttonSubmit.setText(EDIT_BUTTON_TEXT);
+        buttonSubmit.setEnabled(false);
     }
 
     /**
-     *Override method of submit button to edit user in table.
+     * Override method of submit button to edit user in table.
      */
     @Override
     protected void setClickHandler() {
-        //set a click handler on button
+
+        // Set a click handler on button.
         buttonSubmit.addClickHandler(event -> {
-            for (int i = 0; i < 5; i++) {
-                arrayAreFilled[i] = false;
-            }
-            //set input fields to default state
+
+            // Set input fields to default state.
             setFieldsDefault();
-            // check input fields , if are filled, then edit user in table
-            if (areFilled()) {
-                int index = usersTable.getUserListDataProvider().getList().indexOf(usersTable.getSelModel().getLastSelectedObject());
 
-                    currentUser.setFirstName(textFirstName.getText());
-                    currentUser.setMiddleName(textMiddleName.getText());
-                    currentUser.setLastName(textLastName.getText());
-                    currentUser.setMale(radioMale.getValue());
-                    currentUser.setCityIndex(listCity.getSelectedIndex());
-                    currentUser.setDateOfBirthday(dateOfBirthdayPicker.getDate());
-
-                    usersTable.getUserListDataProvider().getList().set(index,currentUser);
-                    usersTable.getUserListDataProvider().refresh();
+            for(Map.Entry<Input,Boolean> entry : mapAreFilled.entrySet())
+            {
+                entry.setValue(false);
             }
+
+            // Check input fields , if are filled, then edit user in table.
+            if (areFilled()) refreshUser();
             else showErrors();
         });
+    }
+
+    private void insertUser() {
+        currentUser.setFirstName(fullNamePanel.getFirstName());
+        currentUser.setMiddleName(fullNamePanel.getMiddleName());
+        currentUser.setLastName(fullNamePanel.getLastName());
+        currentUser.setMale(sexPanel.isMale());
+        currentUser.setCityNumber(cityPanel.getIndexOfSelectedCity());
+        currentUser.setDateOfBirthday(datePickerPanel.getDate());
+    }
+
+    private void refreshUser() {
+        insertUser();
+        int index = usersTable.getUserListDataProvider().getList().indexOf(usersTable.getSelModel().getSelectedObject());
+        usersTable.getUserListDataProvider().getList().set(index, currentUser);
+        usersTable.getUserListDataProvider().refresh();
     }
 }

@@ -16,13 +16,8 @@ button{
 }
 
 .user-form-text-boxes-fio{
-    border: solid lightseagreen;
-    margin: 5px 0;
-    height: 25px;
-    width: 100%;
-}
-.user-form-text-boxes-fio-error{
-    border: solid red;
+    border-style: solid;
+    border-color: lightseagreen;
     margin: 5px 0;
     height: 25px;
     width: 100%;
@@ -48,7 +43,6 @@ button{
 }
 
 .user-tab-panel-general {
-    width: 250px;
     border: dashed #bfd1da;
     display: inline-block;
     float: left;

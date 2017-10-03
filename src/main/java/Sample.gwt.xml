@@ -7,7 +7,6 @@
 
     <entry-point class='client.Main'/>
 
-
     <servlet path='/SampleService' class='server.SampleServiceImpl'/>
 
 </module>
