@@ -1,10 +1,12 @@
 package client.widgets;
 
 import client.abstraction.BaseUserForm;
+import client.abstraction.userForm.Input;
 
 import java.util.Map;
 
-/** Create custom widget to edit a user.
+/**
+ * Create custom widget to edit a user.
  * Users will be added to the table (UsersTable).
  */
 public class UserEditForm extends BaseUserForm {
@@ -32,8 +34,7 @@ public class UserEditForm extends BaseUserForm {
             // Set input fields to default state.
             setFieldsDefault();
 
-            for(Map.Entry<Input,Boolean> entry : mapAreFilled.entrySet())
-            {
+            for (Map.Entry<Input, Boolean> entry : mapAreFilled.entrySet()) {
                 entry.setValue(false);
             }
 

@@ -1,10 +1,14 @@
 package client.widgets;
+
 import client.abstraction.BaseUserForm;
+import client.abstraction.userForm.Input;
 import client.modules.User;
 import com.google.gwt.dom.client.Style;
+
 import java.util.Map;
 
-/** Create custom widget to add a user.
+/**
+ * Create custom widget to add a user.
  * Users will be added to the table (UsersTable).
  */
 public class UserAddForm extends BaseUserForm {
@@ -32,8 +36,7 @@ public class UserAddForm extends BaseUserForm {
             // Set input fields to default state.
             setFieldsDefault();
 
-            for(Map.Entry<Input,Boolean> entry : mapAreFilled.entrySet())
-            {
+            for (Map.Entry<Input, Boolean> entry : mapAreFilled.entrySet()) {
                 entry.setValue(false);
             }
 

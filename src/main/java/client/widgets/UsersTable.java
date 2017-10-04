@@ -8,14 +8,15 @@ import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.view.client.*;
+import com.google.gwt.view.client.ListDataProvider;
+import com.google.gwt.view.client.SingleSelectionModel;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
  * Create custom widget to keep the users.
  * Users will be added from UserAddForm or edited from EditAddForm.
- * */
+ */
 public class UsersTable extends Composite {
 
     private final String DELETE_BUTTON_TEXT = "Удалить";
@@ -50,7 +51,7 @@ public class UsersTable extends Composite {
         usersCellTable = new CellTable<>();
         userListDataProvider = new ListDataProvider<>();
         selModel = new SingleSelectionModel<>();
-        usersCellTable.setVisibleRange(0,100);
+        usersCellTable.setVisibleRange(0, 100);
 
         deleteButtonUser = new Button(DELETE_BUTTON_TEXT);
         deleteButtonUser.getElement().getStyle().setMargin(20, Style.Unit.PX);
@@ -162,6 +163,7 @@ public class UsersTable extends Composite {
 
     /**
      * Add new user to table.
+     *
      * @param user is the user, which will be added.
      */
     public void add(User user) {

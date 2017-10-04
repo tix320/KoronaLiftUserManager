@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * Create customWidget - datePicker with year and month selection.
  */
- public class DatePickerPanel extends Composite {
+public class DatePickerPanel extends Composite {
     private final int VISIBLE_YEAR_COUNT = 50;
     private DatePicker datePicker;
 
@@ -31,6 +31,7 @@ import java.util.Date;
 
     /**
      * Get selected date on date picker.
+     *
      * @return value of Date.
      */
     public Date getDate() {
@@ -39,6 +40,7 @@ import java.util.Date;
 
     /**
      * Set date on date picker.
+     *
      * @param date is a value of date.
      */
     public void setDate(Date date) {

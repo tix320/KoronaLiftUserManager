@@ -35,7 +35,7 @@ public class MainPanel {
     /**
      * Create Tab panel, where are added user forms.
      */
-    private void createTabPanel(){
+    private void createTabPanel() {
         userTabPanel.setStyleName("user-tab-panel-general");
         userTabPanel.add(userAddForm, "Добавить");
         userTabPanel.add(userEditForm, "Изменить");
