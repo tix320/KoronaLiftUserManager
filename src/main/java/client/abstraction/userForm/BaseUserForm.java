@@ -1,4 +1,4 @@
-package client.abstraction;
+package client.abstraction.userForm;
 
 import client.Utility;
 import client.abstraction.userForm.Input;

@@ -1,6 +1,6 @@
 package client.widgets;
 
-import client.abstraction.BaseUserForm;
+import client.abstraction.userForm.BaseUserForm;
 import client.abstraction.userForm.Input;
 
 import java.util.Map;
