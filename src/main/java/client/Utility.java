@@ -7,12 +7,10 @@ import com.google.gwt.user.client.ui.Widget;
  * Class utility to shorten the code of some methods.
  */
 public class Utility {
-
-    /**
-     * HTML constant attribute
-     */
+    
+    /** HTML constant attribute. */
     private static final String PLACE_HOLDER = "placeholder";
-
+    
     /**
      * Set placeholder to the text boxes.
      *
@@ -22,7 +20,7 @@ public class Utility {
     public static void setPlaceHolder(TextBox textBox, String value) {
         textBox.getElement().setAttribute(PLACE_HOLDER, value);
     }
-
+    
     /**
      * Set border color of widget.
      *

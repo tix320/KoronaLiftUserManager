@@ -1,91 +1,68 @@
 package client.abstraction.userForm;
 
-import client.Utility;
-import client.abstraction.userForm.Input;
 import client.modules.User;
-import client.widgets.*;
+import client.widgets.userForm.CityPanel;
+import client.widgets.userForm.DatePickerPanel;
+import client.widgets.userForm.FullNamePanel;
+import client.widgets.userForm.SexPanel;
+import client.widgets.userTable.UsersTable;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Base form to create user add and edit forms.
  */
 public abstract class BaseUserForm extends Composite {
-
-    /**
-     * Table with which forms will work.
-     */
+    
+    /** Table with which forms will work. */
     @Setter
     protected UsersTable usersTable;
-
-    /**
-     * Form main panel.
-     */
-    private FlowPanel panelSubmit;
-
-    /**
-     * Full name inputs.
-     */
+    
+    /** Full name inputs. */
     protected FullNamePanel fullNamePanel;
-
-    /**
-     * Sex selection panel.
-     */
+    
+    /** Sex selection panel. */
     protected SexPanel sexPanel;
-
-    /**
-     * City selection panel.
-     */
+    
+    /** City selection panel. */
     @Getter
     protected CityPanel cityPanel;
-
-    /**
-     * Date selection panel.
-     */
+    
+    /** Date selection panel. */
     protected DatePickerPanel datePickerPanel;
-
-    /**
-     * Submit button - add new user or edit.
-     */
+    
+    /** Submit button - add new user or edit. */
     @Getter
     protected Button buttonSubmit;
-
-    /**
-     * Map for checking inputs.
-     */
-    protected HashMap<Input, Boolean> mapAreFilled;
-
-    /**
-     * User, which is being edited.
-     */
+    
+    /** User, which is being edited. */
     protected User currentUser;
-
+    
+    /** Form main panel. */
+    private FlowPanel panelSubmit;
+    
     /**
      * Constructor is a main part for creating a user form.
      * All methods of its elements are called here.
      */
     public BaseUserForm() {
         initWidgets();
-        initAreFilled();
         setClickHandler();
-
+        
         panelSubmit.add(fullNamePanel);
         panelSubmit.add(sexPanel);
         panelSubmit.add(cityPanel);
         panelSubmit.add(datePickerPanel);
         panelSubmit.add(buttonSubmit);
-
+        
         initWidget(panelSubmit);
     }
-
+    
     /**
-     * initialize the widgets of user form.
+     * Initialize the widgets of user form.
      */
     private void initWidgets() {
         panelSubmit = new FlowPanel();
@@ -94,20 +71,8 @@ public abstract class BaseUserForm extends Composite {
         cityPanel = new CityPanel();
         datePickerPanel = new DatePickerPanel();
         buttonSubmit = new Button();
-        mapAreFilled = new HashMap<>();
     }
-
-    /**
-     * Initialize HashMap.
-     */
-    private void initAreFilled() {
-        mapAreFilled.put(Input.FIRST_NAME, false);
-        mapAreFilled.put(Input.MIDDLE_NAME, false);
-        mapAreFilled.put(Input.LAST_NAME, false);
-        mapAreFilled.put(Input.SEX, false);
-        mapAreFilled.put(Input.CITY, false);
-    }
-
+    
     /**
      * Get the selected user's attributes from table and insert their to user form for future editing.
      *
@@ -119,61 +84,42 @@ public abstract class BaseUserForm extends Composite {
         fullNamePanel.setMiddleName(user.getMiddleName());
         fullNamePanel.setLastName(user.getLastName());
         sexPanel.setSelectedButton(user.isMale());
-        cityPanel.setSelectedCity(user.getCityNumber());
-        datePickerPanel.setDate(user.getDateOfBirthday());
-
+        cityPanel.setSelectedCity(user.getCity());
+        datePickerPanel.setDate(user.getDateOfBirth());
+        
     }
-
+    
     /**
-     * Check the fillability and correctness of inputs.
+     * Check the correctness of inputs.
+     *
+     * @return correctness value.
      */
-    protected boolean areFilled() {
-
-        // Collect the correctness of the inputs in the hashMap, true==correctly.
-        if (!fullNamePanel.getFirstName().isEmpty()) mapAreFilled.put(Input.FIRST_NAME, true);
-        if (!fullNamePanel.getMiddleName().isEmpty()) mapAreFilled.put(Input.MIDDLE_NAME, true);
-        if (!fullNamePanel.getLastName().isEmpty()) mapAreFilled.put(Input.LAST_NAME, true);
-        if (sexPanel.getSelectedButton() != null) mapAreFilled.put(Input.SEX, true);
-        if ((cityPanel.getIndexOfSelectedCity() != 0)) mapAreFilled.put(Input.CITY, true);
-
-        // If all the fields are filled correctly, return true.
-        for (Map.Entry<Input, Boolean> entry : mapAreFilled.entrySet()) {
-            if (!entry.getValue()) return false;
+    protected boolean isCorrect() {
+        boolean isCorrect = true;
+        if (!fullNamePanel.validate()) {
+            isCorrect = false;
         }
-        return true;
+        if (!sexPanel.validate()) {
+            isCorrect = false;
+        }
+        if (!cityPanel.validate()) {
+            isCorrect = false;
+        }
+        return isCorrect;
     }
-
-    /**
-     * If inputs are not filled, then show a hint on the fields where there is an error.
-     */
-    protected void showErrors() {
-        if (!mapAreFilled.get(Input.FIRST_NAME)) {
-            Utility.setBorderColor(fullNamePanel.getBoxFirstName(), "red");
-        }
-        if (!mapAreFilled.get(Input.MIDDLE_NAME)) {
-            Utility.setBorderColor(fullNamePanel.getBoxMiddleName(), "red");
-        }
-        if (!mapAreFilled.get(Input.LAST_NAME)) {
-            Utility.setBorderColor(fullNamePanel.getBoxLastName(), "red");
-        }
-        if (!mapAreFilled.get(Input.CITY)) {
-            Utility.setBorderColor(cityPanel.getListBox(), "red");
-        }
-    }
-
+    
     /**
      * Set default state of inputs.
      */
     protected void setFieldsDefault() {
-        fullNamePanel.getBoxFirstName().getElement().getStyle().clearBorderColor();
-        fullNamePanel.getBoxMiddleName().getElement().getStyle().clearBorderColor();
-        fullNamePanel.getBoxLastName().getElement().getStyle().clearBorderColor();
-        cityPanel.getListBox().getElement().getStyle().clearBorderColor();
+        fullNamePanel.getBoxFirstName().setStyleName("user-form-text-boxes-fio");
+        fullNamePanel.getBoxMiddleName().setStyleName("user-form-text-boxes-fio");
+        fullNamePanel.getBoxLastName().setStyleName("user-form-text-boxes-fio");
+        cityPanel.getListBoxCity().setStyleName("user-form-list-city");
     }
-
+    
     /**
      * UserAddForm and EditAddForm will override this method for manipulation with users table.
      */
     protected abstract void setClickHandler();
-
 }
