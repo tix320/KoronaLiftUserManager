@@ -115,6 +115,7 @@ public abstract class BaseUserForm extends Composite {
         fullNamePanel.getBoxFirstName().setStyleName("user-form-text-boxes-fio");
         fullNamePanel.getBoxMiddleName().setStyleName("user-form-text-boxes-fio");
         fullNamePanel.getBoxLastName().setStyleName("user-form-text-boxes-fio");
+        sexPanel.setStyleName("user-form-sex-panel");
         cityPanel.getListBoxCity().setStyleName("user-form-list-city");
     }
     

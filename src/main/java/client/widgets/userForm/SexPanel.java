@@ -83,6 +83,6 @@ public class SexPanel extends Composite implements IsValid {
     
     @Override
     public void showError(Widget widget) {
-        widget.setStyleName("user-form-radio-group-sex-error");
+        widget.setStyleName("user-form-sex-panel-error");
     }
 }

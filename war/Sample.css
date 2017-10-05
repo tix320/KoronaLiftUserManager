@@ -18,7 +18,11 @@ button {
     margin: 10px;
 }
 
-.user-form-radio-group-sex-error {
+.user-form-sex-panel {
+    margin: 10px;
+}
+
+.user-form-sex-panel-error {
     border-style: solid;
     border-color: red;
     margin: 10px;
