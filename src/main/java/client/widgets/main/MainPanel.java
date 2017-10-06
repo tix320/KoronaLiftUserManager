@@ -28,7 +28,7 @@ public class MainPanel extends Composite {
         final UserEditForm userEditForm = new UserEditForm();
         
         userContainer = new UserContainer(usersTable, userAddForm, userEditForm);
-    
+        
         final UserFormTabPanel userFormTabPanel = new UserFormTabPanel();
         
         mainPanel.add(userFormTabPanel);

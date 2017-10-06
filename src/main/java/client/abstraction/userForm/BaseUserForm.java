@@ -93,7 +93,7 @@ public abstract class BaseUserForm extends Composite {
         // Set input fields to default state.
         setFieldsDefault();
         
-        return validateWidgets(fullNamePanel,sexPanel,cityPanel);
+        return validateWidgets(fullNamePanel, sexPanel, cityPanel);
     }
     
     private boolean validateWidgets(IsValid... widgetsForValidate) {
@@ -101,7 +101,7 @@ public abstract class BaseUserForm extends Composite {
         for (IsValid validateWidget : widgetsForValidate) {
             if (!validateWidget.validate()) {
                 validateWidget.showError();
-                isCorrect=false;
+                isCorrect = false;
             }
         }
         return isCorrect;

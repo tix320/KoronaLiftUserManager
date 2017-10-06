@@ -6,6 +6,9 @@ import client.widgets.userTable.UsersTable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * This container make relation between table and form.
+ */
 @AllArgsConstructor
 @Getter
 public class UserContainer {

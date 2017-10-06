@@ -24,7 +24,6 @@ public class UsersTable extends Composite {
     private ListDataProvider<User> userListDataProvider;
     @Getter
     private Button deleteButtonUser;
-    
     private ColumnFirstName columnFirstName;
     private ColumnMiddleName columnMiddleName;
     private ColumnLastName columnLastName;

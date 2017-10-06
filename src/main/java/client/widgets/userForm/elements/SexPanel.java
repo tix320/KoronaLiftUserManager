@@ -63,6 +63,11 @@ public class SexPanel extends Composite implements IsValid {
         }
     }
     
+    /**
+     * Get selected gender.
+     *
+     * @return gender.
+     */
     public Gender getSelectedGender() {
         if (getSelectedButton() == radioMale) {
             return Gender.MALE;

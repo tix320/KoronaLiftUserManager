@@ -9,11 +9,11 @@ public class UserFormTabPanel extends Composite {
     /**
      * Create Tab panel, where are added user forms.
      */
-    public UserFormTabPanel(){
+    public UserFormTabPanel() {
         TabPanel userFormTabPanel = new TabPanel();
         
         userFormTabPanel.add(MainPanel.getUserContainer().getUserAddForm(), TabText.ADD.getText());
-        userFormTabPanel.add(MainPanel.getUserContainer().getUserEditForm(),TabText.EDIT.getText());
+        userFormTabPanel.add(MainPanel.getUserContainer().getUserEditForm(), TabText.EDIT.getText());
         
         userFormTabPanel.setStyleName("user-tab-panel-general");
         userFormTabPanel.getTabBar().selectTab(0);

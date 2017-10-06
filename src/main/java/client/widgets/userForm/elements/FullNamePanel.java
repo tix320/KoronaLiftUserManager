@@ -1,7 +1,7 @@
 package client.widgets.userForm.elements;
 
-import client.utilities.Utility;
 import client.abstraction.userForm.IsValid;
+import client.utilities.Utility;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;

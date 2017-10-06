@@ -31,14 +31,17 @@ public class UserAddForm extends BaseUserForm {
             
             // Check inputs.
             if (isCorrect()) {
-               addNewUser();
+                addNewUser();
             }
         });
     }
     
+    /**
+     * Add new user in table.
+     */
     private void addNewUser() {
-         currentUser = new User(currentID++, fullNamePanel.getFirstName(), fullNamePanel.getMiddleName(), fullNamePanel.getLastName(),
-                        cityPanel.getSelectedCity(), sexPanel.getSelectedGender(), datePickerPanel.getDate());
-         MainPanel.getUserContainer().getUsersTable().add(currentUser);
+        currentUser = new User(currentID++, fullNamePanel.getFirstName(), fullNamePanel.getMiddleName(), fullNamePanel.getLastName(),
+                               cityPanel.getSelectedCity(), sexPanel.getSelectedGender(), datePickerPanel.getDate());
+        MainPanel.getUserContainer().getUsersTable().add(currentUser);
     }
 }

@@ -11,6 +11,6 @@ public class ColumnSex extends TextColumn<User> {
     
     @Override
     public String getValue(User object) {
-        return object.getGender()== Gender.MALE ? "Мужской" : "Женский";
+        return object.getGender() == Gender.MALE ? "Мужской" : "Женский";
     }
 }
