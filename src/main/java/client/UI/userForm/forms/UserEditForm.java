@@ -1,7 +1,7 @@
-package client.widgets.userForm.forms;
+package client.UI.userForm.forms;
 
+import client.UI.main.MainPanel;
 import client.abstraction.userForm.BaseUserForm;
-import client.widgets.main.MainPanel;
 
 /**
  * Create custom widget to edit a user.

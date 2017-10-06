@@ -1,7 +1,7 @@
-package client.widgets.userTable;
+package client.UI.userTable;
 
+import client.UI.main.MainPanel;
 import client.modules.User;
-import client.widgets.main.MainPanel;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.client.ui.Button;

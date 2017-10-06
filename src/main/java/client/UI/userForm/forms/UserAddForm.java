@@ -1,8 +1,8 @@
-package client.widgets.userForm.forms;
+package client.UI.userForm.forms;
 
+import client.UI.main.MainPanel;
 import client.abstraction.userForm.BaseUserForm;
 import client.modules.User;
-import client.widgets.main.MainPanel;
 
 /**
  * Create custom widget to add a user.

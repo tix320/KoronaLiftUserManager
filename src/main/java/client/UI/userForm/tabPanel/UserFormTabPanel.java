@@ -1,6 +1,6 @@
-package client.widgets.userForm.tabPanel;
+package client.UI.userForm.tabPanel;
 
-import client.widgets.main.MainPanel;
+import client.UI.main.MainPanel;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.TabPanel;
 

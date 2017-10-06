@@ -1,4 +1,4 @@
-package client.widgets.userForm.tabPanel;
+package client.UI.userForm.tabPanel;
 
 import lombok.Getter;
 

@@ -1,4 +1,4 @@
-package client.widgets.userForm.elements;
+package client.UI.userForm.elements;
 
 import client.abstraction.userForm.IsValid;
 import client.utilities.Utility;

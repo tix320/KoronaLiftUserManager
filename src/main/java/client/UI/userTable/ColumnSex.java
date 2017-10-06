@@ -1,4 +1,4 @@
-package client.widgets.userTable;
+package client.UI.userTable;
 
 import client.modules.Gender;
 import client.modules.User;

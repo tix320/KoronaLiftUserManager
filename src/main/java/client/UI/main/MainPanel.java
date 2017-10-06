@@ -1,10 +1,10 @@
-package client.widgets.main;
+package client.UI.main;
 
+import client.UI.userForm.forms.UserAddForm;
+import client.UI.userForm.forms.UserEditForm;
+import client.UI.userForm.tabPanel.UserFormTabPanel;
+import client.UI.userTable.UsersTable;
 import client.containers.UserContainer;
-import client.widgets.userForm.forms.UserAddForm;
-import client.widgets.userForm.forms.UserEditForm;
-import client.widgets.userForm.tabPanel.UserFormTabPanel;
-import client.widgets.userTable.UsersTable;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import lombok.Getter;

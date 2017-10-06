@@ -1,14 +1,16 @@
 package client.abstraction.userForm;
 
+import client.UI.userForm.elements.CityPanel;
+import client.UI.userForm.elements.DatePickerPanel;
+import client.UI.userForm.elements.FullNamePanel;
+import client.UI.userForm.elements.SexPanel;
 import client.modules.User;
-import client.widgets.userForm.elements.CityPanel;
-import client.widgets.userForm.elements.DatePickerPanel;
-import client.widgets.userForm.elements.FullNamePanel;
-import client.widgets.userForm.elements.SexPanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import lombok.Getter;
+
+import java.util.Arrays;
 
 /**
  * Base form to create user add and edit forms.
@@ -97,14 +99,7 @@ public abstract class BaseUserForm extends Composite {
     }
     
     private boolean validateWidgets(IsValid... widgetsForValidate) {
-        boolean isCorrect = true;
-        for (IsValid validateWidget : widgetsForValidate) {
-            if (!validateWidget.validate()) {
-                validateWidget.showError();
-                isCorrect = false;
-            }
-        }
-        return isCorrect;
+        return Arrays.stream(widgetsForValidate).filter(validateWidget -> !validateWidget.validate()).peek(IsValid::showError).count() == 0;
     }
     
     /**

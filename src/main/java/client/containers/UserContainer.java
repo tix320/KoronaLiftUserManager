@@ -1,8 +1,8 @@
 package client.containers;
 
-import client.widgets.userForm.forms.UserAddForm;
-import client.widgets.userForm.forms.UserEditForm;
-import client.widgets.userTable.UsersTable;
+import client.UI.userForm.forms.UserAddForm;
+import client.UI.userForm.forms.UserEditForm;
+import client.UI.userTable.UsersTable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

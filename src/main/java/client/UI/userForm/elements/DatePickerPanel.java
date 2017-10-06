@@ -1,4 +1,4 @@
-package client.widgets.userForm.elements;
+package client.UI.userForm.elements;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.datepicker.client.DatePicker;

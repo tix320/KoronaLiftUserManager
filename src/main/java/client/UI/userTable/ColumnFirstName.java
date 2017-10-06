@@ -1,15 +1,15 @@
-package client.widgets.userTable;
+package client.UI.userTable;
 
 import client.modules.User;
 import com.google.gwt.user.cellview.client.TextColumn;
 
 /**
- * Last name column of Table.
+ * First name column of Table.
  */
-public class ColumnLastName extends TextColumn<User> {
+public class ColumnFirstName extends TextColumn<User> {
     
     @Override
     public String getValue(User object) {
-        return object.getLastName();
+        return object.getFirstName();
     }
 }

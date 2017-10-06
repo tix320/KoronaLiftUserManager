@@ -1,4 +1,4 @@
-package client.widgets.userTable;
+package client.UI.userTable;
 
 import client.modules.User;
 import com.google.gwt.i18n.client.DateTimeFormat;
