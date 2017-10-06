@@ -82,9 +82,7 @@ public class CityPanel extends Composite implements IsValid {
         listCity.add("Дуйсбург");
         listCity.add("Иваново");
         
-        for (String city : listCity) {
-            listBoxCity.addItem(city);
-        }
+        listCity.forEach(listBoxCity::addItem);
     }
     
     /**
