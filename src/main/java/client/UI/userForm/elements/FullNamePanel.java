@@ -47,9 +47,7 @@ public class FullNamePanel extends Composite implements IsValid {
         boxMiddleName = new TextBox();
         boxLastName = new TextBox();
         
-        fullNamePanel.add(boxFirstName);
-        fullNamePanel.add(boxMiddleName);
-        fullNamePanel.add(boxLastName);
+        Stream.of(boxFirstName,boxMiddleName,boxLastName).forEach(fullNamePanel::add);
     }
     
     /**

@@ -49,7 +49,7 @@ public abstract class BaseUserForm extends Composite {
         initWidgets();
         submitAction();
     
-        Stream.of(fullNamePanel,sexPanel,cityPanel,datePickerPanel,buttonSubmit).forEach(panel -> panelSubmit.add(panel));
+        Stream.of(fullNamePanel,sexPanel,cityPanel,datePickerPanel,buttonSubmit).forEach(panelSubmit::add);
         
         initWidget(panelSubmit);
     }
