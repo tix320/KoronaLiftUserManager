@@ -1,8 +1,7 @@
 package client.widgets.userTable;
 
 import client.modules.User;
-import client.widgets.userForm.UserAddForm;
-import client.widgets.userForm.UserEditForm;
+import client.widgets.main.MainPanel;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.client.ui.Button;
@@ -11,7 +10,6 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SingleSelectionModel;
 import lombok.Getter;
-import lombok.Setter;
 
 /**
  * Create custom widget to keep the users.
@@ -21,11 +19,6 @@ public class UsersTable extends Composite {
     private final String DELETE_BUTTON_TEXT = "Удалить";
     @Getter
     private final SingleSelectionModel<User> selModel;
-    @Setter
-    private UserEditForm userEditForm;
-    @Setter
-    private UserAddForm userAddForm;
-    @Getter
     private CellTable<User> usersCellTable;
     @Getter
     private ListDataProvider<User> userListDataProvider;
@@ -48,7 +41,6 @@ public class UsersTable extends Composite {
         
         deleteButtonUser = new Button(DELETE_BUTTON_TEXT);
         deleteButtonUser.getElement().getStyle().setMargin(20, Style.Unit.PX);
-        deleteButtonUser.getElement().getStyle().setVisibility(Style.Visibility.HIDDEN);
         
         userListDataProvider.addDataDisplay(usersCellTable);
         
@@ -103,12 +95,7 @@ public class UsersTable extends Composite {
             
             // Disable edit and delete buttons.
             deleteButtonUser.setEnabled(false);
-            userEditForm.getButtonSubmit().setEnabled(false);
-            
-            // If table is empty, then hide the delete button.
-            if (userListDataProvider.getList().isEmpty()) {
-                deleteButtonUser.getElement().getStyle().setVisibility(Style.Visibility.HIDDEN);
-            }
+            MainPanel.getUserContainer().getUserEditForm().getButtonSubmit().setEnabled(false);
         });
     }
     
@@ -117,10 +104,10 @@ public class UsersTable extends Composite {
      */
     private void setSelectedItemListener() {
         selModel.addSelectionChangeHandler(event -> {
-            userEditForm.getButtonSubmit().setEnabled(true);
+            MainPanel.getUserContainer().getUserEditForm().getButtonSubmit().setEnabled(true);
             deleteButtonUser.setEnabled(true);
-            userAddForm.insertSelectedItem(selModel.getSelectedObject());
-            userEditForm.insertSelectedItem(selModel.getSelectedObject());
+            MainPanel.getUserContainer().getUserAddForm().insertSelectedItem(selModel.getSelectedObject());
+            MainPanel.getUserContainer().getUserEditForm().insertSelectedItem(selModel.getSelectedObject());
         });
     }
     

@@ -1,12 +1,12 @@
-package client.widgets.userForm;
+package client.widgets.userForm.elements;
 
 import client.abstraction.userForm.IsValid;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.Widget;
 import lombok.Getter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Panel for selection city.
@@ -17,7 +17,7 @@ public class CityPanel extends Composite implements IsValid {
     @Getter
     private ListBox listBoxCity;
     
-    private ArrayList<String> listCity;
+    private List<String> listCity;
     
     
     /**
@@ -107,15 +107,11 @@ public class CityPanel extends Composite implements IsValid {
     
     @Override
     public boolean validate() {
-        if (listBoxCity.getSelectedIndex() == 0) {
-            showError(listBoxCity);
-            return false;
-        }
-        return true;
+        return listBoxCity.getSelectedIndex() != 0;
     }
     
     @Override
-    public void showError(Widget widget) {
+    public void showError() {
         listBoxCity.setStyleName("user-form-list-city-error");
     }
 }

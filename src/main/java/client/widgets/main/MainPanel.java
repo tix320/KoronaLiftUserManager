@@ -1,61 +1,39 @@
 package client.widgets.main;
 
-import client.widgets.userForm.UserAddForm;
-import client.widgets.userForm.UserEditForm;
+import client.containers.UserContainer;
+import client.widgets.userForm.forms.UserAddForm;
+import client.widgets.userForm.forms.UserEditForm;
+import client.widgets.userForm.tabPanel.UserFormTabPanel;
 import client.widgets.userTable.UsersTable;
+import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.TabPanel;
+import lombok.Getter;
 
 /**
  * Main panel of UI.
  */
-public class MainPanel {
+public class MainPanel extends Composite {
     
-    /** Panel, where there will be user forms. */
-    private TabPanel userTabPanel;
-    
-    /** Form, from which will be added users. */
-    private UserAddForm userAddForm;
-    
-    /** Form, from which will be edited users. */
-    private UserEditForm userEditForm;
+    @Getter
+    private static UserContainer userContainer;
     
     /**
      * Create and initialize the main panel of UI.
-     *
-     * @return main panel.
      */
-    public FlowPanel createUI() {
+    public MainPanel() {
         final FlowPanel mainPanel = new FlowPanel();
         final UsersTable usersTable = new UsersTable();
         
-        userTabPanel = new TabPanel();
-        userAddForm = new UserAddForm();
-        userEditForm = new UserEditForm();
+        final UserAddForm userAddForm = new UserAddForm();
+        final UserEditForm userEditForm = new UserEditForm();
         
-        createTabPanel();
+        userContainer = new UserContainer(usersTable, userAddForm, userEditForm);
+    
+        final UserFormTabPanel userFormTabPanel = new UserFormTabPanel();
         
-        usersTable.setUserAddForm(userAddForm);
-        usersTable.setUserEditForm(userEditForm);
-        
-        userAddForm.setUsersTable(usersTable);
-        userEditForm.setUsersTable(usersTable);
-        
-        mainPanel.add(userTabPanel);
+        mainPanel.add(userFormTabPanel);
         mainPanel.add(usersTable);
         
-        return mainPanel;
-        
-    }
-    
-    /**
-     * Create Tab panel, where are added user forms.
-     */
-    private void createTabPanel() {
-        userTabPanel.setStyleName("user-tab-panel-general");
-        userTabPanel.add(userAddForm, "Добавить");
-        userTabPanel.add(userEditForm, "Изменить");
-        userTabPanel.getTabBar().selectTab(0);
-        userTabPanel.setAnimationEnabled(true);
+        initWidget(mainPanel);
     }
 }

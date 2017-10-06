@@ -6,7 +6,6 @@ import lombok.Setter;
 
 import java.util.Date;
 
-
 @Setter
 @Getter
 @AllArgsConstructor
@@ -28,7 +27,7 @@ public class User {
     private String city;
     
     /** User's gender. */
-    private boolean male;
+    private Gender gender;
     
     /** User's date of birth. */
     private Date dateOfBirth;

@@ -1,7 +1,8 @@
-package client.widgets.userForm;
+package client.widgets.userForm.forms;
 
 import client.abstraction.userForm.BaseUserForm;
 import client.modules.User;
+import client.widgets.main.MainPanel;
 
 /**
  * Create custom widget to add a user.
@@ -23,23 +24,21 @@ public class UserAddForm extends BaseUserForm {
     }
     
     @Override
-    protected void setClickHandler() {
+    protected void submitAction() {
         
         // Set a click handler on button.
         buttonSubmit.addClickHandler(event -> {
             
-            // Set input fields to default state.
-            setFieldsDefault();
-            
             // Check inputs.
             if (isCorrect()) {
-                usersTable.add(getNewUser());
+               addNewUser();
             }
         });
     }
     
-    private User getNewUser() {
-        return new User(currentID++, fullNamePanel.getFirstName(), fullNamePanel.getMiddleName(), fullNamePanel.getLastName(),
-                        cityPanel.getSelectedCity(), sexPanel.isMale(), datePickerPanel.getDate());
+    private void addNewUser() {
+         currentUser = new User(currentID++, fullNamePanel.getFirstName(), fullNamePanel.getMiddleName(), fullNamePanel.getLastName(),
+                        cityPanel.getSelectedCity(), sexPanel.getSelectedGender(), datePickerPanel.getDate());
+         MainPanel.getUserContainer().getUsersTable().add(currentUser);
     }
 }

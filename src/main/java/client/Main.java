@@ -11,6 +11,6 @@ public class Main implements EntryPoint {
     
     @Override
     public void onModuleLoad() {
-        RootPanel.get().add(new MainPanel().createUI());
+        RootPanel.get().add(new MainPanel());
     }
 }

@@ -1,30 +1,24 @@
 package client.abstraction.userForm;
 
 import client.modules.User;
-import client.widgets.userForm.CityPanel;
-import client.widgets.userForm.DatePickerPanel;
-import client.widgets.userForm.FullNamePanel;
-import client.widgets.userForm.SexPanel;
-import client.widgets.userTable.UsersTable;
+import client.widgets.userForm.elements.CityPanel;
+import client.widgets.userForm.elements.DatePickerPanel;
+import client.widgets.userForm.elements.FullNamePanel;
+import client.widgets.userForm.elements.SexPanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import lombok.Getter;
-import lombok.Setter;
 
 /**
  * Base form to create user add and edit forms.
  */
 public abstract class BaseUserForm extends Composite {
     
-    /** Table with which forms will work. */
-    @Setter
-    protected UsersTable usersTable;
-    
     /** Full name inputs. */
     protected FullNamePanel fullNamePanel;
     
-    /** Sex selection panel. */
+    /** Gender selection panel. */
     protected SexPanel sexPanel;
     
     /** City selection panel. */
@@ -50,7 +44,7 @@ public abstract class BaseUserForm extends Composite {
      */
     public BaseUserForm() {
         initWidgets();
-        setClickHandler();
+        submitAction();
         
         panelSubmit.add(fullNamePanel);
         panelSubmit.add(sexPanel);
@@ -83,7 +77,7 @@ public abstract class BaseUserForm extends Composite {
         fullNamePanel.setFirstName(user.getFirstName());
         fullNamePanel.setMiddleName(user.getMiddleName());
         fullNamePanel.setLastName(user.getLastName());
-        sexPanel.setSelectedButton(user.isMale());
+        sexPanel.setSelectedButton(user.getGender());
         cityPanel.setSelectedCity(user.getCity());
         datePickerPanel.setDate(user.getDateOfBirth());
         
@@ -95,15 +89,20 @@ public abstract class BaseUserForm extends Composite {
      * @return correctness value.
      */
     protected boolean isCorrect() {
+        
+        // Set input fields to default state.
+        setFieldsDefault();
+        
+        return validateWidgets(fullNamePanel,sexPanel,cityPanel);
+    }
+    
+    private boolean validateWidgets(IsValid... widgetsForValidate) {
         boolean isCorrect = true;
-        if (!fullNamePanel.validate()) {
-            isCorrect = false;
-        }
-        if (!sexPanel.validate()) {
-            isCorrect = false;
-        }
-        if (!cityPanel.validate()) {
-            isCorrect = false;
+        for (IsValid validateWidget : widgetsForValidate) {
+            if (!validateWidget.validate()) {
+                validateWidget.showError();
+                isCorrect=false;
+            }
         }
         return isCorrect;
     }
@@ -111,7 +110,7 @@ public abstract class BaseUserForm extends Composite {
     /**
      * Set default state of inputs.
      */
-    protected void setFieldsDefault() {
+    private void setFieldsDefault() {
         fullNamePanel.getBoxFirstName().setStyleName("user-form-text-boxes-fio");
         fullNamePanel.getBoxMiddleName().setStyleName("user-form-text-boxes-fio");
         fullNamePanel.getBoxLastName().setStyleName("user-form-text-boxes-fio");
@@ -122,5 +121,5 @@ public abstract class BaseUserForm extends Composite {
     /**
      * UserAddForm and EditAddForm will override this method for manipulation with users table.
      */
-    protected abstract void setClickHandler();
+    protected abstract void submitAction();
 }

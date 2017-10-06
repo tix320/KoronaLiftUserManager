@@ -1,6 +1,7 @@
-package client.widgets.userForm;
+package client.widgets.userForm.forms;
 
 import client.abstraction.userForm.BaseUserForm;
+import client.widgets.main.MainPanel;
 
 /**
  * Create custom widget to edit a user.
@@ -21,13 +22,10 @@ public class UserEditForm extends BaseUserForm {
     }
     
     @Override
-    protected void setClickHandler() {
+    protected void submitAction() {
         
         // Set a click handler on button.
         buttonSubmit.addClickHandler(event -> {
-            
-            // Set input fields to default state.
-            setFieldsDefault();
             
             // Check inputs.
             if (isCorrect()) {
@@ -40,21 +38,13 @@ public class UserEditForm extends BaseUserForm {
      * Refresh user data in table.
      */
     private void refreshUser() {
-        insertUser();
-        usersTable.edit(currentUser);
-    }
-    
-    /**
-     * Edit object info of user.
-     */
-    private void insertUser() {
         currentUser.setFirstName(fullNamePanel.getFirstName());
         currentUser.setMiddleName(fullNamePanel.getMiddleName());
         currentUser.setLastName(fullNamePanel.getLastName());
-        currentUser.setMale(sexPanel.isMale());
+        currentUser.setGender(sexPanel.getSelectedGender());
         currentUser.setCity(cityPanel.getSelectedCity());
         currentUser.setDateOfBirth(datePickerPanel.getDate());
+        
+        MainPanel.getUserContainer().getUsersTable().edit(currentUser);
     }
-    
-    
 }

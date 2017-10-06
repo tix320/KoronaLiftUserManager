@@ -1,10 +1,10 @@
-package client.widgets.userForm;
+package client.widgets.userForm.elements;
 
 import client.abstraction.userForm.IsValid;
+import client.modules.Gender;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RadioButton;
-import com.google.gwt.user.client.ui.Widget;
 
 public class SexPanel extends Composite implements IsValid {
     
@@ -53,36 +53,31 @@ public class SexPanel extends Composite implements IsValid {
     /**
      * Select button.
      *
-     * @param isMale checks, what button is selected.
+     * @param gender checks, what button is selected.
      */
-    public void setSelectedButton(boolean isMale) {
-        if (isMale) {
+    public void setSelectedButton(Gender gender) {
+        if (gender == Gender.MALE) {
             radioMale.setValue(true);
         } else {
             radioFemale.setValue(true);
         }
     }
     
-    /**
-     * isCorrect gender.
-     *
-     * @return the gender.
-     */
-    public boolean isMale() {
-        return radioMale.getValue();
+    public Gender getSelectedGender() {
+        if (getSelectedButton() == radioMale) {
+            return Gender.MALE;
+        } else {
+            return Gender.FEMALE;
+        }
     }
     
     @Override
     public boolean validate() {
-        if (getSelectedButton() == null) {
-            showError(panelSex);
-            return false;
-        }
-        return true;
+        return getSelectedButton() != null;
     }
     
     @Override
-    public void showError(Widget widget) {
-        widget.setStyleName("user-form-sex-panel-error");
+    public void showError() {
+        panelSex.setStyleName("user-form-sex-panel-error");
     }
 }

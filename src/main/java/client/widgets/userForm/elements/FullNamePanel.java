@@ -1,11 +1,10 @@
-package client.widgets.userForm;
+package client.widgets.userForm.elements;
 
-import client.Utility;
+import client.utilities.Utility;
 import client.abstraction.userForm.IsValid;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Panel for input full name.
@@ -124,23 +123,28 @@ public class FullNamePanel extends Composite implements IsValid {
     @Override
     public boolean validate() {
         boolean validate = true;
-        if (getBoxFirstName().getText().isEmpty()) {
-            showError(getBoxFirstName());
+        if (boxFirstName.getText().isEmpty()) {
             validate = false;
         }
-        if (getBoxMiddleName().getText().isEmpty()) {
-            showError(getBoxMiddleName());
+        if (boxMiddleName.getText().isEmpty()) {
             validate = false;
         }
-        if (getBoxLastName().getText().isEmpty()) {
-            showError(getBoxLastName());
+        if (boxLastName.getText().isEmpty()) {
             validate = false;
         }
         return validate;
     }
     
     @Override
-    public void showError(Widget widget) {
-        widget.setStyleName("user-form-text-boxes-fio-error");
+    public void showError() {
+        if (boxFirstName.getText().isEmpty()) {
+            boxFirstName.setStyleName("user-form-text-boxes-fio-error");
+        }
+        if (boxMiddleName.getText().isEmpty()) {
+            boxMiddleName.setStyleName("user-form-text-boxes-fio-error");
+        }
+        if (boxLastName.getText().isEmpty()) {
+            boxLastName.setStyleName("user-form-text-boxes-fio-error");
+        }
     }
 }

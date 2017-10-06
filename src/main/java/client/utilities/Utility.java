@@ -1,7 +1,6 @@
-package client;
+package client.utilities;
 
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Class utility to shorten the code of some methods.
@@ -19,15 +18,5 @@ public class Utility {
      */
     public static void setPlaceHolder(TextBox textBox, String value) {
         textBox.getElement().setAttribute(PLACE_HOLDER, value);
-    }
-    
-    /**
-     * Set border color of widget.
-     *
-     * @param widget which color changes.
-     * @param borderColor, which is set.
-     */
-    public static void setBorderColor(Widget widget, String borderColor) {
-        widget.getElement().getStyle().setBorderColor(borderColor);
     }
 }
