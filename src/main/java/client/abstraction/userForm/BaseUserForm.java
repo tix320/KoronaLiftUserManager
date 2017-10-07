@@ -4,19 +4,24 @@ import client.UI.userForm.elements.CityPanel;
 import client.UI.userForm.elements.DatePickerPanel;
 import client.UI.userForm.elements.FullNamePanel;
 import client.UI.userForm.elements.SexPanel;
+import client.UI.userTable.UsersTableUpdater;
 import client.modules.User;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Stream;
 
 /**
  * Base form to create user add and edit forms.
  */
-public abstract class BaseUserForm extends Composite {
+public abstract class BaseUserForm extends Composite implements UserForm {
+    
+    protected List<UsersTableUpdater> usersTableUpdaters;
     
     /** Full name inputs. */
     protected FullNamePanel fullNamePanel;
@@ -46,10 +51,12 @@ public abstract class BaseUserForm extends Composite {
      * All methods of its elements are called here.
      */
     public BaseUserForm() {
+        usersTableUpdaters = new ArrayList<>();
+        
         initWidgets();
         submitAction();
     
-        Stream.of(fullNamePanel,sexPanel,cityPanel,datePickerPanel,buttonSubmit).forEach(panelSubmit::add);
+        Stream.of(fullNamePanel, sexPanel, cityPanel, datePickerPanel, buttonSubmit).forEach(panelSubmit::add);
         
         initWidget(panelSubmit);
     }
@@ -67,22 +74,6 @@ public abstract class BaseUserForm extends Composite {
     }
     
     /**
-     * Get the selected user's attributes from table and insert their to user form for future editing.
-     *
-     * @param user is selected User in table.
-     */
-    public void insertSelectedItem(User user) {
-        currentUser = user;
-        fullNamePanel.setFirstName(user.getFirstName());
-        fullNamePanel.setMiddleName(user.getMiddleName());
-        fullNamePanel.setLastName(user.getLastName());
-        sexPanel.setSelectedButton(user.getGender());
-        cityPanel.setSelectedCity(user.getCity());
-        datePickerPanel.setDate(user.getDateOfBirth());
-        
-    }
-    
-    /**
      * Check the correctness of inputs.
      *
      * @return correctness value.
@@ -96,24 +87,42 @@ public abstract class BaseUserForm extends Composite {
     }
     
     private boolean validateWidgets(IsValid... widgetsForValidate) {
-        return Arrays.stream(widgetsForValidate)
-                .filter(validateWidget -> !validateWidget.validate())
-                .peek(IsValid::showError)
-                .count() == 0;
+        return Arrays.stream(widgetsForValidate).filter(validateWidget -> !validateWidget.validate()).peek(IsValid::showError).count() == 0;
     }
     
     /**
      * Set default state of inputs.
      */
     private void setFieldsDefault() {
-        Stream.of(fullNamePanel.getBoxFirstName(),fullNamePanel.getBoxMiddleName(),fullNamePanel.getBoxLastName())
+        Stream.of(fullNamePanel.getBoxFirstName(), fullNamePanel.getBoxMiddleName(), fullNamePanel.getBoxLastName())
                 .forEach(validateBox -> validateBox.setStyleName("user-form-text-boxes-fio"));
         sexPanel.setStyleName("user-form-sex-panel");
         cityPanel.getListBoxCity().setStyleName("user-form-list-city");
     }
     
     /**
-     * UserAddForm and EditAddForm will override this method for manipulation with users table.
+     * Get the selected user's attributes from table and insert their to user form for future editing.
+     *
+     * @param user is selected User in table.
      */
-    protected abstract void submitAction();
+    @Override
+    public void updateInputs(User user) {
+        currentUser = user;
+        fullNamePanel.setFirstName(user.getFirstName());
+        fullNamePanel.setMiddleName(user.getMiddleName());
+        fullNamePanel.setLastName(user.getLastName());
+        sexPanel.setSelectedButton(user.getGender());
+        cityPanel.setSelectedCity(user.getCity());
+        datePickerPanel.setDate(user.getDateOfBirth());
+    }
+    
+    @Override
+    public void registerUsersTableUpdater(UsersTableUpdater usersTableUpdater) {
+        usersTableUpdaters.add(usersTableUpdater);
+    }
+    
+    @Override
+    public void removeUsersTableUpdater(UsersTableUpdater usersTableUpdater) {
+        usersTableUpdaters.remove(usersTableUpdater);
+    }
 }

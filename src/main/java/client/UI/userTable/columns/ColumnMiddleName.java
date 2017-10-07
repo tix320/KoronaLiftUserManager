@@ -1,4 +1,4 @@
-package client.UI.userTable;
+package client.UI.userTable.columns;
 
 import client.modules.User;
 import com.google.gwt.user.cellview.client.TextColumn;

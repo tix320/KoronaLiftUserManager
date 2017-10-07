@@ -1,4 +1,4 @@
-package client.UI.userTable;
+package client.UI.userTable.columns;
 
 import client.modules.Gender;
 import client.modules.User;

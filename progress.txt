@@ -27,3 +27,5 @@
 10.04:
 1) Изучил pattern Strategy.
 2) Изучил pattern Observer.
+10.07:
+1) Переработал проект, использовал pattern Observer.

@@ -1,6 +1,5 @@
 package client.UI.userForm.forms;
 
-import client.UI.main.MainPanel;
 import client.abstraction.userForm.BaseUserForm;
 import client.modules.User;
 
@@ -24,24 +23,18 @@ public class UserAddForm extends BaseUserForm {
     }
     
     @Override
-    protected void submitAction() {
-        
+    public void submitAction() {
         // Set a click handler on button.
         buttonSubmit.addClickHandler(event -> {
             
             // Check inputs.
             if (isCorrect()) {
-                addNewUser();
+                currentUser = new User(currentID++, fullNamePanel.getFirstName(), fullNamePanel.getMiddleName(), fullNamePanel.getLastName(),
+                                       cityPanel.getSelectedCity(), sexPanel.getSelectedGender(), datePickerPanel.getDate());
+    
+                usersTableUpdaters.forEach(usersTableUpdater -> usersTableUpdater.addUser(currentUser));
             }
         });
     }
     
-    /**
-     * Add new user in table.
-     */
-    private void addNewUser() {
-        currentUser = new User(currentID++, fullNamePanel.getFirstName(), fullNamePanel.getMiddleName(), fullNamePanel.getLastName(),
-                               cityPanel.getSelectedCity(), sexPanel.getSelectedGender(), datePickerPanel.getDate());
-        MainPanel.getUserContainer().getUsersTable().add(currentUser);
-    }
 }

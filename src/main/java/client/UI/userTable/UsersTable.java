@@ -1,59 +1,53 @@
 package client.UI.userTable;
 
-import client.UI.main.MainPanel;
+import client.UI.userTable.columns.ColumnCity;
+import client.UI.userTable.columns.ColumnDateOfBirth;
+import client.UI.userTable.columns.ColumnDelete;
+import client.UI.userTable.columns.ColumnFirstName;
+import client.UI.userTable.columns.ColumnLastName;
+import client.UI.userTable.columns.ColumnMiddleName;
+import client.UI.userTable.columns.ColumnSex;
+import client.abstraction.userForm.UserForm;
+import client.abstraction.userTable.Table;
 import client.modules.User;
-import com.google.gwt.dom.client.Style;
+import com.google.gwt.cell.client.ButtonCell;
 import com.google.gwt.user.cellview.client.CellTable;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SingleSelectionModel;
-import lombok.Getter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Create custom widget to keep the users.
  * Users will be added from UserAddForm or edited from EditAddForm.
  */
-public class UsersTable extends Composite {
-    private final String DELETE_BUTTON_TEXT = "Удалить";
-    @Getter
+public class UsersTable extends Composite implements Table {
     private final SingleSelectionModel<User> selModel;
+    private UsersTableUpdater usersTableUpdater;
+    private List<UserForm> userForms;
     private CellTable<User> usersCellTable;
-    @Getter
-    private ListDataProvider<User> userListDataProvider;
-    @Getter
-    private Button deleteButtonUser;
     private ColumnFirstName columnFirstName;
     private ColumnMiddleName columnMiddleName;
     private ColumnLastName columnLastName;
     private ColumnSex columnSex;
     private ColumnCity columnCity;
     private ColumnDateOfBirth columnDateOfBirth;
+    private ColumnDelete columnDelete;
     
     public UsersTable() {
-        VerticalPanel panelMain = new VerticalPanel();
+        userForms = new ArrayList<>();
         usersCellTable = new CellTable<>();
-        userListDataProvider = new ListDataProvider<>();
         selModel = new SingleSelectionModel<>();
         usersCellTable.setVisibleRange(0, 100);
         
-        deleteButtonUser = new Button(DELETE_BUTTON_TEXT);
-        deleteButtonUser.getElement().getStyle().setMargin(20, Style.Unit.PX);
-        
-        userListDataProvider.addDataDisplay(usersCellTable);
-        
         usersCellTable.setSelectionModel(selModel);
-        
-        panelMain.add(usersCellTable);
-        panelMain.add(deleteButtonUser);
         
         initColumns();
         addColumns();
-        setDeleteClickHandler();
         setSelectedItemListener();
-        
-        initWidget(panelMain);
+    
+        initWidget(usersCellTable);
     }
     
     /**
@@ -67,6 +61,8 @@ public class UsersTable extends Composite {
         columnSex = new ColumnSex();
         columnCity = new ColumnCity();
         columnDateOfBirth = new ColumnDateOfBirth();
+        columnDelete = new ColumnDelete(new ButtonCell());
+        columnDelete.setTable(this);
     }
     
     /**
@@ -80,53 +76,44 @@ public class UsersTable extends Composite {
         usersCellTable.addColumn(columnCity, "Город");
         usersCellTable.addColumn(columnSex, "Пол");
         usersCellTable.addColumn(columnDateOfBirth, "Дата рождения");
-    }
-    
-    /**
-     * Set user's delete button click handler.
-     */
-    private void setDeleteClickHandler() {
-        deleteButtonUser.addClickHandler(event -> {
-            
-            //Delete selected object.
-            userListDataProvider.getList().remove(selModel.getSelectedObject());
-            userListDataProvider.refresh();
-            
-            // Disable edit and delete buttons.
-            deleteButtonUser.setEnabled(false);
-            MainPanel.getUserContainer().getUserEditForm().getButtonSubmit().setEnabled(false);
-        });
+        usersCellTable.addColumn(columnDelete);
+        
     }
     
     /**
      * Set listener for selected item of table.
      */
     private void setSelectedItemListener() {
-        selModel.addSelectionChangeHandler(event -> {
-            MainPanel.getUserContainer().getUserEditForm().getButtonSubmit().setEnabled(true);
-            deleteButtonUser.setEnabled(true);
-            MainPanel.getUserContainer().getUserAddForm().insertSelectedItem(selModel.getSelectedObject());
-            MainPanel.getUserContainer().getUserEditForm().insertSelectedItem(selModel.getSelectedObject());
-        });
+        selModel.addSelectionChangeHandler(event -> updateInputsData(selModel.getSelectedObject()));
     }
     
-    /**
-     * Add new user to table.
-     *
-     * @param user is the user, which will be added.
-     */
-    public void add(User user) {
-        userListDataProvider.getList().add(user);
+    @Override
+    public UsersTableUpdater getUsersTableUpdater() {
+        return this.usersTableUpdater;
     }
     
-    /**
-     * Edit user to table.
-     *
-     * @param user is the user, which will be edited.
-     */
-    public void edit(User user) {
-        int index = getUserListDataProvider().getList().indexOf(selModel.getSelectedObject());
-        getUserListDataProvider().getList().set(index, user);
+    @Override
+    public void setUsersTableUpdater(UsersTableUpdater usersTableUpdater) {
+        this.usersTableUpdater = usersTableUpdater;
     }
     
+    @Override
+    public CellTable<User> getCellTable() {
+        return usersCellTable;
+    }
+    
+    @Override
+    public void updateInputsData(User user) {
+        userForms.forEach(userForm -> userForm.updateInputs(user));
+    }
+    
+    @Override
+    public void registerUserForm(UserForm userForm) {
+        userForms.add(userForm);
+    }
+    
+    @Override
+    public void removeUserForm(UserForm userForm) {
+        userForms.remove(userForm);
+    }
 }

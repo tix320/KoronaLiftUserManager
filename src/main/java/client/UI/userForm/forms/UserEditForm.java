@@ -1,6 +1,6 @@
 package client.UI.userForm.forms;
 
-import client.UI.main.MainPanel;
+import client.UI.userTable.UsersTableUpdater;
 import client.abstraction.userForm.BaseUserForm;
 
 /**
@@ -18,33 +18,24 @@ public class UserEditForm extends BaseUserForm {
     public UserEditForm() {
         super();
         buttonSubmit.setText(EDIT_BUTTON_TEXT);
-        buttonSubmit.setEnabled(false);
     }
     
     @Override
-    protected void submitAction() {
-        
+    public void submitAction() {
         // Set a click handler on button.
         buttonSubmit.addClickHandler(event -> {
             
             // Check inputs.
             if (isCorrect()) {
-                refreshUser();
+                currentUser.setFirstName(fullNamePanel.getFirstName());
+                currentUser.setMiddleName(fullNamePanel.getMiddleName());
+                currentUser.setLastName(fullNamePanel.getLastName());
+                currentUser.setGender(sexPanel.getSelectedGender());
+                currentUser.setCity(cityPanel.getSelectedCity());
+                currentUser.setDateOfBirth(datePickerPanel.getDate());
+                usersTableUpdaters.forEach(UsersTableUpdater::editUser);
+    
             }
         });
-    }
-    
-    /**
-     * Refresh user data in table.
-     */
-    private void refreshUser() {
-        currentUser.setFirstName(fullNamePanel.getFirstName());
-        currentUser.setMiddleName(fullNamePanel.getMiddleName());
-        currentUser.setLastName(fullNamePanel.getLastName());
-        currentUser.setGender(sexPanel.getSelectedGender());
-        currentUser.setCity(cityPanel.getSelectedCity());
-        currentUser.setDateOfBirth(datePickerPanel.getDate());
-        
-        MainPanel.getUserContainer().getUsersTable().edit(currentUser);
     }
 }

@@ -46,8 +46,8 @@ public class FullNamePanel extends Composite implements IsValid {
         boxFirstName = new TextBox();
         boxMiddleName = new TextBox();
         boxLastName = new TextBox();
-        
-        Stream.of(boxFirstName,boxMiddleName,boxLastName).forEach(fullNamePanel::add);
+    
+        Stream.of(boxFirstName, boxMiddleName, boxLastName).forEach(fullNamePanel::add);
     }
     
     /**
@@ -55,8 +55,7 @@ public class FullNamePanel extends Composite implements IsValid {
      */
     private void setStyles() {
         fullNamePanel.setStyleName("user-form-full-name-panel");
-        Stream.of(boxFirstName, boxMiddleName, boxLastName)
-                .forEach(validateBox -> validateBox.setStyleName("user-form-text-boxes-fio"));
+        Stream.of(boxFirstName, boxMiddleName, boxLastName).forEach(validateBox -> validateBox.setStyleName("user-form-text-boxes-fio"));
     }
     
     /**
@@ -121,16 +120,14 @@ public class FullNamePanel extends Composite implements IsValid {
     
     @Override
     public boolean validate() {
-        return Stream.of(boxFirstName, boxMiddleName, boxLastName)
-                .filter(validateBox -> validateBox.getText().isEmpty())
-                .count() == 0;
+        return Stream.of(boxFirstName, boxMiddleName, boxLastName).filter(validateBox -> validateBox.getText().isEmpty()).count() == 0;
     }
     
     @Override
     public void showError() {
-         Stream.of(boxFirstName, boxMiddleName, boxLastName)
+        Stream.of(boxFirstName, boxMiddleName, boxLastName)
                 .filter(validateBox -> validateBox.getText().isEmpty())
                 .forEach(validateBox -> validateBox.setStyleName("user-form-text-boxes-fio-error"));
-       
+    
     }
 }
