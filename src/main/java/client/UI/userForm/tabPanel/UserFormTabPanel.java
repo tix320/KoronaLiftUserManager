@@ -13,7 +13,6 @@ public class UserFormTabPanel extends Composite {
     @Getter
     private UserEditForm userEditForm;
     
-    
     /**
      * Create Tab panel, where are added user forms.
      */

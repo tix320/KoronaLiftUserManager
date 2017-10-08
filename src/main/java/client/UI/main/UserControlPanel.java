@@ -7,39 +7,30 @@ import client.UI.userTable.UsersTable;
 import client.UI.userTable.UsersTableUpdater;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
-import lombok.Getter;
 
 /**
  * Main panel of UI.
  */
 public class UserControlPanel extends Composite {
     
-    private FlowPanel mainPanel;
-    
-    private UsersTable usersTable;
-    
-    @Getter
-    private UserFormTabPanel userFormTabPanel;
-    
-    @Getter
-    private UsersTableUpdater usersTableUpdater;
-    
     /**
      * Create and initialize the main panel of UI.
      */
     public UserControlPanel() {
-        mainPanel = new FlowPanel();
-        usersTable = new UsersTable();
-        
-        usersTableUpdater = new UsersTableUpdater();
-        
-        usersTableUpdater.registerTable(usersTable);
-        
+    
+        FlowPanel mainPanel = new FlowPanel();
+    
+        UsersTable usersTable = new UsersTable();
+    
         UserAddForm userAddForm = new UserAddForm();
         UserEditForm userEditForm = new UserEditForm();
+        UserFormTabPanel userFormTabPanel = new UserFormTabPanel(userAddForm, userEditForm);
+    
+        UsersTableUpdater usersTableUpdater = new UsersTableUpdater();
         userAddForm.registerUsersTableUpdater(usersTableUpdater);
         userEditForm.registerUsersTableUpdater(usersTableUpdater);
-        userFormTabPanel = new UserFormTabPanel(userAddForm, userEditForm);
+        
+        usersTableUpdater.registerTable(usersTable);
         
         usersTable.registerUserForm(userAddForm);
         usersTable.registerUserForm(userEditForm);

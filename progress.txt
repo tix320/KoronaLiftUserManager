@@ -29,3 +29,6 @@
 2) Изучил pattern Observer.
 10.07:
 1) Переработал проект, использовал pattern Observer.
+2) Изучил pattern Decorator.
+10.08:
+1) Изучил pattern Factory(Factory Method,Abstract Factory).

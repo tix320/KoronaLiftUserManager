@@ -12,7 +12,5 @@ public enum TabText {
     
     TabText(String text) {
         this.text = text;
-        
-        
     }
 }
