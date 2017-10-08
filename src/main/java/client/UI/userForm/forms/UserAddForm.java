@@ -24,17 +24,15 @@ public class UserAddForm extends BaseUserForm {
     
     @Override
     public void submitAction() {
-        // Set a click handler on button.
-        buttonSubmit.addClickHandler(event -> {
-            
-            // Check inputs.
-            if (isCorrect()) {
-                currentUser = new User(currentID++, fullNamePanel.getFirstName(), fullNamePanel.getMiddleName(), fullNamePanel.getLastName(),
-                                       cityPanel.getSelectedCity(), sexPanel.getSelectedGender(), datePickerPanel.getDate());
     
-                usersTableUpdaters.forEach(usersTableUpdater -> usersTableUpdater.addUser(currentUser));
-            }
-        });
+        // Check inputs.
+        if (isCorrect()) {
+            currentUser = new User(currentID++, fullNamePanel.getFirstName(), fullNamePanel.getMiddleName(), fullNamePanel.getLastName(),
+                                   cityPanel.getSelectedCity(), sexPanel.getSelectedGender(), datePickerPanel.getDate());
+        
+            usersTableUpdaters.forEach(usersTableUpdater -> usersTableUpdater.addUser(currentUser));
+        }
+        
     }
     
 }

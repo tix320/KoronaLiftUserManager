@@ -9,7 +9,6 @@ import client.modules.User;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
-import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,6 +20,7 @@ import java.util.stream.Stream;
  */
 public abstract class BaseUserForm extends Composite implements UserForm {
     
+    /** List of table updaters, which will transfer data. */
     protected List<UsersTableUpdater> usersTableUpdaters;
     
     /** Full name inputs. */
@@ -30,14 +30,12 @@ public abstract class BaseUserForm extends Composite implements UserForm {
     protected SexPanel sexPanel;
     
     /** City selection panel. */
-    @Getter
     protected CityPanel cityPanel;
     
     /** Date selection panel. */
     protected DatePickerPanel datePickerPanel;
     
     /** Submit button - add new user or edit. */
-    @Getter
     protected Button buttonSubmit;
     
     /** User, which is being edited. */
@@ -54,8 +52,10 @@ public abstract class BaseUserForm extends Composite implements UserForm {
         usersTableUpdaters = new ArrayList<>();
         
         initWidgets();
-        submitAction();
     
+        // Set a click handler on button.
+        buttonSubmit.addClickHandler(event -> submitAction());
+        
         Stream.of(fullNamePanel, sexPanel, cityPanel, datePickerPanel, buttonSubmit).forEach(panelSubmit::add);
         
         initWidget(panelSubmit);
@@ -86,6 +86,12 @@ public abstract class BaseUserForm extends Composite implements UserForm {
         return validateWidgets(fullNamePanel, sexPanel, cityPanel);
     }
     
+    /**
+     * Validate the input widgets.
+     *
+     * @param widgetsForValidate is a widgets ,which will validate.
+     * @return validate result.
+     */
     private boolean validateWidgets(IsValid... widgetsForValidate) {
         return Arrays.stream(widgetsForValidate).filter(validateWidget -> !validateWidget.validate()).peek(IsValid::showError).count() == 0;
     }
@@ -100,11 +106,6 @@ public abstract class BaseUserForm extends Composite implements UserForm {
         cityPanel.getListBoxCity().setStyleName("user-form-list-city");
     }
     
-    /**
-     * Get the selected user's attributes from table and insert their to user form for future editing.
-     *
-     * @param user is selected User in table.
-     */
     @Override
     public void updateInputs(User user) {
         currentUser = user;

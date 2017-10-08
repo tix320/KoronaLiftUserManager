@@ -22,20 +22,16 @@ public class UserEditForm extends BaseUserForm {
     
     @Override
     public void submitAction() {
-        // Set a click handler on button.
-        buttonSubmit.addClickHandler(event -> {
-            
-            // Check inputs.
-            if (isCorrect()) {
-                currentUser.setFirstName(fullNamePanel.getFirstName());
-                currentUser.setMiddleName(fullNamePanel.getMiddleName());
-                currentUser.setLastName(fullNamePanel.getLastName());
-                currentUser.setGender(sexPanel.getSelectedGender());
-                currentUser.setCity(cityPanel.getSelectedCity());
-                currentUser.setDateOfBirth(datePickerPanel.getDate());
-                usersTableUpdaters.forEach(UsersTableUpdater::editUser);
     
-            }
-        });
+        // Check inputs.
+        if (isCorrect()) {
+            currentUser.setFirstName(fullNamePanel.getFirstName());
+            currentUser.setMiddleName(fullNamePanel.getMiddleName());
+            currentUser.setLastName(fullNamePanel.getLastName());
+            currentUser.setGender(sexPanel.getSelectedGender());
+            currentUser.setCity(cityPanel.getSelectedCity());
+            currentUser.setDateOfBirth(datePickerPanel.getDate());
+            usersTableUpdaters.forEach(UsersTableUpdater::editUser);
+        }
     }
 }

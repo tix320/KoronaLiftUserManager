@@ -76,8 +76,7 @@ public class UsersTable extends Composite implements Table {
         usersCellTable.addColumn(columnCity, "Город");
         usersCellTable.addColumn(columnSex, "Пол");
         usersCellTable.addColumn(columnDateOfBirth, "Дата рождения");
-        usersCellTable.addColumn(columnDelete);
-        
+        usersCellTable.addColumn(columnDelete, "Удалить");
     }
     
     /**

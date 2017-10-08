@@ -17,8 +17,8 @@ public class CityPanel extends Composite implements IsValid {
     @Getter
     private ListBox listBoxCity;
     
+    /** List of cities. */
     private List<String> listCity;
-    
     
     /**
      * Create an object.

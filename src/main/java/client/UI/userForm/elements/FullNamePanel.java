@@ -6,7 +6,8 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import java.util.stream.Stream;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Panel for input full name.
@@ -24,6 +25,9 @@ public class FullNamePanel extends Composite implements IsValid {
     
     /** Text box for input last name. */
     private TextBox boxLastName;
+    
+    /** List of text boxes. */
+    private List<TextBox> textBoxes;
     
     /**
      * Add widgets to full name panel.
@@ -46,8 +50,9 @@ public class FullNamePanel extends Composite implements IsValid {
         boxFirstName = new TextBox();
         boxMiddleName = new TextBox();
         boxLastName = new TextBox();
+        textBoxes = Arrays.asList(boxFirstName, boxMiddleName, boxLastName);
     
-        Stream.of(boxFirstName, boxMiddleName, boxLastName).forEach(fullNamePanel::add);
+        textBoxes.forEach(fullNamePanel::add);
     }
     
     /**
@@ -55,7 +60,7 @@ public class FullNamePanel extends Composite implements IsValid {
      */
     private void setStyles() {
         fullNamePanel.setStyleName("user-form-full-name-panel");
-        Stream.of(boxFirstName, boxMiddleName, boxLastName).forEach(validateBox -> validateBox.setStyleName("user-form-text-boxes-fio"));
+        textBoxes.forEach(validateBox -> validateBox.setStyleName("user-form-text-boxes-fio"));
     }
     
     /**
@@ -120,12 +125,12 @@ public class FullNamePanel extends Composite implements IsValid {
     
     @Override
     public boolean validate() {
-        return Stream.of(boxFirstName, boxMiddleName, boxLastName).filter(validateBox -> validateBox.getText().isEmpty()).count() == 0;
+        return textBoxes.stream().filter(validateBox -> validateBox.getText().isEmpty()).count() == 0;
     }
     
     @Override
     public void showError() {
-        Stream.of(boxFirstName, boxMiddleName, boxLastName)
+        textBoxes.stream()
                 .filter(validateBox -> validateBox.getText().isEmpty())
                 .forEach(validateBox -> validateBox.setStyleName("user-form-text-boxes-fio-error"));
     

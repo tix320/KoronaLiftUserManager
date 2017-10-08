@@ -1,5 +1,4 @@
 button {
-    margin: 20px;
     padding: 5px 7px;
     text-decoration: none;
     cursor: hand;
@@ -71,8 +70,46 @@ button {
     margin: 0 20px;
 }
 
+.users-table-general button{
+    margin: 0;
+    background-color: #f96969;
+    color: #fff;
+    border: none;
+}
+
+.users-table-general button:hover {
+    background: rgb(232, 63, 63);
+    box-shadow: inset 0 1px 3px rgb(255, 3, 3), 0 1px rgb(128, 2, 2), 0 0 1px rgb(115, 0, 0);
+}
+
 .user-tab-panel-general {
     border: dashed #bfd1da;
     display: inline-block;
     float: left;
 }
+
+.user-tab-panel-general button{
+    margin: 0;
+    background: #66b3ab;
+    color: #fff;
+    border: none;
+}
+
+.user-tab-panel-general button:hover{
+    background: rgb(50, 228, 208);
+    box-shadow: inset 0 1px 3px rgb(106, 189, 173), 0 1px rgb(66, 130, 123), 0 0 1px rgb(0, 0, 0);
+}
+
+.datePickerDayIsValue {
+    background: #96ded6!important;
+}
+.datePickerDayIsToday {
+    background: #66b3ab!important;
+}
+
+.datePickerDayIsHighlighted{
+    background: rgba(102, 179, 171, .5)!important;
+}
+
+
+
