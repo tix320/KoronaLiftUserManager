@@ -6,8 +6,9 @@ import client.abstraction.ObjectOperator;
  * Utility for updating any data and notify own observers.
  * Object-Source-Follower.
  *
- * @param <F> is a type of follower.
+ * @param <O> is a type of object.
  * @param <S> is a type of data source.
+ * @param <F> is a type of follower.
  */
 public interface DataUpdater<O, S, F> extends ObjectOperator<O> {
     
