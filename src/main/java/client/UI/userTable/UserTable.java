@@ -64,6 +64,11 @@ public class UserTable extends Composite implements Table<User> {
         columnDelete.setFieldUpdater((index, object, value) -> deleteAction(object));
     }
     
+    /**
+     * Action of delete button.
+     *
+     * @param user is a removing object.
+     */
     private void deleteAction(User user) {
         userTableDataUpdater.removeThisObject(user);
     }

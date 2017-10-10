@@ -32,3 +32,6 @@
 2) Изучил pattern Decorator.
 10.08:
 1) Изучил pattern Factory(Factory Method,Abstract Factory).
+2) Изучил pattern Command.
+10.10:
+1) Польностю исправил проект с использованием паттерна.
