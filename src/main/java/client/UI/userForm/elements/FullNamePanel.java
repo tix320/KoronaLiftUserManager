@@ -1,6 +1,6 @@
 package client.UI.userForm.elements;
 
-import client.abstraction.userForm.IsValid;
+import client.abstraction.form.IsValid;
 import client.utilities.Utility;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.TextBox;
@@ -36,7 +36,7 @@ public class FullNamePanel extends Composite implements IsValid {
      */
     public FullNamePanel() {
         initWidgets();
-        setStyles();
+        setDefaultStyles();
         setPlaceHolders();
         
         initWidget(fullNamePanel);
@@ -58,7 +58,7 @@ public class FullNamePanel extends Composite implements IsValid {
     /**
      * Set styles to text boxes.
      */
-    private void setStyles() {
+    public void setDefaultStyles() {
         fullNamePanel.setStyleName("user-form-full-name-panel");
         textBoxes.forEach(validateBox -> validateBox.setStyleName("user-form-text-boxes-fio"));
     }
@@ -94,33 +94,6 @@ public class FullNamePanel extends Composite implements IsValid {
     
     public void setLastName(String text) {
         boxLastName.setText(text);
-    }
-    
-    /**
-     * Get the text box of first name.
-     *
-     * @return text box.
-     */
-    public TextBox getBoxFirstName() {
-        return boxFirstName;
-    }
-    
-    /**
-     * Get the text box of middle name.
-     *
-     * @return text box.
-     */
-    public TextBox getBoxMiddleName() {
-        return boxMiddleName;
-    }
-    
-    /**
-     * Get the text box of last name.
-     *
-     * @return text box.
-     */
-    public TextBox getBoxLastName() {
-        return boxLastName;
     }
     
     @Override

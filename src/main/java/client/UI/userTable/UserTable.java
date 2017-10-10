@@ -7,26 +7,25 @@ import client.UI.userTable.columns.ColumnFirstName;
 import client.UI.userTable.columns.ColumnLastName;
 import client.UI.userTable.columns.ColumnMiddleName;
 import client.UI.userTable.columns.ColumnSex;
-import client.abstraction.userForm.UserForm;
-import client.abstraction.userTable.Table;
+import client.abstraction.table.Table;
 import client.modules.User;
 import com.google.gwt.cell.client.ButtonCell;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SingleSelectionModel;
-
-import java.util.ArrayList;
-import java.util.List;
+import lombok.Setter;
 
 /**
  * Create custom widget to keep the users.
  * Users will be added from UserAddForm or edited from EditAddForm.
  */
-public class UsersTable extends Composite implements Table {
-    private final SingleSelectionModel<User> selModel;
-    private UsersTableUpdater usersTableUpdater;
-    private List<UserForm> userForms;
-    private CellTable<User> usersCellTable;
+public class UserTable extends Composite implements Table<User> {
+    @Setter
+    private UserTableDataUpdater userTableDataUpdater;
+    private SingleSelectionModel<User> selModel;
+    private ListDataProvider<User> users;
+    private CellTable<User> cellTable;
     private ColumnFirstName columnFirstName;
     private ColumnMiddleName columnMiddleName;
     private ColumnLastName columnLastName;
@@ -35,19 +34,19 @@ public class UsersTable extends Composite implements Table {
     private ColumnDateOfBirth columnDateOfBirth;
     private ColumnDelete columnDelete;
     
-    public UsersTable() {
-        userForms = new ArrayList<>();
-        usersCellTable = new CellTable<>();
+    public UserTable() {
+        cellTable = new CellTable<>();
         selModel = new SingleSelectionModel<>();
-        usersCellTable.setVisibleRange(0, 100);
+        users = new ListDataProvider<>();
+        users.addDataDisplay(cellTable);
         
-        usersCellTable.setSelectionModel(selModel);
+        cellTable.setSelectionModel(selModel);
         
         initColumns();
         addColumns();
         setSelectedItemListener();
-    
-        initWidget(usersCellTable);
+        
+        initWidget(cellTable);
     }
     
     /**
@@ -62,57 +61,56 @@ public class UsersTable extends Composite implements Table {
         columnCity = new ColumnCity();
         columnDateOfBirth = new ColumnDateOfBirth();
         columnDelete = new ColumnDelete(new ButtonCell());
-        columnDelete.setTable(this);
+        columnDelete.setFieldUpdater((index, object, value) -> deleteAction(object));
+    }
+    
+    private void deleteAction(User user) {
+        userTableDataUpdater.removeThisObject(user);
     }
     
     /**
      * Add columns to table.
      */
     private void addColumns() {
-        usersCellTable.setStyleName("users-table-general");
-        usersCellTable.addColumn(columnFirstName, "Имя");
-        usersCellTable.addColumn(columnMiddleName, "Отчество");
-        usersCellTable.addColumn(columnLastName, "Фамилия");
-        usersCellTable.addColumn(columnCity, "Город");
-        usersCellTable.addColumn(columnSex, "Пол");
-        usersCellTable.addColumn(columnDateOfBirth, "Дата рождения");
-        usersCellTable.addColumn(columnDelete, "Удалить");
+        cellTable.setStyleName("users-table-general");
+        cellTable.addColumn(columnFirstName, "Имя");
+        cellTable.addColumn(columnMiddleName, "Отчество");
+        cellTable.addColumn(columnLastName, "Фамилия");
+        cellTable.addColumn(columnCity, "Город");
+        cellTable.addColumn(columnSex, "Пол");
+        cellTable.addColumn(columnDateOfBirth, "Дата рождения");
+        cellTable.addColumn(columnDelete, "Удалить");
     }
     
     /**
      * Set listener for selected item of table.
      */
     private void setSelectedItemListener() {
-        selModel.addSelectionChangeHandler(event -> updateInputsData(selModel.getSelectedObject()));
+        selModel.addSelectionChangeHandler(event -> sendSelectedObject(selModel.getSelectedObject()));
     }
     
     @Override
-    public UsersTableUpdater getUsersTableUpdater() {
-        return this.usersTableUpdater;
+    public void addNewObject(User newUser) {
+        users.getList().add(newUser);
     }
     
     @Override
-    public void setUsersTableUpdater(UsersTableUpdater usersTableUpdater) {
-        this.usersTableUpdater = usersTableUpdater;
+    public void editThisObject(User oldUser, User newUser) {
+        int index = users.getList().indexOf(oldUser);
+        users.getList().remove(oldUser);
+        users.getList().add(index, newUser);
     }
     
     @Override
-    public CellTable<User> getCellTable() {
-        return usersCellTable;
+    public void removeThisObject(User user) {
+        users.getList().remove(user);
     }
     
     @Override
-    public void updateInputsData(User user) {
-        userForms.forEach(userForm -> userForm.updateInputs(user));
-    }
-    
-    @Override
-    public void registerUserForm(UserForm userForm) {
-        userForms.add(userForm);
-    }
-    
-    @Override
-    public void removeUserForm(UserForm userForm) {
-        userForms.remove(userForm);
+    public void sendSelectedObject(User selectedUser) {
+        userTableDataUpdater.sendSelectedUser(selectedUser);
     }
 }
+
+    
+  

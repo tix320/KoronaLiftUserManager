@@ -1,10 +1,10 @@
 package client.UI.main;
 
-import client.UI.userForm.forms.UserAddForm;
-import client.UI.userForm.forms.UserEditForm;
+import client.UI.userForm.UserForm;
 import client.UI.userForm.tabPanel.UserFormTabPanel;
-import client.UI.userTable.UsersTable;
-import client.UI.userTable.UsersTableUpdater;
+import client.UI.userTable.UserTable;
+import client.UI.userTable.UserTableDataUpdater;
+import client.abstraction.SendType;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 
@@ -17,26 +17,23 @@ public class UserControlPanel extends Composite {
      * Create and initialize the main panel of UI.
      */
     public UserControlPanel() {
-    
         FlowPanel mainPanel = new FlowPanel();
     
-        UsersTable usersTable = new UsersTable();
+        UserTable userTable = new UserTable();
     
-        UserAddForm userAddForm = new UserAddForm();
-        UserEditForm userEditForm = new UserEditForm();
-        UserFormTabPanel userFormTabPanel = new UserFormTabPanel(userAddForm, userEditForm);
+        UserForm addUserForm = new UserForm(SendType.ADD);
+        UserForm editUserForm = new UserForm(SendType.EDIT);
+        UserFormTabPanel userFormTabPanel = new UserFormTabPanel(addUserForm, editUserForm);
     
-        UsersTableUpdater usersTableUpdater = new UsersTableUpdater();
-        userAddForm.registerUsersTableUpdater(usersTableUpdater);
-        userEditForm.registerUsersTableUpdater(usersTableUpdater);
-        
-        usersTableUpdater.registerTable(usersTable);
-        
-        usersTable.registerUserForm(userAddForm);
-        usersTable.registerUserForm(userEditForm);
+        UserTableDataUpdater userTableDataUpdater = new UserTableDataUpdater();
+    
+        userTableDataUpdater.registerObserver(userTable);
+    
+        addUserForm.registerDataUpdater(userTableDataUpdater);
+        editUserForm.registerDataUpdater(userTableDataUpdater);
         
         mainPanel.add(userFormTabPanel);
-        mainPanel.add(usersTable);
+        mainPanel.add(userTable);
         
         initWidget(mainPanel);
     }

@@ -1,16 +1,17 @@
-package client.UI.userForm.tabPanel;
+package client.abstraction;
 
 import lombok.Getter;
 
 /**
- * Text of tab panel tabs.
+ * Define type of some send.
  */
-public enum TabText {
+public enum SendType {
     ADD("Добавить"), EDIT("Изменить");
+    
     @Getter
     private String text;
     
-    TabText(String text) {
+    SendType(String text) {
         this.text = text;
     }
 }

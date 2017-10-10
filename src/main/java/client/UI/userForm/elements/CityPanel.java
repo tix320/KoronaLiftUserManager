@@ -1,9 +1,8 @@
 package client.UI.userForm.elements;
 
-import client.abstraction.userForm.IsValid;
+import client.abstraction.form.IsValid;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.ListBox;
-import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +13,6 @@ import java.util.List;
 public class CityPanel extends Composite implements IsValid {
     
     /** List box of cities. */
-    @Getter
     private ListBox listBoxCity;
     
     /** List of cities. */
@@ -29,9 +27,16 @@ public class CityPanel extends Composite implements IsValid {
         listBoxCity = new ListBox();
         listCity = new ArrayList<>();
         addItemsToListBox();
-        listBoxCity.setStyleName("user-form-list-city");
+        setDefaultStyles();
         
         initWidget(listBoxCity);
+    }
+    
+    /**
+     * Set default styles on widgets.
+     */
+    public void setDefaultStyles() {
+        listBoxCity.setStyleName("user-form-list-city");
     }
     
     /**

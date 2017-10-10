@@ -1,6 +1,6 @@
 package client.UI.userForm.elements;
 
-import client.abstraction.userForm.IsValid;
+import client.abstraction.form.IsValid;
 import client.modules.Gender;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -8,19 +8,28 @@ import com.google.gwt.user.client.ui.RadioButton;
 
 public class SexPanel extends Composite implements IsValid {
     
+    /** Group name of radio buttons. */
     private static final String GROUP_SEX = "sex";
     
+    /** Panel, where will radio buttons. */
     private HorizontalPanel panelSex;
+    
+    /** Radio button of male. */
     private RadioButton radioMale;
+    
+    /** Radio button of female. */
     private RadioButton radioFemale;
     
     public SexPanel() {
         initWidgets();
-        setStyles();
+        setDefaultStyles();
         
         initWidget(panelSex);
     }
     
+    /**
+     * Initialize widgets.
+     */
     private void initWidgets() {
         panelSex = new HorizontalPanel();
         radioFemale = new RadioButton(GROUP_SEX, "женский");
@@ -30,7 +39,11 @@ public class SexPanel extends Composite implements IsValid {
         panelSex.add(radioFemale);
     }
     
-    private void setStyles() {
+    /**
+     * Set widgets style.
+     */
+    public void setDefaultStyles() {
+        panelSex.setStyleName("user-form-sex-panel");
         radioMale.setStyleName("user-form-radio-group-sex");
         radioFemale.setStyleName("user-form-radio-group-sex");
     }

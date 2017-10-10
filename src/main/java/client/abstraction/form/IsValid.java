@@ -1,4 +1,4 @@
-package client.abstraction.userForm;
+package client.abstraction.form;
 
 /**
  * Validate and show error for inputs.
