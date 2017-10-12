@@ -1,62 +1,64 @@
 package client.widgets.forms;
 
+import client.dataUpdaters.DataObserver;
+import client.dataUpdaters.DataUpdater;
+import client.objects.User;
 import client.widgets.forms.elements.CityPanel;
 import client.widgets.forms.elements.DatePickerPanel;
 import client.widgets.forms.elements.FullNamePanel;
 import client.widgets.forms.elements.SexPanel;
-import client.widgets.tables.UserTable;
-import client.widgets.tables.UserTableDataUpdater;
-import client.dataUpdaters.DataUpdater;
-import client.objects.User;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
-import lombok.Getter;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Stream;
 
 /**
  * Base form to create user add and edit forms.
  */
-public class UserForm extends Composite implements Form<UserTableDataUpdater> {
+public abstract class UserForm extends Composite implements Form<User> {
     
     /** Id of the new user. */
-    private static int nextID = 0;
+    protected static int currentID = 0;
+    
     /** List of table updaters, which will transfer data. */
-    private List<DataUpdater<User, UserForm, UserTable>> dataUpdaters;
+    protected DataUpdater<User, DataObserver> dataUpdater;
+    
     /** Full name inputs. */
     private FullNamePanel fullNamePanel;
-    /**
-     * UserGender selection panel.
-     */
+    
+    /** Gender selection panel. */
     private SexPanel sexPanel;
+    
     /** City selection panel. */
     private CityPanel cityPanel;
+    
     /** Date selection panel. */
     private DatePickerPanel datePickerPanel;
+    
     /** Submit button - add new user or edit. */
-    private Button buttonSubmit;
+    protected Button buttonSubmit;
+    
     /** User, which is being edited. */
-    private User currentUser;
+    protected User currentUser;
+    
     /** Form main panel. */
     private FlowPanel panelSubmit;
-    /** Type of submit. */
-    @Getter
-    private SendType sendType;
     
     /**
      * Constructor is a main part for creating a user form.
      * All methods of its elements are called here.
      */
-    public UserForm(SendType sendType) {
-        this.sendType = sendType;
-    
-        initialize();
+    protected UserForm() {
         
-        buttonSubmit.addClickHandler(event -> submitAction());
+        initialize();
+    
+        buttonSubmit.addClickHandler(event -> {
+            if (isCorrect()) {
+                submitAction();
+            }
+        });
         
         Stream.of(fullNamePanel, sexPanel, cityPanel, datePickerPanel, buttonSubmit).forEach(panelSubmit::add);
         
@@ -67,53 +69,17 @@ public class UserForm extends Composite implements Form<UserTableDataUpdater> {
      * Initialize the widgets of user form.
      */
     private void initialize() {
-        dataUpdaters = new ArrayList<>();
         panelSubmit = new FlowPanel();
         fullNamePanel = new FullNamePanel();
         sexPanel = new SexPanel();
         cityPanel = new CityPanel();
         datePickerPanel = new DatePickerPanel();
-        buttonSubmit = new Button(sendType.getText());
+        buttonSubmit = new Button();
     }
     
-    @Override
-    public void submitAction() {
-        if (isCorrect()) {
-            if (sendType == SendType.ADD) {
-                sendNewUserData();
-            }
-            
-            if (sendType == SendType.EDIT) {
-                sendEditedUserData();
-            }
-        }
-    }
-    
-    /**
-     * Send new user data to data updater.
-     */
-    private void sendNewUserData() {
-        dataUpdaters.forEach(dataUpdater -> dataUpdater.addNewObject(
-                new User(++nextID, fullNamePanel.getFirstName(), fullNamePanel.getMiddleName(), fullNamePanel.getLastName(),
-                         sexPanel.getSelectedGender(), cityPanel.getSelectedCity(), datePickerPanel.getDate())));
-    }
-    
-    /**
-     * Send new data of changeable user to data updater.
-     */
-    private void sendEditedUserData() {
-        currentUser.setFirstName(fullNamePanel.getFirstName());
-        currentUser.setMiddleName(fullNamePanel.getMiddleName());
-        currentUser.setLastName(fullNamePanel.getLastName());
-        currentUser.setUserGender(sexPanel.getSelectedGender());
-        currentUser.setCity(cityPanel.getSelectedCity());
-        currentUser.setDateOfBirth(datePickerPanel.getDate());
-        dataUpdaters.forEach(dataUpdater -> dataUpdater.editThisObject(currentUser, new User(currentUser.getID(), fullNamePanel.getFirstName(),
-                                                                                             fullNamePanel.getMiddleName(),
-                                                                                             fullNamePanel.getLastName(),
-                                                                                             sexPanel.getSelectedGender(),
-                                                                                             cityPanel.getSelectedCity(),
-                                                                                             datePickerPanel.getDate())));
+    protected User getUserFromInputs(int ID) {
+        return new User(ID, fullNamePanel.getFirstName(), fullNamePanel.getMiddleName(), fullNamePanel.getLastName(), sexPanel.getSelectedGender(),
+                        cityPanel.getSelectedCity(), datePickerPanel.getDate());
     }
     
     /**
@@ -153,24 +119,28 @@ public class UserForm extends Composite implements Form<UserTableDataUpdater> {
      *
      * @param user is a owner of data.
      */
-    public void updateInputs(User user) {
+    private void updateInputs(User user) {
         currentUser = user;
         fullNamePanel.setFirstName(user.getFirstName());
         fullNamePanel.setMiddleName(user.getMiddleName());
         fullNamePanel.setLastName(user.getLastName());
-        sexPanel.setSelectedButton(user.getUserGender());
+        sexPanel.setSelectedButton(user.getGender());
         cityPanel.setSelectedCity(user.getCity());
         datePickerPanel.setDate(user.getDateOfBirth());
     }
     
     @Override
-    public void registerDataUpdater(UserTableDataUpdater userTableDataUpdater) {
-        userTableDataUpdater.addDataSource(this);
-        dataUpdaters.add(userTableDataUpdater);
+    public void setDataUpdater(DataUpdater dataUpdater) {
+        this.dataUpdater = dataUpdater;
     }
     
     @Override
-    public void removeDataUpdater(UserTableDataUpdater userTableDataUpdater) {
-        dataUpdaters.remove(userTableDataUpdater);
+    public void removeDataUpdater(DataUpdater dataUpdater) {
+        this.dataUpdater = null;
+    }
+    
+    @Override
+    public void response(User data) {
+        updateInputs(data);
     }
 }

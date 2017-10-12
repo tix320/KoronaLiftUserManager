@@ -1,37 +1,48 @@
 package client.dataUpdaters;
 
-import client.objects.ObjectOperator;
+
+import client.widgets.tables.UpdateType;
 
 /**
  * Utility for updating any data and notify own observers.
- * Object-Source-Follower.
  *
- * @param <O> is a type of object.
- * @param <S> is a type of data source.
- * @param <F> is a type of follower.
+ * @param <D> is a type of data.
+ * @param <O> is a type of observer.
  */
-public interface DataUpdater<O, S, F> extends ObjectOperator<O> {
+public interface DataUpdater<D, O> {
     
     /**
-     * Add new data source.
+     * Add data source.
      *
      * @param source is a data source.
      */
-    void addDataSource(S source);
+    void registerSource(DataSource source);
     
     /**
-     * Add widget, who will follow this updater.
+     * Remove the data source.
      *
-     * @param widget is adding widget.
+     * @param source is a removing source.
      */
-    void registerObserver(F widget);
+    void removeSource(DataSource source);
     
     /**
-     * Delete the widget.
+     * Add observer, who will follow this updater.
      *
-     * @param widget is removing widget.
+     * @param observer is adding observer.
      */
-    void removeObserver(F widget);
+    void registerObserver(O observer);
     
+    /**
+     * Remove the observer.
+     *
+     * @param observer is removing observer.
+     */
+    void removeObserver(O observer);
     
+    /**
+     * Send data from sources to observers.
+     *
+     * @param data is sending data.
+     */
+    void updateObservers(D data, UpdateType updateType);
 }

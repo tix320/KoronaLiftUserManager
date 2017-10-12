@@ -1,5 +1,6 @@
 package client.widgets.tables;
 
+import client.objects.User;
 import client.widgets.tables.columns.ColumnCity;
 import client.widgets.tables.columns.ColumnDateOfBirth;
 import client.widgets.tables.columns.ColumnDelete;
@@ -7,7 +8,6 @@ import client.widgets.tables.columns.ColumnFirstName;
 import client.widgets.tables.columns.ColumnLastName;
 import client.widgets.tables.columns.ColumnMiddleName;
 import client.widgets.tables.columns.ColumnSex;
-import client.objects.User;
 import com.google.gwt.cell.client.ButtonCell;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.client.ui.Composite;
@@ -19,10 +19,11 @@ import lombok.Setter;
  * Create custom widget to keep the users.
  * Users will be added from UserAddForm or edited from EditAddForm.
  */
-public class UserTable extends Composite implements Table<User> {
+public class UserTable extends Composite implements Table {
     @Setter
-    private UserTableDataUpdater userTableDataUpdater;
+    private UserTableDataUpdater tableUpdater;
     private SingleSelectionModel<User> selModel;
+    private int selectedUserIndex;
     private ListDataProvider<User> users;
     private CellTable<User> cellTable;
     private ColumnFirstName columnFirstName;
@@ -60,16 +61,17 @@ public class UserTable extends Composite implements Table<User> {
         columnCity = new ColumnCity();
         columnDateOfBirth = new ColumnDateOfBirth();
         columnDelete = new ColumnDelete(new ButtonCell());
-        columnDelete.setFieldUpdater((index, object, value) -> deleteAction(object));
+        columnDelete.setFieldUpdater((index, object, value) -> deleteButtonAction(object));
     }
     
     /**
      * Action of delete button.
+     * Send info to delete user from registered tables.
      *
      * @param user is a removing object.
      */
-    private void deleteAction(User user) {
-        userTableDataUpdater.removeThisObject(user);
+    private void deleteButtonAction(User user) {
+        tableUpdater.updateObservers(user, UpdateType.REMOVE);
     }
     
     /**
@@ -90,29 +92,24 @@ public class UserTable extends Composite implements Table<User> {
      * Set listener for selected item of table.
      */
     private void setSelectedItemListener() {
-        selModel.addSelectionChangeHandler(event -> sendSelectedObject(selModel.getSelectedObject()));
+        selModel.addSelectionChangeHandler(event -> {
+            selectedUserIndex = users.getList().indexOf(selModel.getSelectedObject());
+            sendSelectedObject(selModel.getSelectedObject());
+        });
     }
     
-    @Override
-    public void addNewObject(User newUser) {
-        users.getList().add(newUser);
+    public void updateTable(User user, UpdateType updateType) {
+        if (updateType == UpdateType.ADD) {
+            users.getList().add(user);
+        } else if (updateType == UpdateType.REMOVE) {
+            users.getList().remove(user);
+        } else if (updateType == UpdateType.EDIT) {
+            users.getList().set(selectedUserIndex, user);
+        }
     }
     
-    @Override
-    public void editThisObject(User oldUser, User newUser) {
-        int index = users.getList().indexOf(oldUser);
-        users.getList().remove(oldUser);
-        users.getList().add(index, newUser);
-    }
-    
-    @Override
-    public void removeThisObject(User user) {
-        users.getList().remove(user);
-    }
-    
-    @Override
-    public void sendSelectedObject(User selectedUser) {
-        userTableDataUpdater.sendSelectedUser(selectedUser);
+    private void sendSelectedObject(User selectedUser) {
+        tableUpdater.sendSelectedUser(selectedUser);
     }
 }
 

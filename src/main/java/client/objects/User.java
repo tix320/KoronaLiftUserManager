@@ -22,11 +22,9 @@ public class User {
     
     /** User's last name. */
     private String lastName;
-
-    /**
-     * User's userGender.
-     */
-    private UserGender userGender;
+    
+    /** User's gender. */
+    private Gender gender;
     
     /** User's city name. */
     private String city;

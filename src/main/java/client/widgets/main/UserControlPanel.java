@@ -1,10 +1,10 @@
 package client.widgets.main;
 
-import client.widgets.forms.UserForm;
+import client.widgets.forms.tabPanel.AddUserForm;
+import client.widgets.forms.tabPanel.EditUserForm;
 import client.widgets.forms.tabPanel.UserFormTabPanel;
 import client.widgets.tables.UserTable;
 import client.widgets.tables.UserTableDataUpdater;
-import client.widgets.forms.SendType;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 
@@ -21,20 +21,22 @@ public class UserControlPanel extends Composite {
     
         UserTable userTable = new UserTable();
     
-        UserForm addUserForm = new UserForm(SendType.ADD);
-        UserForm editUserForm = new UserForm(SendType.EDIT);
+        AddUserForm addUserForm = new AddUserForm();
+        EditUserForm editUserForm = new EditUserForm();
         UserFormTabPanel userFormTabPanel = new UserFormTabPanel(addUserForm, editUserForm);
     
-        UserTableDataUpdater userTableDataUpdater = new UserTableDataUpdater();
+        UserTableDataUpdater updater = new UserTableDataUpdater();
     
-        userTableDataUpdater.registerObserver(userTable);
+        updater.registerObserver(userTable);
+        updater.registerSource(addUserForm);
+        updater.registerSource(editUserForm);
     
-        addUserForm.registerDataUpdater(userTableDataUpdater);
-        editUserForm.registerDataUpdater(userTableDataUpdater);
+        addUserForm.setDataUpdater(updater);
+        editUserForm.setDataUpdater(updater);
         
         mainPanel.add(userFormTabPanel);
         mainPanel.add(userTable);
-
+    
         initWidget(mainPanel);
     }
 }

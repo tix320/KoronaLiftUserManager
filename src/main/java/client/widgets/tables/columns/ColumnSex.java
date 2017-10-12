@@ -1,6 +1,6 @@
 package client.widgets.tables.columns;
 
-import client.objects.UserGender;
+import client.objects.Gender;
 import client.objects.User;
 import com.google.gwt.user.cellview.client.TextColumn;
 
@@ -11,6 +11,6 @@ public class ColumnSex extends TextColumn<User> {
     
     @Override
     public String getValue(User object) {
-        return object.getUserGender() == UserGender.MALE ? "Мужской" : "Женский";
+        return object.getGender() == Gender.MALE ? "Мужской" : "Женский";
     }
 }

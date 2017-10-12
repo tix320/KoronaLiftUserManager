@@ -1,8 +1,8 @@
 package client.objects;
 
 /**
- * UserGender types.
+ * Gender types.
  */
-public enum UserGender {
+public enum Gender {
     MALE, FEMALE
 }

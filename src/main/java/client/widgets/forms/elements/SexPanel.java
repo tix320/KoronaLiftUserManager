@@ -1,7 +1,7 @@
 package client.widgets.forms.elements;
 
+import client.objects.Gender;
 import client.widgets.forms.IsValid;
-import client.objects.UserGender;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RadioButton;
@@ -66,10 +66,10 @@ public class SexPanel extends Composite implements IsValid {
     /**
      * Select button.
      *
-     * @param userGender checks, what button is selected.
+     * @param gender checks, what button is selected.
      */
-    public void setSelectedButton(UserGender userGender) {
-        if (userGender == UserGender.MALE) {
+    public void setSelectedButton(Gender gender) {
+        if (gender == Gender.MALE) {
             radioMale.setValue(true);
         } else {
             radioFemale.setValue(true);
@@ -81,11 +81,11 @@ public class SexPanel extends Composite implements IsValid {
      *
      * @return userGender.
      */
-    public UserGender getSelectedGender() {
+    public Gender getSelectedGender() {
         if (getSelectedButton() == radioMale) {
-            return UserGender.MALE;
+            return Gender.MALE;
         } else {
-            return UserGender.FEMALE;
+            return Gender.FEMALE;
         }
     }
     
