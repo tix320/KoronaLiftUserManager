@@ -40,28 +40,14 @@ public abstract class UserForm extends Composite implements Form<User> {
     /** Submit button - add new user or edit. */
     protected Button buttonSubmit;
     
-    /** User, which is being edited. */
-    protected User currentUser;
-    
-    /** Form main panel. */
-    private FlowPanel panelSubmit;
-    
     /**
      * Constructor is a main part for creating a user form.
      * All methods of its elements are called here.
      */
     protected UserForm() {
-        
+        FlowPanel panelSubmit = new FlowPanel();
         initialize();
-    
-        buttonSubmit.addClickHandler(event -> {
-            if (isCorrect()) {
-                submitAction();
-            }
-        });
-        
         Stream.of(fullNamePanel, sexPanel, cityPanel, datePickerPanel, buttonSubmit).forEach(panelSubmit::add);
-        
         initWidget(panelSubmit);
     }
     
@@ -69,14 +55,31 @@ public abstract class UserForm extends Composite implements Form<User> {
      * Initialize the widgets of user form.
      */
     private void initialize() {
-        panelSubmit = new FlowPanel();
         fullNamePanel = new FullNamePanel();
         sexPanel = new SexPanel();
         cityPanel = new CityPanel();
         datePickerPanel = new DatePickerPanel();
         buttonSubmit = new Button();
+        setButtonSubmitHandler();
     }
     
+    /**
+     * Set click handler for submit button.
+     */
+    private void setButtonSubmitHandler() {
+        buttonSubmit.addClickHandler(event -> {
+            if (isCorrect()) {
+                submitAction();
+            }
+        });
+    }
+    
+    /**
+     * Create new user taking data from inputs.
+     *
+     * @param ID of the new user.
+     * @return created user.
+     */
     protected User getUserFromInputs(int ID) {
         return new User(ID, fullNamePanel.getFirstName(), fullNamePanel.getMiddleName(), fullNamePanel.getLastName(), sexPanel.getSelectedGender(),
                         cityPanel.getSelectedCity(), datePickerPanel.getDate());
@@ -88,10 +91,7 @@ public abstract class UserForm extends Composite implements Form<User> {
      * @return correctness value.
      */
     private boolean isCorrect() {
-        
-        // Set input fields to default state.
         setInputDefaults();
-        
         return validateWidgets(fullNamePanel, sexPanel, cityPanel);
     }
     
@@ -120,7 +120,6 @@ public abstract class UserForm extends Composite implements Form<User> {
      * @param user is a owner of data.
      */
     private void updateInputs(User user) {
-        currentUser = user;
         fullNamePanel.setFirstName(user.getFirstName());
         fullNamePanel.setMiddleName(user.getMiddleName());
         fullNamePanel.setLastName(user.getLastName());

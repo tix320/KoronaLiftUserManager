@@ -15,6 +15,9 @@ public class UserTableDataUpdater implements DataUpdater<User, UserTable> {
     /** List of registered sources. */
     private List<DataSource> userDataSources;
     
+    /**
+     * Initialize lists.
+     */
     public UserTableDataUpdater() {
         userTables = new ArrayList<>();
         userDataSources = new ArrayList<>();
@@ -44,9 +47,14 @@ public class UserTableDataUpdater implements DataUpdater<User, UserTable> {
     
     @Override
     public void updateObservers(User user, UpdateType updateType) {
-        userTables.forEach(userTable -> userTable.updateTable(user, updateType));
+        userTables.forEach(userTable -> userTable.updateTableData(user, updateType));
     }
     
+    /**
+     * Send selected user data from table to sources.
+     *
+     * @param user is a data owner.
+     */
     public void sendSelectedUser(User user) {
         userDataSources.forEach(userDataSource -> userDataSource.response(user));
     }

@@ -30,9 +30,7 @@ public class FullNamePanel extends Composite implements IsValid {
     private List<TextBox> textBoxes;
     
     /**
-     * Add widgets to full name panel.
-     * Set styles to widgets.
-     * Set placeholder to text boxes.
+     * Create the full name panel.
      */
     public FullNamePanel() {
         initWidgets();
@@ -72,26 +70,50 @@ public class FullNamePanel extends Composite implements IsValid {
         Utility.setPlaceHolder(boxLastName, "Фамилия");
     }
     
+    /**
+     * Get first name from text box.
+     *
+     * @return firs name.
+     */
     public String getFirstName() {
         return boxFirstName.getText();
     }
     
+    /**
+     * Set first name to text box.
+     */
     public void setFirstName(String text) {
         boxFirstName.setText(text);
     }
     
+    /**
+     * Get middle name from text box.
+     *
+     * @return middle name.
+     */
     public String getMiddleName() {
         return boxMiddleName.getText();
     }
     
+    /**
+     * Set middle name to text box.
+     */
     public void setMiddleName(String text) {
         boxMiddleName.setText(text);
     }
     
+    /**
+     * Get last name from text box.
+     *
+     * @return last name.
+     */
     public String getLastName() {
         return boxLastName.getText();
     }
     
+    /**
+     * Set last name to text box.
+     */
     public void setLastName(String text) {
         boxLastName.setText(text);
     }
@@ -106,6 +128,5 @@ public class FullNamePanel extends Composite implements IsValid {
         textBoxes.stream()
                 .filter(validateBox -> validateBox.getText().isEmpty())
                 .forEach(validateBox -> validateBox.setStyleName("user-form-text-boxes-fio-error"));
-    
     }
 }

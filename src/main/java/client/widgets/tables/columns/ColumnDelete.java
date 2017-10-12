@@ -9,7 +9,7 @@ public class ColumnDelete extends Column<User, String> {
     /**
      * Construct a new Column with a given {@link Cell}.
      *
-     * @param cell the Cell used by this Column
+     * @param cell the Cell used by this Column.
      */
     public ColumnDelete(Cell<String> cell) {
         super(cell);

@@ -20,6 +20,9 @@ public class SexPanel extends Composite implements IsValid {
     /** Radio button of female. */
     private RadioButton radioFemale;
     
+    /**
+     * Create the gender selection panel.
+     */
     public SexPanel() {
         initWidgets();
         setDefaultStyles();

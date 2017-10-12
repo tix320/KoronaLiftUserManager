@@ -32,7 +32,6 @@ public class DatePickerPanel extends Composite {
         datePicker.setYearArrowsVisible(true);
         datePicker.setVisibleYearCount(VISIBLE_YEAR_COUNT);
         
-        // Initialize datePicker -> widget.
         initWidget(datePicker);
     }
     

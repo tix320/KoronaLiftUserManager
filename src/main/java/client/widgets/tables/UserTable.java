@@ -20,30 +20,35 @@ import lombok.Setter;
  * Users will be added from UserAddForm or edited from EditAddForm.
  */
 public class UserTable extends Composite implements Table {
+    
+    /** Data updater for table. */
     @Setter
     private UserTableDataUpdater tableUpdater;
-    private SingleSelectionModel<User> selModel;
-    private int selectedUserIndex;
-    private ListDataProvider<User> users;
-    private CellTable<User> cellTable;
-    private ColumnFirstName columnFirstName;
-    private ColumnMiddleName columnMiddleName;
-    private ColumnLastName columnLastName;
-    private ColumnSex columnSex;
-    private ColumnCity columnCity;
-    private ColumnDateOfBirth columnDateOfBirth;
-    private ColumnDelete columnDelete;
     
+    /** Model for table object selection. */
+    private SingleSelectionModel<User> selModel;
+    
+    /** Current selected user's index. */
+    private int selectedUserIndex;
+    
+    /** List of users. */
+    private ListDataProvider<User> users;
+    
+    /** Cell table to show users. */
+    private CellTable<User> cellTable;
+    
+    /**
+     * Constructor for creating user table.
+     */
     public UserTable() {
         cellTable = new CellTable<>();
         selModel = new SingleSelectionModel<>();
         users = new ListDataProvider<>();
-        users.addDataDisplay(cellTable);
         
+        users.addDataDisplay(cellTable);
         cellTable.setSelectionModel(selModel);
         
         initColumns();
-        addColumns();
         setSelectedItemListener();
         
         initWidget(cellTable);
@@ -53,39 +58,35 @@ public class UserTable extends Composite implements Table {
      * Initialize columns for table.
      */
     private void initColumns() {
-        
-        columnFirstName = new ColumnFirstName();
-        columnMiddleName = new ColumnMiddleName();
-        columnLastName = new ColumnLastName();
-        columnSex = new ColumnSex();
-        columnCity = new ColumnCity();
-        columnDateOfBirth = new ColumnDateOfBirth();
-        columnDelete = new ColumnDelete(new ButtonCell());
-        columnDelete.setFieldUpdater((index, object, value) -> deleteButtonAction(object));
+        cellTable.setStyleName("users-table-general");
+        cellTable.addColumn(new ColumnFirstName(), "Имя");
+        cellTable.addColumn(new ColumnMiddleName(), "Отчество");
+        cellTable.addColumn(new ColumnLastName(), "Фамилия");
+        cellTable.addColumn(new ColumnSex(), "Город");
+        cellTable.addColumn(new ColumnCity(), "Пол");
+        cellTable.addColumn(new ColumnDateOfBirth(), "Дата рождения");
+        cellTable.addColumn(createColumnDelete(), "Удалить");
     }
     
     /**
-     * Action of delete button.
+     * Create delete column for removing users.
+     *
+     * @return created column.
+     */
+    private ColumnDelete createColumnDelete() {
+        ColumnDelete columnDelete = new ColumnDelete(new ButtonCell());
+        columnDelete.setFieldUpdater((index, object, value) -> deleteButtonAction(object));
+        return columnDelete;
+    }
+    
+    /**
+     * Action of delete column button.
      * Send info to delete user from registered tables.
      *
      * @param user is a removing object.
      */
     private void deleteButtonAction(User user) {
         tableUpdater.updateObservers(user, UpdateType.REMOVE);
-    }
-    
-    /**
-     * Add columns to table.
-     */
-    private void addColumns() {
-        cellTable.setStyleName("users-table-general");
-        cellTable.addColumn(columnFirstName, "Имя");
-        cellTable.addColumn(columnMiddleName, "Отчество");
-        cellTable.addColumn(columnLastName, "Фамилия");
-        cellTable.addColumn(columnCity, "Город");
-        cellTable.addColumn(columnSex, "Пол");
-        cellTable.addColumn(columnDateOfBirth, "Дата рождения");
-        cellTable.addColumn(columnDelete, "Удалить");
     }
     
     /**
@@ -98,7 +99,8 @@ public class UserTable extends Composite implements Table {
         });
     }
     
-    public void updateTable(User user, UpdateType updateType) {
+    @Override
+    public void updateTableData(User user, UpdateType updateType) {
         if (updateType == UpdateType.ADD) {
             users.getList().add(user);
         } else if (updateType == UpdateType.REMOVE) {
@@ -108,6 +110,11 @@ public class UserTable extends Composite implements Table {
         }
     }
     
+    /**
+     * Send selected object to somewhere.
+     *
+     * @param selectedUser is a selected object in table.
+     */
     private void sendSelectedObject(User selectedUser) {
         tableUpdater.sendSelectedUser(selectedUser);
     }
