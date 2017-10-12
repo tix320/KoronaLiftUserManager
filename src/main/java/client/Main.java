@@ -1,6 +1,6 @@
 package client;
 
-import client.UI.main.UserControlPanel;
+import client.widgets.main.UserControlPanel;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.RootPanel;
 
