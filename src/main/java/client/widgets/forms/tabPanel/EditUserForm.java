@@ -1,7 +1,7 @@
 package client.widgets.forms.tabPanel;
 
+import client.objects.UsersRepository;
 import client.widgets.forms.UserForm;
-import client.widgets.tables.UpdateType;
 
 public class EditUserForm extends UserForm {
     
@@ -17,6 +17,6 @@ public class EditUserForm extends UserForm {
     
     @Override
     public void submitAction() {
-        dataUpdater.updateObservers(getUserFromInputs(currentID), UpdateType.EDIT);
+        UsersRepository.getRepository().editUser(currentUserIndex, getUserFromInputs());
     }
 }

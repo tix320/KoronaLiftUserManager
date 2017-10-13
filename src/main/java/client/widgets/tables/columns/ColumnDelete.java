@@ -4,6 +4,9 @@ import client.objects.User;
 import com.google.gwt.cell.client.Cell;
 import com.google.gwt.user.cellview.client.Column;
 
+/**
+ * Column with button to remove users.
+ */
 public class ColumnDelete extends Column<User, String> {
     
     /**

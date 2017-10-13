@@ -3,7 +3,7 @@ package client.widgets.forms;
 /**
  * Validate and show error for inputs.
  */
-public interface IsValid {
+public interface Validator {
     
     /**
      * Validate the input.

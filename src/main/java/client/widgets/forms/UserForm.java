@@ -1,7 +1,5 @@
 package client.widgets.forms;
 
-import client.dataUpdaters.DataObserver;
-import client.dataUpdaters.DataUpdater;
 import client.objects.User;
 import client.widgets.forms.elements.CityPanel;
 import client.widgets.forms.elements.DatePickerPanel;
@@ -19,12 +17,6 @@ import java.util.stream.Stream;
  */
 public abstract class UserForm extends Composite implements Form<User> {
     
-    /** Id of the new user. */
-    protected static int currentID = 0;
-    
-    /** List of table updaters, which will transfer data. */
-    protected DataUpdater<User, DataObserver> dataUpdater;
-    
     /** Full name inputs. */
     private FullNamePanel fullNamePanel;
     
@@ -40,33 +32,57 @@ public abstract class UserForm extends Composite implements Form<User> {
     /** Submit button - add new user or edit. */
     protected Button buttonSubmit;
     
+    /** Current user's index. */
+    protected int currentUserIndex;
+    
     /**
      * Constructor is a main part for creating a user form.
      * All methods of its elements are called here.
      */
     protected UserForm() {
         FlowPanel panelSubmit = new FlowPanel();
-        initialize();
+        createFullNamePanel();
+        createSexPanel();
+        createCityPanel();
+        createDatePickerPanel();
+        createButtonSubmit();
         Stream.of(fullNamePanel, sexPanel, cityPanel, datePickerPanel, buttonSubmit).forEach(panelSubmit::add);
         initWidget(panelSubmit);
     }
     
     /**
-     * Initialize the widgets of user form.
+     * Create panel for input full name.
      */
-    private void initialize() {
+    private void createFullNamePanel() {
         fullNamePanel = new FullNamePanel();
-        sexPanel = new SexPanel();
-        cityPanel = new CityPanel();
-        datePickerPanel = new DatePickerPanel();
-        buttonSubmit = new Button();
-        setButtonSubmitHandler();
     }
     
     /**
-     * Set click handler for submit button.
+     * Create panel for select gender.
      */
-    private void setButtonSubmitHandler() {
+    private void createSexPanel() {
+        sexPanel = new SexPanel();
+    }
+    
+    /**
+     * Create panel for select city.
+     */
+    private void createCityPanel() {
+        cityPanel = new CityPanel();
+    }
+    
+    /**
+     * Create panel for select dat of birth.
+     */
+    private void createDatePickerPanel() {
+        datePickerPanel = new DatePickerPanel();
+    }
+    
+    /**
+     * Create submit button to send data.
+     */
+    private void createButtonSubmit() {
+        buttonSubmit = new Button();
         buttonSubmit.addClickHandler(event -> {
             if (isCorrect()) {
                 submitAction();
@@ -77,12 +93,17 @@ public abstract class UserForm extends Composite implements Form<User> {
     /**
      * Create new user taking data from inputs.
      *
-     * @param ID of the new user.
      * @return created user.
      */
-    protected User getUserFromInputs(int ID) {
-        return new User(ID, fullNamePanel.getFirstName(), fullNamePanel.getMiddleName(), fullNamePanel.getLastName(), sexPanel.getSelectedGender(),
-                        cityPanel.getSelectedCity(), datePickerPanel.getDate());
+    protected User getUserFromInputs() {
+        User newUser = new User();
+        newUser.setFirstName(fullNamePanel.getFirstName());
+        newUser.setMiddleName(fullNamePanel.getMiddleName());
+        newUser.setLastName(fullNamePanel.getLastName());
+        newUser.setGender(sexPanel.getGender());
+        newUser.setCity(cityPanel.getSelectedCity());
+        newUser.setDateOfBirth(datePickerPanel.getDate());
+        return newUser;
     }
     
     /**
@@ -101,8 +122,8 @@ public abstract class UserForm extends Composite implements Form<User> {
      * @param widgetsForValidate is a widgets ,which will validate.
      * @return validate result.
      */
-    private boolean validateWidgets(IsValid... widgetsForValidate) {
-        return Arrays.stream(widgetsForValidate).filter(validateWidget -> !validateWidget.validate()).peek(IsValid::showError).count() == 0;
+    private boolean validateWidgets(Validator... widgetsForValidate) {
+        return Arrays.stream(widgetsForValidate).filter(validateWidget -> !validateWidget.validate()).peek(Validator::showError).count() == 0;
     }
     
     /**
@@ -129,17 +150,8 @@ public abstract class UserForm extends Composite implements Form<User> {
     }
     
     @Override
-    public void setDataUpdater(DataUpdater dataUpdater) {
-        this.dataUpdater = dataUpdater;
-    }
-    
-    @Override
-    public void removeDataUpdater(DataUpdater dataUpdater) {
-        this.dataUpdater = null;
-    }
-    
-    @Override
-    public void response(User data) {
-        updateInputs(data);
+    public void response(int index, User user) {
+        currentUserIndex = index;
+        updateInputs(user);
     }
 }

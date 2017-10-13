@@ -1,7 +1,6 @@
 package client.widgets.forms.elements;
 
-import client.widgets.forms.IsValid;
-import client.utilities.Utility;
+import client.widgets.forms.Validator;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -12,7 +11,7 @@ import java.util.List;
 /**
  * Panel for input full name.
  */
-public class FullNamePanel extends Composite implements IsValid {
+public class FullNamePanel extends Composite implements Validator {
     
     /** Panel for text boxes. */
     private VerticalPanel fullNamePanel;
@@ -29,28 +28,59 @@ public class FullNamePanel extends Composite implements IsValid {
     /** List of text boxes. */
     private List<TextBox> textBoxes;
     
+    /** Place holder text for first name box. */
+    private static final String FIRST_NAME = "Имя";
+    
+    /** Place holder text for middle name box. */
+    private static final String MIDDLE_NAME = "Отчество";
+    
+    /** Place holder text for last name box. */
+    private static final String LAST_NAME = "Фамилия";
+    
+    /** HTML attribute. */
+    private static final String PLACEHOLDER = "placeholder";
+    
     /**
-     * Create the full name panel.
+     * Create the full name input panel.
      */
     public FullNamePanel() {
-        initWidgets();
+        fullNamePanel = new VerticalPanel();
+        boxFirstName = createBoxFirstName();
+        boxMiddleName = createBoxMiddleName();
+        boxLastName = createBoxLastName();
+    
+        textBoxes = Arrays.asList(boxFirstName, boxMiddleName, boxLastName);
+        textBoxes.forEach(fullNamePanel::add);
         setDefaultStyles();
-        setPlaceHolders();
-        
+    
         initWidget(fullNamePanel);
     }
     
     /**
-     * Initialize widgets and panel.
+     * Create text box for input first name.
      */
-    private void initWidgets() {
-        fullNamePanel = new VerticalPanel();
-        boxFirstName = new TextBox();
-        boxMiddleName = new TextBox();
-        boxLastName = new TextBox();
-        textBoxes = Arrays.asList(boxFirstName, boxMiddleName, boxLastName);
+    private TextBox createBoxFirstName() {
+        TextBox boxFirstName = new TextBox();
+        boxFirstName.getElement().setAttribute(PLACEHOLDER, FIRST_NAME);
+        return boxFirstName;
+    }
     
-        textBoxes.forEach(fullNamePanel::add);
+    /**
+     * Create text box for input middle name.
+     */
+    private TextBox createBoxMiddleName() {
+        TextBox boxMiddleName = new TextBox();
+        boxMiddleName.getElement().setAttribute(PLACEHOLDER, MIDDLE_NAME);
+        return boxMiddleName;
+    }
+    
+    /**
+     * Create text box for input last name.
+     */
+    private TextBox createBoxLastName() {
+        TextBox boxLastName = new TextBox();
+        boxLastName.getElement().setAttribute(PLACEHOLDER, LAST_NAME);
+        return boxLastName;
     }
     
     /**
@@ -58,16 +88,7 @@ public class FullNamePanel extends Composite implements IsValid {
      */
     public void setDefaultStyles() {
         fullNamePanel.setStyleName("user-form-full-name-panel");
-        textBoxes.forEach(validateBox -> validateBox.setStyleName("user-form-text-boxes-fio"));
-    }
-    
-    /**
-     * Set placeholders to text boxes.
-     */
-    private void setPlaceHolders() {
-        Utility.setPlaceHolder(boxFirstName, "Имя");
-        Utility.setPlaceHolder(boxMiddleName, "Отчество");
-        Utility.setPlaceHolder(boxLastName, "Фамилия");
+        textBoxes.forEach(textBox -> textBox.setStyleName("user-form-text-boxes-fio"));
     }
     
     /**

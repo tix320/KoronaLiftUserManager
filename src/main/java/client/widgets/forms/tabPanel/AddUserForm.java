@@ -1,7 +1,7 @@
 package client.widgets.forms.tabPanel;
 
+import client.objects.UsersRepository;
 import client.widgets.forms.UserForm;
-import client.widgets.tables.UpdateType;
 
 public class AddUserForm extends UserForm {
     
@@ -17,6 +17,6 @@ public class AddUserForm extends UserForm {
     
     @Override
     public void submitAction() {
-        dataUpdater.updateObservers(getUserFromInputs(++currentID), UpdateType.ADD);
+        UsersRepository.getRepository().addUser(getUserFromInputs());
     }
 }

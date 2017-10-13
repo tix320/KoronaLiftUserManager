@@ -1,6 +1,5 @@
 package client.objects;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,7 +7,6 @@ import java.util.Date;
 
 @Setter
 @Getter
-@AllArgsConstructor
 public class User {
     
     /** User's unique number. */

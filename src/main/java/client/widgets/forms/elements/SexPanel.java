@@ -1,15 +1,18 @@
 package client.widgets.forms.elements;
 
 import client.objects.Gender;
-import client.widgets.forms.IsValid;
+import client.widgets.forms.Validator;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RadioButton;
 
-public class SexPanel extends Composite implements IsValid {
+public class SexPanel extends Composite implements Validator {
     
     /** Group name of radio buttons. */
     private static final String GROUP_SEX = "sex";
+    
+    /** Style name for radio buttons. */
+    private static final String RADIO_BUTTON_STYLE = "user-form-radio-group-sex";
     
     /** Panel, where will radio buttons. */
     private HorizontalPanel panelSex;
@@ -24,22 +27,32 @@ public class SexPanel extends Composite implements IsValid {
      * Create the gender selection panel.
      */
     public SexPanel() {
-        initWidgets();
+        panelSex = new HorizontalPanel();
+        radioMale = createMaleRadioButton();
+        radioFemale = createFemaleRadioButton();
         setDefaultStyles();
-        
+    
+        panelSex.add(radioMale);
+        panelSex.add(radioFemale);
         initWidget(panelSex);
     }
     
     /**
-     * Initialize widgets.
+     * Create radio button for select gender male.
      */
-    private void initWidgets() {
-        panelSex = new HorizontalPanel();
-        radioFemale = new RadioButton(GROUP_SEX, "женский");
-        radioMale = new RadioButton(GROUP_SEX, "мужский");
-        
-        panelSex.add(radioMale);
-        panelSex.add(radioFemale);
+    private RadioButton createMaleRadioButton() {
+        RadioButton radioMale = new RadioButton(GROUP_SEX, Gender.MALE.getName());
+        radioMale.setStyleName(RADIO_BUTTON_STYLE);
+        return radioMale;
+    }
+    
+    /**
+     * Create radio button for select gender female.
+     */
+    private RadioButton createFemaleRadioButton() {
+        RadioButton radioFemale = new RadioButton(GROUP_SEX, Gender.FEMALE.getName());
+        radioFemale.setStyleName(RADIO_BUTTON_STYLE);
+        return radioFemale;
     }
     
     /**
@@ -47,8 +60,6 @@ public class SexPanel extends Composite implements IsValid {
      */
     public void setDefaultStyles() {
         panelSex.setStyleName("user-form-sex-panel");
-        radioMale.setStyleName("user-form-radio-group-sex");
-        radioFemale.setStyleName("user-form-radio-group-sex");
     }
     
     /**
@@ -84,7 +95,7 @@ public class SexPanel extends Composite implements IsValid {
      *
      * @return userGender.
      */
-    public Gender getSelectedGender() {
+    public Gender getGender() {
         if (getSelectedButton() == radioMale) {
             return Gender.MALE;
         } else {

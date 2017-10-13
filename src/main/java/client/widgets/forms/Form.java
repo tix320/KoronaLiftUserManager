@@ -1,6 +1,6 @@
 package client.widgets.forms;
 
-import client.dataUpdaters.DataSource;
+import client.data.DataSource;
 
 /**
  * Interface for creating any forms.

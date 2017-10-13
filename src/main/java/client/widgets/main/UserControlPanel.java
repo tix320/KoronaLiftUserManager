@@ -1,10 +1,10 @@
 package client.widgets.main;
 
+import client.objects.UsersRepository;
 import client.widgets.forms.tabPanel.AddUserForm;
 import client.widgets.forms.tabPanel.EditUserForm;
 import client.widgets.forms.tabPanel.UserFormTabPanel;
 import client.widgets.tables.UserTable;
-import client.widgets.tables.UserTableDataUpdater;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 
@@ -25,14 +25,9 @@ public class UserControlPanel extends Composite {
         EditUserForm editUserForm = new EditUserForm();
         UserFormTabPanel userFormTabPanel = new UserFormTabPanel(addUserForm, editUserForm);
     
-        UserTableDataUpdater updater = new UserTableDataUpdater();
-    
-        updater.registerObserver(userTable);
-        updater.registerSource(addUserForm);
-        updater.registerSource(editUserForm);
-    
-        addUserForm.setDataUpdater(updater);
-        editUserForm.setDataUpdater(updater);
+        UsersRepository.getRepository().registerObserver(userTable);
+        UsersRepository.getRepository().registerSource(addUserForm);
+        UsersRepository.getRepository().registerSource(editUserForm);
         
         mainPanel.add(userFormTabPanel);
         mainPanel.add(userTable);

@@ -1,6 +1,8 @@
 package client.widgets.tables;
 
+import client.data.DataObserver;
 import client.objects.User;
+import client.objects.UsersRepository;
 import client.widgets.tables.columns.ColumnCity;
 import client.widgets.tables.columns.ColumnDateOfBirth;
 import client.widgets.tables.columns.ColumnDelete;
@@ -13,17 +15,12 @@ import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SingleSelectionModel;
-import lombok.Setter;
 
 /**
  * Create custom widget to keep the users.
  * Users will be added from UserAddForm or edited from EditAddForm.
  */
-public class UserTable extends Composite implements Table {
-    
-    /** Data updater for table. */
-    @Setter
-    private UserTableDataUpdater tableUpdater;
+public class UserTable extends Composite implements DataObserver<User> {
     
     /** Model for table object selection. */
     private SingleSelectionModel<User> selModel;
@@ -86,7 +83,7 @@ public class UserTable extends Composite implements Table {
      * @param user is a removing object.
      */
     private void deleteButtonAction(User user) {
-        tableUpdater.updateObservers(user, UpdateType.REMOVE);
+        UsersRepository.getRepository().removeUser(user);
     }
     
     /**
@@ -99,8 +96,17 @@ public class UserTable extends Composite implements Table {
         });
     }
     
+    /**
+     * Send selected object to somewhere.
+     *
+     * @param selectedUser is a selected object in table.
+     */
+    private void sendSelectedObject(User selectedUser) {
+        UsersRepository.getRepository().responseFromObserver(selectedUser);
+    }
+    
     @Override
-    public void updateTableData(User user, UpdateType updateType) {
+    public void update(User user, UpdateType updateType) {
         if (updateType == UpdateType.ADD) {
             users.getList().add(user);
         } else if (updateType == UpdateType.REMOVE) {
@@ -108,15 +114,6 @@ public class UserTable extends Composite implements Table {
         } else if (updateType == UpdateType.EDIT) {
             users.getList().set(selectedUserIndex, user);
         }
-    }
-    
-    /**
-     * Send selected object to somewhere.
-     *
-     * @param selectedUser is a selected object in table.
-     */
-    private void sendSelectedObject(User selectedUser) {
-        tableUpdater.sendSelectedUser(selectedUser);
     }
 }
 
