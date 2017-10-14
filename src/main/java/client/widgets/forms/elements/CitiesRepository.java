@@ -1,6 +1,6 @@
 package client.widgets.forms.elements;
 
-import client.data.DataRepository;
+import client.data.Repository;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -9,20 +9,36 @@ import java.util.List;
 /**
  * Repository for cities.
  */
-class CitiesRepository extends DataRepository {
+public class CitiesRepository extends Repository<String> {
+    
+    /** Repository reference. */
+    private static CitiesRepository citiesRepository;
     
     /** List of cities. */
     @Getter
-    private static List<String> cities;
+    private List<String> cities;
     
-    static {
+    /**
+     * Init repository.
+     */
+    private CitiesRepository() {
         initCities();
+    }
+    
+    /**
+     * Create the repository.
+     */
+    public static CitiesRepository createRepository() {
+        if (citiesRepository == null) {
+            citiesRepository = new CitiesRepository();
+        }
+        return citiesRepository;
     }
     
     /**
      * Init users list.
      */
-    private static void initCities() {
+    private void initCities() {
         cities = new ArrayList<>();
         cities.add("Город");
         cities.add("Абингдон");

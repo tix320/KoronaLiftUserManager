@@ -1,8 +1,8 @@
 package client.widgets.forms.elements;
 
 import client.widgets.forms.Validator;
+import client.widgets.inputs.CustomTextBox;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import java.util.Arrays;
@@ -17,16 +17,16 @@ public class FullNamePanel extends Composite implements Validator {
     private VerticalPanel fullNamePanel;
     
     /** Text box for input first name. */
-    private TextBox boxFirstName;
+    private CustomTextBox boxFirstName;
     
     /** Text box for input middle name. */
-    private TextBox boxMiddleName;
+    private CustomTextBox boxMiddleName;
     
     /** Text box for input last name. */
-    private TextBox boxLastName;
+    private CustomTextBox boxLastName;
     
     /** List of text boxes. */
-    private List<TextBox> textBoxes;
+    private List<CustomTextBox> textBoxes;
     
     /** Place holder text for first name box. */
     private static final String FIRST_NAME = "Имя";
@@ -36,9 +36,6 @@ public class FullNamePanel extends Composite implements Validator {
     
     /** Place holder text for last name box. */
     private static final String LAST_NAME = "Фамилия";
-    
-    /** HTML attribute. */
-    private static final String PLACEHOLDER = "placeholder";
     
     /**
      * Create the full name input panel.
@@ -59,27 +56,27 @@ public class FullNamePanel extends Composite implements Validator {
     /**
      * Create text box for input first name.
      */
-    private TextBox createBoxFirstName() {
-        TextBox boxFirstName = new TextBox();
-        boxFirstName.getElement().setAttribute(PLACEHOLDER, FIRST_NAME);
+    private CustomTextBox createBoxFirstName() {
+        CustomTextBox boxFirstName = new CustomTextBox();
+        boxFirstName.setPlaceHolder(FIRST_NAME);
         return boxFirstName;
     }
     
     /**
      * Create text box for input middle name.
      */
-    private TextBox createBoxMiddleName() {
-        TextBox boxMiddleName = new TextBox();
-        boxMiddleName.getElement().setAttribute(PLACEHOLDER, MIDDLE_NAME);
+    private CustomTextBox createBoxMiddleName() {
+        CustomTextBox boxMiddleName = new CustomTextBox();
+        boxMiddleName.setPlaceHolder(MIDDLE_NAME);
         return boxMiddleName;
     }
     
     /**
      * Create text box for input last name.
      */
-    private TextBox createBoxLastName() {
-        TextBox boxLastName = new TextBox();
-        boxLastName.getElement().setAttribute(PLACEHOLDER, LAST_NAME);
+    private CustomTextBox createBoxLastName() {
+        CustomTextBox boxLastName = new CustomTextBox();
+        boxLastName.setPlaceHolder(LAST_NAME);
         return boxLastName;
     }
     

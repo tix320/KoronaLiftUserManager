@@ -1,6 +1,6 @@
 package client.objects;
 
-import client.data.DataRepository;
+import client.data.Repository;
 import client.widgets.tables.UpdateType;
 
 import java.util.ArrayList;
@@ -9,10 +9,10 @@ import java.util.List;
 /**
  * Repository for users.
  */
-public class UsersRepository extends DataRepository<User> {
+public class UsersRepository extends Repository<User> {
     
-    /** Reference of repository. */
-    private static UsersRepository repository;
+    /** Repository reference. */
+    private static UsersRepository usersRepository;
     
     /** List of users. */
     private List<User> users;
@@ -21,10 +21,20 @@ public class UsersRepository extends DataRepository<User> {
     private int nextID = 0;
     
     /**
-     * Create the repository.
+     * Init repository.
      */
     private UsersRepository() {
         initUsers();
+    }
+    
+    /**
+     * Create the repository.
+     */
+    public static UsersRepository createRepository() {
+        if (usersRepository == null) {
+            usersRepository = new UsersRepository();
+        }
+        return usersRepository;
     }
     
     /**
@@ -34,17 +44,6 @@ public class UsersRepository extends DataRepository<User> {
         users = new ArrayList<>();
     }
     
-    /**
-     * Get the instance of repository.
-     *
-     * @return repository.
-     */
-    public static UsersRepository getRepository() {
-        if (repository == null) {
-            repository = new UsersRepository();
-        }
-        return repository;
-    }
     
     /**
      * Add new user.
@@ -87,5 +86,4 @@ public class UsersRepository extends DataRepository<User> {
         int index = users.indexOf(user);
         sources.forEach(source -> source.response(index, user));
     }
-    
 }

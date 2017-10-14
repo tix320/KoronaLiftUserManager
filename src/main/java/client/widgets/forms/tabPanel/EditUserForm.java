@@ -1,6 +1,6 @@
 package client.widgets.forms.tabPanel;
 
-import client.objects.UsersRepository;
+import client.data.DataRepository;
 import client.widgets.forms.UserForm;
 
 public class EditUserForm extends UserForm {
@@ -17,6 +17,6 @@ public class EditUserForm extends UserForm {
     
     @Override
     public void submitAction() {
-        UsersRepository.getRepository().editUser(currentUserIndex, getUserFromInputs());
+        DataRepository.getUsersRepository().editUser(currentUserIndex, getUserFromInputs());
     }
 }

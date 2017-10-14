@@ -1,6 +1,8 @@
 package client.widgets.main;
 
-import client.objects.UsersRepository;
+import client.data.DataRepository;
+import client.data.Repository;
+import client.objects.User;
 import client.widgets.forms.tabPanel.AddUserForm;
 import client.widgets.forms.tabPanel.EditUserForm;
 import client.widgets.forms.tabPanel.UserFormTabPanel;
@@ -25,9 +27,11 @@ public class UserControlPanel extends Composite {
         EditUserForm editUserForm = new EditUserForm();
         UserFormTabPanel userFormTabPanel = new UserFormTabPanel(addUserForm, editUserForm);
     
-        UsersRepository.getRepository().registerObserver(userTable);
-        UsersRepository.getRepository().registerSource(addUserForm);
-        UsersRepository.getRepository().registerSource(editUserForm);
+        Repository<User> usersRepository = DataRepository.getUsersRepository();
+    
+        usersRepository.registerObserver(userTable);
+        usersRepository.registerSource(addUserForm);
+        usersRepository.registerSource(editUserForm);
         
         mainPanel.add(userFormTabPanel);
         mainPanel.add(userTable);

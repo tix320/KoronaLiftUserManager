@@ -1,8 +1,8 @@
 package client.widgets.tables;
 
 import client.data.DataObserver;
+import client.data.DataRepository;
 import client.objects.User;
-import client.objects.UsersRepository;
 import client.widgets.tables.columns.ColumnCity;
 import client.widgets.tables.columns.ColumnDateOfBirth;
 import client.widgets.tables.columns.ColumnDelete;
@@ -83,7 +83,7 @@ public class UserTable extends Composite implements DataObserver<User> {
      * @param user is a removing object.
      */
     private void deleteButtonAction(User user) {
-        UsersRepository.getRepository().removeUser(user);
+        DataRepository.getUsersRepository().removeUser(user);
     }
     
     /**
@@ -102,7 +102,7 @@ public class UserTable extends Composite implements DataObserver<User> {
      * @param selectedUser is a selected object in table.
      */
     private void sendSelectedObject(User selectedUser) {
-        UsersRepository.getRepository().responseFromObserver(selectedUser);
+        DataRepository.getUsersRepository().responseFromObserver(selectedUser);
     }
     
     @Override

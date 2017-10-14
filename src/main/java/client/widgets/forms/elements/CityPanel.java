@@ -1,5 +1,6 @@
 package client.widgets.forms.elements;
 
+import client.data.DataRepository;
 import client.widgets.forms.Validator;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.ListBox;
@@ -34,7 +35,7 @@ public class CityPanel extends Composite implements Validator {
      * Add items to list box.
      */
     private void addItemsToListBox() {
-        CitiesRepository.getCities().forEach(listBoxCity::addItem);
+        DataRepository.getCitiesRepository().getCities().forEach(listBoxCity::addItem);
     }
     
     /**
@@ -52,7 +53,7 @@ public class CityPanel extends Composite implements Validator {
      * @param selectedCity is name of city.
      */
     public void setSelectedCity(String selectedCity) {
-        listBoxCity.setSelectedIndex(CitiesRepository.getCities().indexOf(selectedCity));
+        listBoxCity.setSelectedIndex(DataRepository.getCitiesRepository().getCities().indexOf(selectedCity));
     }
     
     @Override

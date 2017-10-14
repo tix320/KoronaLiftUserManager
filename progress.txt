@@ -43,3 +43,5 @@
 10.12:
 1) Изучил pattern template method.
 2) Изучил паттерны Iterator и Composite.
+10.14:
+1) Изучил pattern State.
