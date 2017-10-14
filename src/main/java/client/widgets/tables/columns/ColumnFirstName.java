@@ -1,6 +1,6 @@
 package client.widgets.tables.columns;
 
-import client.objects.User;
+import client.models.User;
 import com.google.gwt.user.cellview.client.TextColumn;
 
 /**

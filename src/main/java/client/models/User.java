@@ -1,4 +1,4 @@
-package client.objects;
+package client.models;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,13 +10,13 @@ import java.util.Date;
 public class User {
     
     /** User's unique number. */
-    private int ID;
+    private Integer ID;
     
     /** User's first name. */
     private String firstName;
     
     /** User's middle name. */
-    private String middleName;
+    private String patronymic;
     
     /** User's last name. */
     private String lastName;

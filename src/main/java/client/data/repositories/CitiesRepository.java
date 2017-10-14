@@ -1,4 +1,4 @@
-package client.widgets.forms.elements;
+package client.data.repositories;
 
 import client.data.Repository;
 import lombok.Getter;
@@ -22,13 +22,13 @@ public class CitiesRepository extends Repository<String> {
      * Init repository.
      */
     private CitiesRepository() {
-        initCities();
+        addCities();
     }
     
     /**
      * Create the repository.
      */
-    public static CitiesRepository createRepository() {
+    public static CitiesRepository getInstance() {
         if (citiesRepository == null) {
             citiesRepository = new CitiesRepository();
         }
@@ -36,9 +36,9 @@ public class CitiesRepository extends Repository<String> {
     }
     
     /**
-     * Init users list.
+     * Add cities to list.
      */
-    private void initCities() {
+    private void addCities() {
         cities = new ArrayList<>();
         cities.add("Город");
         cities.add("Абингдон");

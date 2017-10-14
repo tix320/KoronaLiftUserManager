@@ -1,11 +1,11 @@
 package client.widgets.tables.columns;
 
-import client.objects.Gender;
-import client.objects.User;
+import client.models.Gender;
+import client.models.User;
 import com.google.gwt.user.cellview.client.TextColumn;
 
 /**
- * Sex column column of Table.
+ * Sex column of Table.
  */
 public class ColumnSex extends TextColumn<User> {
     

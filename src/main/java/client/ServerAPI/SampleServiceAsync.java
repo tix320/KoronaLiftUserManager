@@ -1,5 +1,4 @@
-package client.serverInterfaces;
+package client.ServerAPI;
 
 public interface SampleServiceAsync {
-
 }

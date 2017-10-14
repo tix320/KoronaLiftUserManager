@@ -1,15 +1,15 @@
 package client.widgets.tables.columns;
 
-import client.objects.User;
+import client.models.User;
 import com.google.gwt.user.cellview.client.TextColumn;
 
 /**
- * Middle name column of Table.
+ * Patronymic column of Table.
  */
-public class ColumnMiddleName extends TextColumn<User> {
+public class ColumnPatronymic extends TextColumn<User> {
     
     @Override
     public String getValue(User object) {
-        return object.getMiddleName();
+        return object.getPatronymic();
     }
 }

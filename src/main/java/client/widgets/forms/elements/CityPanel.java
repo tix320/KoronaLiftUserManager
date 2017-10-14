@@ -1,14 +1,14 @@
 package client.widgets.forms.elements;
 
 import client.data.DataRepository;
-import client.widgets.forms.Validator;
+import client.widgets.forms.HasValidation;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.ListBox;
 
 /**
  * Panel for selection city.
  */
-public class CityPanel extends Composite implements Validator {
+public class CityPanel extends Composite implements HasValidation {
     
     /** List box of cities. */
     private ListBox listBoxCity;

@@ -1,16 +1,19 @@
 package client.data;
 
-import client.objects.UsersRepository;
-import client.widgets.forms.elements.CitiesRepository;
+import client.data.repositories.CitiesRepository;
+import client.data.repositories.UsersRepository;
 import lombok.Getter;
 
+/**
+ * Get all of repositories.
+ */
 public class DataRepository {
     
     /** Repository of users. */
     @Getter
-    private static UsersRepository usersRepository = UsersRepository.createRepository();
+    private static UsersRepository usersRepository = UsersRepository.getInstance();
     
     /** Repository of cities. */
     @Getter
-    private static CitiesRepository citiesRepository = CitiesRepository.createRepository();
+    private static CitiesRepository citiesRepository = CitiesRepository.getInstance();
 }

@@ -1,9 +1,8 @@
-package client.widgets.forms.tabPanel;
+package client.widgets.forms;
 
 import client.data.DataRepository;
-import client.widgets.forms.UserForm;
 
-public class AddUserForm extends UserForm {
+public class AddUserForm extends BaseUserForm {
     
     /** Text of edit button. */
     private static final String SUBMIT_BUTTON_TEXT = "Добавить";
@@ -12,6 +11,7 @@ public class AddUserForm extends UserForm {
      * Constructor to set own button text.
      */
     public AddUserForm() {
+        DataRepository.getUsersRepository().registerSource(this);
         buttonSubmit.setText(SUBMIT_BUTTON_TEXT);
     }
     

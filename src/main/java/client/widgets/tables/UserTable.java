@@ -2,13 +2,14 @@ package client.widgets.tables;
 
 import client.data.DataObserver;
 import client.data.DataRepository;
-import client.objects.User;
+import client.data.UpdateType;
+import client.models.User;
 import client.widgets.tables.columns.ColumnCity;
 import client.widgets.tables.columns.ColumnDateOfBirth;
 import client.widgets.tables.columns.ColumnDelete;
 import client.widgets.tables.columns.ColumnFirstName;
 import client.widgets.tables.columns.ColumnLastName;
-import client.widgets.tables.columns.ColumnMiddleName;
+import client.widgets.tables.columns.ColumnPatronymic;
 import client.widgets.tables.columns.ColumnSex;
 import com.google.gwt.cell.client.ButtonCell;
 import com.google.gwt.user.cellview.client.CellTable;
@@ -21,9 +22,6 @@ import com.google.gwt.view.client.SingleSelectionModel;
  * Users will be added from UserAddForm or edited from EditAddForm.
  */
 public class UserTable extends Composite implements DataObserver<User> {
-    
-    /** Model for table object selection. */
-    private SingleSelectionModel<User> selModel;
     
     /** Current selected user's index. */
     private int selectedUserIndex;
@@ -38,26 +36,36 @@ public class UserTable extends Composite implements DataObserver<User> {
      * Constructor for creating user table.
      */
     public UserTable() {
+        DataRepository.getUsersRepository().registerObserver(this);
+        SingleSelectionModel<User> selModel = new SingleSelectionModel<>();
+        
         cellTable = new CellTable<>();
-        selModel = new SingleSelectionModel<>();
-        users = new ListDataProvider<>();
-        
-        users.addDataDisplay(cellTable);
         cellTable.setSelectionModel(selModel);
+        selModel.addSelectionChangeHandler(e -> selectAction(selModel.getSelectedObject()));
         
-        initColumns();
-        setSelectedItemListener();
+        users = new ListDataProvider<>();
+        users.addDataDisplay(cellTable);
+    
+        addColumns();
         
         initWidget(cellTable);
     }
     
     /**
-     * Initialize columns for table.
+     * Action of item selection in table.
      */
-    private void initColumns() {
+    private void selectAction(User selectedUser) {
+        selectedUserIndex = users.getList().indexOf(selectedUser);
+        sendSelectedObject(selectedUser);
+    }
+    
+    /**
+     * Add columns to table.
+     */
+    private void addColumns() {
         cellTable.setStyleName("users-table-general");
         cellTable.addColumn(new ColumnFirstName(), "Имя");
-        cellTable.addColumn(new ColumnMiddleName(), "Отчество");
+        cellTable.addColumn(new ColumnPatronymic(), "Отчество");
         cellTable.addColumn(new ColumnLastName(), "Фамилия");
         cellTable.addColumn(new ColumnSex(), "Город");
         cellTable.addColumn(new ColumnCity(), "Пол");
@@ -80,20 +88,10 @@ public class UserTable extends Composite implements DataObserver<User> {
      * Action of delete column button.
      * Send info to delete user from registered tables.
      *
-     * @param user is a removing object.
+     * @param removingUser is a removing object.
      */
-    private void deleteButtonAction(User user) {
-        DataRepository.getUsersRepository().removeUser(user);
-    }
-    
-    /**
-     * Set listener for selected item of table.
-     */
-    private void setSelectedItemListener() {
-        selModel.addSelectionChangeHandler(event -> {
-            selectedUserIndex = users.getList().indexOf(selModel.getSelectedObject());
-            sendSelectedObject(selModel.getSelectedObject());
-        });
+    private void deleteButtonAction(User removingUser) {
+        DataRepository.getUsersRepository().removeUser(removingUser.getID());
     }
     
     /**
@@ -102,20 +100,20 @@ public class UserTable extends Composite implements DataObserver<User> {
      * @param selectedUser is a selected object in table.
      */
     private void sendSelectedObject(User selectedUser) {
-        DataRepository.getUsersRepository().responseFromObserver(selectedUser);
+        DataRepository.getUsersRepository().responseFromObserver(selectedUser.getID(), selectedUser);
     }
     
     @Override
     public void update(User user, UpdateType updateType) {
-        if (updateType == UpdateType.ADD) {
-            users.getList().add(user);
-        } else if (updateType == UpdateType.REMOVE) {
-            users.getList().remove(user);
-        } else if (updateType == UpdateType.EDIT) {
-            users.getList().set(selectedUserIndex, user);
+        switch (updateType) {
+            case ADD:
+                users.getList().add(user);
+                break;
+            case EDIT:
+                users.getList().set(selectedUserIndex, user);
+                break;
+            case REMOVE:
+                users.getList().remove(user);
         }
     }
 }
-
-    
-  

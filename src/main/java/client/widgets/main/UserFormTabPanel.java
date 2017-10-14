@@ -1,5 +1,7 @@
-package client.widgets.forms.tabPanel;
+package client.widgets.main;
 
+import client.widgets.forms.AddUserForm;
+import client.widgets.forms.EditUserForm;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.TabPanel;
 
@@ -17,9 +19,11 @@ public class UserFormTabPanel extends Composite {
     /**
      * Create Tab panel, where are added user forms.
      */
-    public UserFormTabPanel(AddUserForm addUserForm, EditUserForm editUserForm) {
+    public UserFormTabPanel() {
         TabPanel userFormTabPanel = new TabPanel();
-    
+        AddUserForm addUserForm = new AddUserForm();
+        EditUserForm editUserForm = new EditUserForm();
+        
         userFormTabPanel.add(addUserForm, ADD_TAB_TEXT);
         userFormTabPanel.add(editUserForm, EDIT_TAB_TEXT);
         

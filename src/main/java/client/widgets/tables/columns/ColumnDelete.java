@@ -1,6 +1,6 @@
 package client.widgets.tables.columns;
 
-import client.objects.User;
+import client.models.User;
 import com.google.gwt.cell.client.Cell;
 import com.google.gwt.user.cellview.client.Column;
 
@@ -20,7 +20,6 @@ public class ColumnDelete extends Column<User, String> {
     
     @Override
     public String getValue(User object) {
-        return "Delete";
+        return "Удалить";
     }
 }
-

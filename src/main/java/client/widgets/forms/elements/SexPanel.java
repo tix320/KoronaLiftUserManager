@@ -1,12 +1,12 @@
 package client.widgets.forms.elements;
 
-import client.objects.Gender;
-import client.widgets.forms.Validator;
+import client.models.Gender;
+import client.widgets.forms.HasValidation;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RadioButton;
 
-public class SexPanel extends Composite implements Validator {
+public class SexPanel extends Composite implements HasValidation {
     
     /** Group name of radio buttons. */
     private static final String GROUP_SEX = "sex";

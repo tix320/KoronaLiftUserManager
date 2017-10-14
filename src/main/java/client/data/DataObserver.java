@@ -1,7 +1,5 @@
 package client.data;
 
-import client.widgets.tables.UpdateType;
-
 /**
  * To become an observer of information, need to implement an interface.
  *

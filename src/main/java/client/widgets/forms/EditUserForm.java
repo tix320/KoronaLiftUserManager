@@ -1,9 +1,8 @@
-package client.widgets.forms.tabPanel;
+package client.widgets.forms;
 
 import client.data.DataRepository;
-import client.widgets.forms.UserForm;
 
-public class EditUserForm extends UserForm {
+public class EditUserForm extends BaseUserForm {
     
     /** Text of edit button. */
     private static final String SUBMIT_BUTTON_TEXT = "Изменить";
@@ -12,11 +11,12 @@ public class EditUserForm extends UserForm {
      * Constructor to set own button text.
      */
     public EditUserForm() {
+        DataRepository.getUsersRepository().registerSource(this);
         buttonSubmit.setText(SUBMIT_BUTTON_TEXT);
     }
     
     @Override
     public void submitAction() {
-        DataRepository.getUsersRepository().editUser(currentUserIndex, getUserFromInputs());
+        DataRepository.getUsersRepository().editUser(currentUserID, getUserFromInputs());
     }
 }

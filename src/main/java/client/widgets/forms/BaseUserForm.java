@@ -1,6 +1,6 @@
 package client.widgets.forms;
 
-import client.objects.User;
+import client.models.User;
 import client.widgets.forms.elements.CityPanel;
 import client.widgets.forms.elements.DatePickerPanel;
 import client.widgets.forms.elements.FullNamePanel;
@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 /**
  * Base form to create user add and edit forms.
  */
-public abstract class UserForm extends Composite implements Form<User> {
+public abstract class BaseUserForm extends Composite implements Form<User> {
     
     /** Full name inputs. */
     private FullNamePanel fullNamePanel;
@@ -33,55 +33,27 @@ public abstract class UserForm extends Composite implements Form<User> {
     protected Button buttonSubmit;
     
     /** Current user's index. */
-    protected int currentUserIndex;
+    protected int currentUserID;
     
     /**
      * Constructor is a main part for creating a user form.
      * All methods of its elements are called here.
      */
-    protected UserForm() {
+    protected BaseUserForm() {
         FlowPanel panelSubmit = new FlowPanel();
-        createFullNamePanel();
-        createSexPanel();
-        createCityPanel();
-        createDatePickerPanel();
-        createButtonSubmit();
+        fullNamePanel = new FullNamePanel();
+        sexPanel = new SexPanel();
+        cityPanel = new CityPanel();
+        datePickerPanel = new DatePickerPanel();
+        initButtonSubmit();
         Stream.of(fullNamePanel, sexPanel, cityPanel, datePickerPanel, buttonSubmit).forEach(panelSubmit::add);
         initWidget(panelSubmit);
     }
     
     /**
-     * Create panel for input full name.
-     */
-    private void createFullNamePanel() {
-        fullNamePanel = new FullNamePanel();
-    }
-    
-    /**
-     * Create panel for select gender.
-     */
-    private void createSexPanel() {
-        sexPanel = new SexPanel();
-    }
-    
-    /**
-     * Create panel for select city.
-     */
-    private void createCityPanel() {
-        cityPanel = new CityPanel();
-    }
-    
-    /**
-     * Create panel for select dat of birth.
-     */
-    private void createDatePickerPanel() {
-        datePickerPanel = new DatePickerPanel();
-    }
-    
-    /**
      * Create submit button to send data.
      */
-    private void createButtonSubmit() {
+    private void initButtonSubmit() {
         buttonSubmit = new Button();
         buttonSubmit.addClickHandler(event -> {
             if (isCorrect()) {
@@ -98,7 +70,7 @@ public abstract class UserForm extends Composite implements Form<User> {
     protected User getUserFromInputs() {
         User newUser = new User();
         newUser.setFirstName(fullNamePanel.getFirstName());
-        newUser.setMiddleName(fullNamePanel.getMiddleName());
+        newUser.setPatronymic(fullNamePanel.getPatronymic());
         newUser.setLastName(fullNamePanel.getLastName());
         newUser.setGender(sexPanel.getGender());
         newUser.setCity(cityPanel.getSelectedCity());
@@ -122,8 +94,8 @@ public abstract class UserForm extends Composite implements Form<User> {
      * @param widgetsForValidate is a widgets ,which will validate.
      * @return validate result.
      */
-    private boolean validateWidgets(Validator... widgetsForValidate) {
-        return Arrays.stream(widgetsForValidate).filter(validateWidget -> !validateWidget.validate()).peek(Validator::showError).count() == 0;
+    private boolean validateWidgets(HasValidation... widgetsForValidate) {
+        return Arrays.stream(widgetsForValidate).filter(validateWidget -> !validateWidget.validate()).peek(HasValidation::showError).count() == 0;
     }
     
     /**
@@ -142,7 +114,7 @@ public abstract class UserForm extends Composite implements Form<User> {
      */
     private void updateInputs(User user) {
         fullNamePanel.setFirstName(user.getFirstName());
-        fullNamePanel.setMiddleName(user.getMiddleName());
+        fullNamePanel.setPatronymic(user.getPatronymic());
         fullNamePanel.setLastName(user.getLastName());
         sexPanel.setSelectedButton(user.getGender());
         cityPanel.setSelectedCity(user.getCity());
@@ -150,8 +122,8 @@ public abstract class UserForm extends Composite implements Form<User> {
     }
     
     @Override
-    public void response(int index, User user) {
-        currentUserIndex = index;
+    public void response(Integer ID, User user) {
+        currentUserID = ID;
         updateInputs(user);
     }
 }

@@ -1,4 +1,4 @@
-package client.objects;
+package client.models;
 
 import lombok.Getter;
 

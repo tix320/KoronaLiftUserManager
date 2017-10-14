@@ -52,5 +52,4 @@ public class DatePickerPanel extends Composite {
     public void setDate(Date date) {
         datePicker.setValue(date);
     }
-    
 }

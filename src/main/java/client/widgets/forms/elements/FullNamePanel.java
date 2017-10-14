@@ -1,9 +1,10 @@
 package client.widgets.forms.elements;
 
-import client.widgets.forms.Validator;
-import client.widgets.inputs.CustomTextBox;
+import client.widgets.customWidgets.CustomTextBox;
+import client.widgets.forms.HasValidation;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import lombok.Getter;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,31 +12,34 @@ import java.util.List;
 /**
  * Panel for input full name.
  */
-public class FullNamePanel extends Composite implements Validator {
+public class FullNamePanel extends Composite implements HasValidation {
+    
+    /** Place holder text for first name box. */
+    private static final String FIRST_NAME = "Имя";
+    
+    /** Place holder text for patronymic box. */
+    private static final String PATRONYMIC = "Отчество";
+    
+    /** Place holder text for last name box. */
+    private static final String LAST_NAME = "Фамилия";
     
     /** Panel for text boxes. */
     private VerticalPanel fullNamePanel;
     
     /** Text box for input first name. */
+    @Getter
     private CustomTextBox boxFirstName;
     
-    /** Text box for input middle name. */
-    private CustomTextBox boxMiddleName;
+    /** Text box for input patronymic. */
+    @Getter
+    private CustomTextBox boxPatronymic;
     
     /** Text box for input last name. */
+    @Getter
     private CustomTextBox boxLastName;
     
     /** List of text boxes. */
     private List<CustomTextBox> textBoxes;
-    
-    /** Place holder text for first name box. */
-    private static final String FIRST_NAME = "Имя";
-    
-    /** Place holder text for middle name box. */
-    private static final String MIDDLE_NAME = "Отчество";
-    
-    /** Place holder text for last name box. */
-    private static final String LAST_NAME = "Фамилия";
     
     /**
      * Create the full name input panel.
@@ -43,10 +47,10 @@ public class FullNamePanel extends Composite implements Validator {
     public FullNamePanel() {
         fullNamePanel = new VerticalPanel();
         boxFirstName = createBoxFirstName();
-        boxMiddleName = createBoxMiddleName();
+        boxPatronymic = createBoxMiddleName();
         boxLastName = createBoxLastName();
     
-        textBoxes = Arrays.asList(boxFirstName, boxMiddleName, boxLastName);
+        textBoxes = Arrays.asList(boxFirstName, boxPatronymic, boxLastName);
         textBoxes.forEach(fullNamePanel::add);
         setDefaultStyles();
     
@@ -63,11 +67,11 @@ public class FullNamePanel extends Composite implements Validator {
     }
     
     /**
-     * Create text box for input middle name.
+     * Create text box for input patronymic.
      */
     private CustomTextBox createBoxMiddleName() {
         CustomTextBox boxMiddleName = new CustomTextBox();
-        boxMiddleName.setPlaceHolder(MIDDLE_NAME);
+        boxMiddleName.setPlaceHolder(PATRONYMIC);
         return boxMiddleName;
     }
     
@@ -91,7 +95,7 @@ public class FullNamePanel extends Composite implements Validator {
     /**
      * Get first name from text box.
      *
-     * @return firs name.
+     * @return first name.
      */
     public String getFirstName() {
         return boxFirstName.getText();
@@ -105,19 +109,19 @@ public class FullNamePanel extends Composite implements Validator {
     }
     
     /**
-     * Get middle name from text box.
+     * Get patronymic from text box.
      *
-     * @return middle name.
+     * @return patronymic.
      */
-    public String getMiddleName() {
-        return boxMiddleName.getText();
+    public String getPatronymic() {
+        return boxPatronymic.getText();
     }
     
     /**
-     * Set middle name to text box.
+     * Set patronymic to text box.
      */
-    public void setMiddleName(String text) {
-        boxMiddleName.setText(text);
+    public void setPatronymic(String text) {
+        boxPatronymic.setText(text);
     }
     
     /**

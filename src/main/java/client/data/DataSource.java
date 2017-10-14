@@ -10,10 +10,10 @@ public interface DataSource<D> {
     /**
      * Response from target.
      *
-     * @param index of data.
+     * @param ID of data.
      * @param data from target.
      */
-    default void response(int index, D data) {
+    default void response(Integer ID, D data) {
     
     }
 }
