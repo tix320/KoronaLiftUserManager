@@ -10,8 +10,8 @@ import com.google.gwt.user.cellview.client.TextColumn;
 public class ColumnDateOfBirth extends TextColumn<User> {
     
     @Override
-    public String getValue(User object) {
+    public String getValue(User user) {
         DateTimeFormat df = DateTimeFormat.getFormat(DateTimeFormat.PredefinedFormat.DATE_SHORT);
-        return df.format(object.getDateOfBirth());
+        return df.format(user.getDateOfBirth());
     }
 }

@@ -9,7 +9,7 @@ import com.google.gwt.user.cellview.client.TextColumn;
 public class ColumnPatronymic extends TextColumn<User> {
     
     @Override
-    public String getValue(User object) {
-        return object.getPatronymic();
+    public String getValue(User user) {
+        return user.getPatronymic();
     }
 }

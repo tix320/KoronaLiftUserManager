@@ -9,7 +9,7 @@ import com.google.gwt.user.cellview.client.TextColumn;
 public class ColumnCity extends TextColumn<User> {
     
     @Override
-    public String getValue(User object) {
-        return object.getCity();
+    public String getValue(User user) {
+        return user.getCity();
     }
 }

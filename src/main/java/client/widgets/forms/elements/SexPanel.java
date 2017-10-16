@@ -28,8 +28,8 @@ public class SexPanel extends Composite implements HasValidation {
      */
     public SexPanel() {
         panelSex = new HorizontalPanel();
-        radioMale = createMaleRadioButton();
-        radioFemale = createFemaleRadioButton();
+        radioMale = createRadioButton(Gender.MALE.getName());
+        radioFemale = createRadioButton(Gender.FEMALE.getName());
         setDefaultStyles();
     
         panelSex.add(radioMale);
@@ -40,19 +40,10 @@ public class SexPanel extends Composite implements HasValidation {
     /**
      * Create radio button for select gender male.
      */
-    private RadioButton createMaleRadioButton() {
-        RadioButton radioMale = new RadioButton(GROUP_SEX, Gender.MALE.getName());
-        radioMale.setStyleName(RADIO_BUTTON_STYLE);
-        return radioMale;
-    }
-    
-    /**
-     * Create radio button for select gender female.
-     */
-    private RadioButton createFemaleRadioButton() {
-        RadioButton radioFemale = new RadioButton(GROUP_SEX, Gender.FEMALE.getName());
-        radioFemale.setStyleName(RADIO_BUTTON_STYLE);
-        return radioFemale;
+    private RadioButton createRadioButton(String name) {
+        RadioButton radioButton = new RadioButton(GROUP_SEX, name);
+        radioButton.setStyleName(RADIO_BUTTON_STYLE);
+        return radioButton;
     }
     
     /**

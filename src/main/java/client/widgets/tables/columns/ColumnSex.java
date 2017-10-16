@@ -8,9 +8,9 @@ import com.google.gwt.user.cellview.client.TextColumn;
  * Sex column of Table.
  */
 public class ColumnSex extends TextColumn<User> {
-    
+
     @Override
-    public String getValue(User object) {
-        return object.getGender() == Gender.MALE ? "Мужской" : "Женский";
+    public String getValue(User user) {
+        return user.getGender().getName();
     }
 }

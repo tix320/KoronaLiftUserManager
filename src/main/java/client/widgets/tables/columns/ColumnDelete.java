@@ -19,7 +19,7 @@ public class ColumnDelete extends Column<User, String> {
     }
     
     @Override
-    public String getValue(User object) {
+    public String getValue(User user) {
         return "Удалить";
     }
 }

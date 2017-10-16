@@ -47,13 +47,13 @@ public class FullNamePanel extends Composite implements HasValidation {
     public FullNamePanel() {
         fullNamePanel = new VerticalPanel();
         boxFirstName = createBoxFirstName();
-        boxPatronymic = createBoxMiddleName();
+        boxPatronymic = createBoxPatronymic();
         boxLastName = createBoxLastName();
-    
+        
         textBoxes = Arrays.asList(boxFirstName, boxPatronymic, boxLastName);
         textBoxes.forEach(fullNamePanel::add);
         setDefaultStyles();
-    
+        
         initWidget(fullNamePanel);
     }
     
@@ -69,7 +69,7 @@ public class FullNamePanel extends Composite implements HasValidation {
     /**
      * Create text box for input patronymic.
      */
-    private CustomTextBox createBoxMiddleName() {
+    private CustomTextBox createBoxPatronymic() {
         CustomTextBox boxMiddleName = new CustomTextBox();
         boxMiddleName.setPlaceHolder(PATRONYMIC);
         return boxMiddleName;

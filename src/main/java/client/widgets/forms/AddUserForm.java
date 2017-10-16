@@ -2,6 +2,9 @@ package client.widgets.forms;
 
 import client.data.DataRepository;
 
+/**
+ * Form to add users in repository.
+ */
 public class AddUserForm extends BaseUserForm {
     
     /** Text of edit button. */

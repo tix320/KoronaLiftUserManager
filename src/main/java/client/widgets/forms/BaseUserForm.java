@@ -51,7 +51,7 @@ public abstract class BaseUserForm extends Composite implements Form<User> {
     }
     
     /**
-     * Create submit button to send data.
+     * Init submit button to send data.
      */
     private void initButtonSubmit() {
         buttonSubmit = new Button();

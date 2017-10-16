@@ -23,6 +23,8 @@ public class UsersRepository extends Repository<User> {
     
     /**
      * Create the repository.
+     *
+     * @return created repository.
      */
     public static UsersRepository getInstance() {
         if (usersRepository == null) {
@@ -68,6 +70,7 @@ public class UsersRepository extends Repository<User> {
      * Send any data from observers to sources.
      *
      * @param user is a data owner.
+     * @param ID of user.
      */
     public void responseFromObserver(Integer ID, User user) {
         sources.forEach(source -> source.response(ID, user));
