@@ -4,15 +4,11 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
     <servlet>
-        <servlet-name>yes</servlet-name>
-        <servlet-class>server.GWTServiceImpl</servlet-class>
+        <servlet-name>sample.Sample SampleService</servlet-name>
+        <servlet-class>server.SampleServiceImpl</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>yes</servlet-name>
-        <url-pattern>/GWT/yes</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>yes</servlet-name>
-        <url-pattern>/GWT/GWTService</url-pattern>
+        <servlet-name>sample.Sample SampleService</servlet-name>
+        <url-pattern>/Sample/SampleService</url-pattern>
     </servlet-mapping>
 </web-app>
