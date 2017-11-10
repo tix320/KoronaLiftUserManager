@@ -2,7 +2,7 @@ package server.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import shared.models.Gender;
+import shared.types.Gender;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

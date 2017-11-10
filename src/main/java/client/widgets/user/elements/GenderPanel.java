@@ -4,7 +4,7 @@ import client.widgets.user.HasValidation;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RadioButton;
-import shared.models.Gender;
+import shared.types.Gender;
 
 /**
  * Panel for selecting gender.

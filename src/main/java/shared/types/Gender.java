@@ -1,4 +1,4 @@
-package shared.models;
+package shared.types;
 
 import lombok.Getter;
 
