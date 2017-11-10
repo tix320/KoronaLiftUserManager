@@ -70,7 +70,17 @@ button {
     margin: 0 20px;
 }
 
-.users-table-general button{
+.users-table-general thead {
+    background: #a5ded7;
+}
+
+.users-table-general-city-header {
+    border-color: lightseagreen;
+    border-width: 3px;
+    height: 25px;
+}
+
+.users-table-general button {
     margin: 0;
     background-color: #f96969;
     color: #fff;
@@ -88,27 +98,28 @@ button {
     float: left;
 }
 
-.user-tab-panel-general button{
+.user-tab-panel-general button {
     margin: 0;
     background: #66b3ab;
     color: #fff;
     border: none;
 }
 
-.user-tab-panel-general button:hover{
+.user-tab-panel-general button:hover {
     background: rgb(50, 228, 208);
     box-shadow: inset 0 1px 3px rgb(106, 189, 173), 0 1px rgb(66, 130, 123), 0 0 1px rgb(0, 0, 0);
 }
 
 .datePickerDayIsValue {
-    background: #96ded6!important;
-}
-.datePickerDayIsToday {
-    background: #66b3ab!important;
+    background: #96ded6 !important;
 }
 
-.datePickerDayIsHighlighted{
-    background: rgba(102, 179, 171, .5)!important;
+.datePickerDayIsToday {
+    background: #66b3ab !important;
+}
+
+.datePickerDayIsHighlighted {
+    background: rgba(102, 179, 171, .5) !important;
 }
 
 

@@ -1,9 +1,7 @@
 package client.widgets.tables;
 
-import client.data.DataObserver;
-import client.data.DataRepository;
-import client.data.UpdateType;
-import client.models.User;
+import shared.data.DataObserver;
+import shared.data.repositories.DataRepository;
 import client.widgets.tables.columns.ColumnCity;
 import client.widgets.tables.columns.ColumnDateOfBirth;
 import client.widgets.tables.columns.ColumnDelete;
@@ -17,48 +15,42 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SingleSelectionModel;
 
+import java.util.List;
+
+import shared.models.UserDto;
+
 /**
  * Create custom widget to keep the users.
- * Users will be added from UserAddForm or edited from EditAddForm.
+ * sers will be added from UserAddForm or edited from EditAddForm.
  */
-public class UserTable extends Composite implements DataObserver<User> {
-    
-    /** Current selected user's index. */
-    private int selectedUserIndex;
-    
+public class UserTable extends Composite implements DataObserver<UserDto> {
+
     /** List of users. */
-    private ListDataProvider<User> users;
-    
+    private ListDataProvider<UserDto> users;
+
     /** Cell table to show users. */
-    private CellTable<User> cellTable;
-    
+    private CellTable<UserDto> cellTable;
+
     /**
      * Constructor for creating user table.
      */
     public UserTable() {
         DataRepository.getUsersRepository().registerObserver(this);
-        SingleSelectionModel<User> selModel = new SingleSelectionModel<>();
-        
+        SingleSelectionModel<UserDto> selModel = new SingleSelectionModel<>();
+
         cellTable = new CellTable<>();
         cellTable.setSelectionModel(selModel);
-        selModel.addSelectionChangeHandler(e -> selectAction(selModel.getSelectedObject()));
-        
+        selModel.addSelectionChangeHandler(e ->
+                sendSelectedObject(selModel.getSelectedObject()));
+
         users = new ListDataProvider<>();
         users.addDataDisplay(cellTable);
-    
+
         addColumns();
-        
+
         initWidget(cellTable);
     }
-    
-    /**
-     * Action of item selection in table.
-     */
-    private void selectAction(User selectedUser) {
-        selectedUserIndex = users.getList().indexOf(selectedUser);
-        sendSelectedObject(selectedUser);
-    }
-    
+
     /**
      * Add columns to table.
      */
@@ -67,12 +59,12 @@ public class UserTable extends Composite implements DataObserver<User> {
         cellTable.addColumn(new ColumnFirstName(), "Имя");
         cellTable.addColumn(new ColumnPatronymic(), "Отчество");
         cellTable.addColumn(new ColumnLastName(), "Фамилия");
-        cellTable.addColumn(new ColumnSex(), "Город");
-        cellTable.addColumn(new ColumnCity(), "Пол");
+        cellTable.addColumn(new ColumnSex(), "Пол");
+        cellTable.addColumn(new ColumnCity(), "Город");
         cellTable.addColumn(new ColumnDateOfBirth(), "Дата рождения");
         cellTable.addColumn(createColumnDelete(), "Удалить");
     }
-    
+
     /**
      * Create delete column for removing users.
      *
@@ -80,40 +72,32 @@ public class UserTable extends Composite implements DataObserver<User> {
      */
     private ColumnDelete createColumnDelete() {
         ColumnDelete columnDelete = new ColumnDelete(new ButtonCell());
-        columnDelete.setFieldUpdater((index, object, value) -> deleteButtonAction(object));
+        columnDelete.setFieldUpdater((index, object, value) ->
+                deleteButtonAction(object));
         return columnDelete;
     }
-    
+
     /**
      * Action of delete column button.
      * Send info to delete user from registered tables.
      *
      * @param removingUser is a removing object.
      */
-    private void deleteButtonAction(User removingUser) {
-        DataRepository.getUsersRepository().removeUser(removingUser.getID());
+    private void deleteButtonAction(final UserDto removingUser) {
+        DataRepository.getUsersRepository().removeUser(removingUser);
     }
-    
+
     /**
      * Send selected object to somewhere.
      *
      * @param selectedUser is a selected object in table.
      */
-    private void sendSelectedObject(User selectedUser) {
-        DataRepository.getUsersRepository().responseFromObserver(selectedUser.getID(), selectedUser);
+    private void sendSelectedObject(final UserDto selectedUser) {
+        DataRepository.getUsersRepository().responseFromObserver(selectedUser);
     }
-    
+
     @Override
-    public void update(User user, UpdateType updateType) {
-        switch (updateType) {
-            case ADD:
-                users.getList().add(user);
-                break;
-            case EDIT:
-                users.getList().set(selectedUserIndex, user);
-                break;
-            case REMOVE:
-                users.getList().remove(user);
-        }
+    public final void update(final List<UserDto> data) {
+        users.setList(data);
     }
 }

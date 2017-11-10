@@ -3,10 +3,13 @@
 <module rename-to="Sample">
 
     <inherits name='com.google.gwt.user.User'/>
-    <inherits name="com.google.gwt.user.theme.clean.Clean"/>
+    <inherits name='com.google.gwt.user.theme.clean.Clean'/>
+
+    <source path="client"/>
+    <source path="shared"/>
 
     <entry-point class='client.Main'/>
 
-    <servlet path='/SampleService' class='server.SampleServiceImpl'/>
+    <servlet path='/SampleService' class='server.ServerServiceImpl'/>
 
 </module>

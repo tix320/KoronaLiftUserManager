@@ -4,11 +4,11 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
     <servlet>
-        <servlet-name>sample.Sample SampleService</servlet-name>
-        <servlet-class>server.SampleServiceImpl</servlet-class>
+        <servlet-name>Main</servlet-name>
+        <servlet-class>server.ServerServiceImpl</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>sample.Sample SampleService</servlet-name>
+        <servlet-name>Main</servlet-name>
         <url-pattern>/Sample/SampleService</url-pattern>
     </servlet-mapping>
 </web-app>
