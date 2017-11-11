@@ -21,7 +21,7 @@ import shared.models.UserDto;
 
 /**
  * Create custom widget to keep the users.
- * sers will be added from UserAddForm or edited from EditAddForm.
+ * Users will be added from UserAddForm or edited from EditAddForm.
  */
 public class UserTable extends Composite implements DataObserver<UserDto> {
 
