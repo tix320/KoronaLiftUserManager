@@ -1,6 +1,5 @@
 package server.converters;
 
-import javax.ejb.Local;
 import java.util.List;
 
 /**

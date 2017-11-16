@@ -1,11 +1,12 @@
 package server.converters;
 
+import server.entity.City;
 import server.entity.User;
+import shared.models.CityDto;
 import shared.models.UserDto;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,10 +14,10 @@ import java.util.List;
  * Converter to convert user objects.
  */
 @Stateless
-public class UserConverter implements DataConverter<UserDto, User>, Serializable {
+public class UserConverter implements DataConverter<UserDto, User> {
 
-    @Inject
-    private CityConverter cityConverter;
+    @EJB(beanName = "CityConverter")
+    private DataConverter<CityDto, City> cityConverter;
 
     @Override
     public final UserDto convertToDto(final User user) {

@@ -5,14 +5,13 @@ import server.entity.City;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.io.Serializable;
 import java.util.List;
 
 /**
  * Data transfer of cities.
  */
 @Stateless
-public class CityController implements DataAccess<City>, Serializable {
+public class CityController implements DataAccess<City> {
 
     @PersistenceContext(unitName = "TestUnit")
     private EntityManager entityManager;

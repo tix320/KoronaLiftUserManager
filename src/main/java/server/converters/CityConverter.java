@@ -4,7 +4,6 @@ import server.entity.City;
 import shared.models.CityDto;
 
 import javax.ejb.Stateless;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +11,7 @@ import java.util.List;
  * Converter to convert city objects.
  */
 @Stateless
-public class CityConverter implements DataConverter<CityDto, City>, Serializable {
+public class CityConverter implements DataConverter<CityDto, City> {
 
     @Override
     public final CityDto convertToDto(final City city) {

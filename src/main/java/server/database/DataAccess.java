@@ -1,6 +1,5 @@
 package server.database;
 
-import javax.ejb.Local;
 import java.util.List;
 
 /**
