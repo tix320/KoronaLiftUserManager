@@ -1,12 +1,12 @@
-package shared.data.repositories;
+package client.data.repositories;
 
 import client.ServerAPI.ServerService;
 import client.ServerAPI.ServerServiceAsync;
 import com.google.gwt.core.client.GWT;
 import lombok.Getter;
-import shared.data.DataObservable;
-import shared.data.DataObserver;
-import shared.data.DataSource;
+import client.data.DataObservable;
+import client.data.DataObserver;
+import client.data.DataSource;
 
 import java.util.ArrayList;
 import java.util.List;

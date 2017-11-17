@@ -1,4 +1,4 @@
-package shared.data.repositories;
+package client.data.repositories;
 
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;

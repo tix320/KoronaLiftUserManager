@@ -20,7 +20,7 @@ public class UserConverter implements DataConverter<UserDto, User> {
     private DataConverter<CityDto, City> cityConverter;
 
     @Override
-    public final UserDto convertToDto(final User user) {
+    public UserDto convertToDto(final User user) {
         UserDto userDto = new UserDto();
         userDto.setId(user.getId());
         userDto.setFirstName(user.getFirstName());
@@ -42,7 +42,7 @@ public class UserConverter implements DataConverter<UserDto, User> {
     }
 
     @Override
-    public final User convertToEntity(final UserDto userDto) {
+    public User convertToEntity(final UserDto userDto) {
         User user = new User();
         user.setId(userDto.getId());
         user.setFirstName(userDto.getFirstName());

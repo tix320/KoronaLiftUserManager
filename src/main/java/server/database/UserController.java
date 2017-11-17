@@ -18,7 +18,8 @@ public class UserController implements DataAccess<User> {
 
     @Override
     public List<User> getAll() {
-        return entityManager.createQuery("FROM User ORDER BY id", User.class).getResultList();
+        return entityManager.createQuery("FROM User ORDER BY id",
+                User.class).getResultList();
     }
 
     @Override
@@ -28,21 +29,12 @@ public class UserController implements DataAccess<User> {
 
     @Override
     public void delete(final User removableUser) {
-        entityManager.remove(removableUser);
+        User user = entityManager.find(User.class, removableUser.getId());
+        entityManager.remove(user);
     }
 
     @Override
     public void update(final User alterableUser) {
-
-        User user = entityManager.find(User.class, alterableUser.getId());
-
-        user.setFirstName(alterableUser.getFirstName());
-        user.setPatronymic(alterableUser.getPatronymic());
-        user.setLastName(alterableUser.getLastName());
-        user.setGender(alterableUser.getGender());
-        user.setCity(alterableUser.getCity());
-        user.setDateOfBirth(alterableUser.getDateOfBirth());
-
-        entityManager.refresh(user);
+        entityManager.merge(alterableUser);
     }
 }

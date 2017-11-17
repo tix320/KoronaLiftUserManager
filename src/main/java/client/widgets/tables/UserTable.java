@@ -6,8 +6,8 @@ import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SingleSelectionModel;
-import shared.data.DataObserver;
-import shared.data.repositories.DataRepository;
+import client.data.DataObserver;
+import client.data.repositories.DataRepository;
 import shared.models.UserDto;
 
 import java.util.List;

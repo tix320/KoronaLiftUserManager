@@ -1,4 +1,4 @@
-package shared.data.repositories;
+package client.data.repositories;
 
 import lombok.Getter;
 

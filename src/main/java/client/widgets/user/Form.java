@@ -1,6 +1,6 @@
 package client.widgets.user;
 
-import shared.data.DataSource;
+import client.data.DataSource;
 
 /**
  * Interface for creating any forms.

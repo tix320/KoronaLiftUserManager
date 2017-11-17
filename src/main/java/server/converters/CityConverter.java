@@ -14,7 +14,7 @@ import java.util.List;
 public class CityConverter implements DataConverter<CityDto, City> {
 
     @Override
-    public final CityDto convertToDto(final City city) {
+    public CityDto convertToDto(final City city) {
         CityDto cityDto = new CityDto();
         cityDto.setId(city.getId());
         cityDto.setName(city.getName());
@@ -31,7 +31,7 @@ public class CityConverter implements DataConverter<CityDto, City> {
     }
 
     @Override
-    public final City convertToEntity(final CityDto cityDto) {
+    public City convertToEntity(final CityDto cityDto) {
         City city = new City();
         city.setId(cityDto.getId());
         city.setName(cityDto.getName());

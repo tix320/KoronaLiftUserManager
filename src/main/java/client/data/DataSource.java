@@ -1,4 +1,4 @@
-package shared.data;
+package client.data;
 
 /**
  * Interface to send any data.
