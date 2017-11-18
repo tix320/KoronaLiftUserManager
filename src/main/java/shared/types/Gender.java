@@ -1,23 +1,21 @@
 package shared.types;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
  * Gender types.
  */
+@AllArgsConstructor
 public enum Gender {
-    MALE("Мужский"), FEMALE("Женский");
+    MALE(0, "Мужский"), FEMALE(1, "Женский");
+
+    /** Gender code. */
+    @Getter
+    private int code;
 
     /** Name of constant. */
     @Getter
     private String name;
 
-    /**
-     * Constructor for initializing.
-     *
-     * @param memberName is a name of constant.
-     */
-    Gender(final String memberName) {
-        this.name = memberName;
-    }
 }

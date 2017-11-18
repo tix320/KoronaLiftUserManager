@@ -1,6 +1,9 @@
 package shared.models;
 
+import com.google.gwt.core.client.JavaScriptObject;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
@@ -10,6 +13,8 @@ import java.io.Serializable;
  */
 @Setter
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class CityDto implements Serializable {
 
     private static final long serialVersionUID = -1355704257405143045L;

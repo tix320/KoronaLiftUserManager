@@ -4,6 +4,8 @@
 
     <inherits name='com.google.gwt.user.User'/>
     <inherits name='com.google.gwt.user.theme.clean.Clean'/>
+  <inherits name="org.realityforge.gwt.websockets.WebSockets"/>
+  <inherits name="com.google.gwt.json.JSON"/>
 
     <source path="client"/>
     <source path="shared"/>

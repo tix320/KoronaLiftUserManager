@@ -7,7 +7,6 @@ import lombok.Getter;
 import client.data.DataObservable;
 import client.data.DataObserver;
 import client.data.DataSource;
-
 import java.util.ArrayList;
 import java.util.List;
 

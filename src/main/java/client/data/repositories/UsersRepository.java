@@ -1,11 +1,14 @@
 package client.data.repositories;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.typedarrays.shared.ArrayBuffer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import org.realityforge.gwt.websockets.client.WebSocket;
+import org.realityforge.gwt.websockets.client.WebSocketListener;
 import shared.models.UserDto;
 
 import java.util.List;
-
 
 /**
  * Repository for usersList.
@@ -15,11 +18,43 @@ public final class UsersRepository extends Repository<UserDto> {
     /** Repository reference. */
     private static UsersRepository usersRepository;
 
+    /** Web socket instance. */
+    private final WebSocket webSocket = WebSocket.newWebSocketIfSupported();
+
     /**
      * Private constructor for singleton.
      */
     private UsersRepository() {
+        connectWebSocket();
         getUsersFromDB();
+    }
+
+    /**
+     * Connect to web socket protocol.
+     */
+    private void connectWebSocket() {
+        webSocket.setListener(new WebSocketListener() {
+            @Override public void onOpen(WebSocket webSocket) {
+
+            }
+
+            @Override public void onClose(WebSocket webSocket, boolean b, int i, String s) {
+
+            }
+
+            @Override public void onMessage(WebSocket webSocket, String s) {
+                getUsersFromDB();
+            }
+
+            @Override public void onMessage(WebSocket webSocket, ArrayBuffer arrayBuffer) {
+                getUsersFromDB();
+            }
+
+            @Override public void onError(WebSocket webSocket) {
+                Window.alert("WebSocket error.");
+            }
+        });
+        webSocket.connect(GWT.getHostPageBaseURL().replaceFirst("^http\\:", "ws:") + "users");
     }
 
     /**
@@ -48,10 +83,9 @@ public final class UsersRepository extends Repository<UserDto> {
 
             @Override
             public void onSuccess(final Void aVoid) {
-                getUsersFromDB();
+                webSocket.send("true");
             }
         });
-
     }
 
     /**
@@ -68,7 +102,7 @@ public final class UsersRepository extends Repository<UserDto> {
 
             @Override
             public void onSuccess(final Void aVoid) {
-                getUsersFromDB();
+                webSocket.send("true");
             }
         });
     }
@@ -87,7 +121,7 @@ public final class UsersRepository extends Repository<UserDto> {
 
             @Override
             public void onSuccess(final Void aVoid) {
-                getUsersFromDB();
+                webSocket.send("true");
             }
         });
     }

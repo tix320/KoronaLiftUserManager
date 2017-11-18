@@ -7,7 +7,6 @@ import shared.models.UserDto;
 
 import java.util.List;
 
-
 @RemoteServiceRelativePath("SampleService")
 public interface ServerService extends RemoteService {
 

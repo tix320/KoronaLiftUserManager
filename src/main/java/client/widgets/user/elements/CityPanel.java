@@ -12,9 +12,7 @@ import java.util.List;
 /**
  * Panel for selection city.
  */
-public class CityPanel
-        extends Composite
-        implements HasValidation, DataObserver<CityDto> {
+public class CityPanel extends Composite implements HasValidation, DataObserver<CityDto> {
 
     /** List box of cities. */
     private CustomListBox<CityDto> listBoxCity;
