@@ -2,13 +2,12 @@ package server;
 
 import client.ServerAPI.ServerService;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import java.util.List;
+import javax.inject.Inject;
 import server.beansAccess.Converters;
 import server.beansAccess.Dao;
 import shared.models.CityDto;
 import shared.models.UserDto;
-
-import javax.inject.Inject;
-import java.util.List;
 
 public class ServerServiceImpl extends RemoteServiceServlet implements ServerService {
 

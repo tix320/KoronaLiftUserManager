@@ -7,11 +7,10 @@ import client.widgets.user.elements.GenderPanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
-import lombok.Getter;
-import shared.models.UserDto;
-
 import java.util.Arrays;
 import java.util.stream.Stream;
+import lombok.Getter;
+import shared.models.UserDto;
 
 /**
  * Base form to create user add and edit forms.

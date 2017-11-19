@@ -1,11 +1,10 @@
 package server.database;
 
-import server.entity.City;
-
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.List;
+import server.entity.City;
 
 /**
  * Data transfer of cities.

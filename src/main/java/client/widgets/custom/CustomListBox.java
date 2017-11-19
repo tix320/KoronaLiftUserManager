@@ -1,7 +1,6 @@
 package client.widgets.custom;
 
 import com.google.gwt.user.client.ui.ListBox;
-
 import java.util.List;
 
 /**

@@ -1,7 +1,7 @@
 package client.widgets.user.forms;
 
-import client.widgets.user.BaseUserForm;
 import client.data.repositories.DataRepository;
+import client.widgets.user.BaseUserForm;
 
 /**
  * Form to edit users in repository.

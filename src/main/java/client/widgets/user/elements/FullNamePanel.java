@@ -4,7 +4,6 @@ import client.widgets.custom.CustomTextBox;
 import client.widgets.user.HasValidation;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
-
 import java.util.Arrays;
 import java.util.List;
 

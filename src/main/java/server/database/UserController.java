@@ -1,11 +1,10 @@
 package server.database;
 
-import server.entity.User;
-
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.List;
+import server.entity.User;
 
 /**
  * Data transfer of users.
@@ -19,7 +18,7 @@ public class UserController implements DataAccess<User> {
     @Override
     public List<User> getAll() {
         return entityManager.createQuery("FROM User ORDER BY id",
-                User.class).getResultList();
+            User.class).getResultList();
     }
 
     @Override
@@ -35,6 +34,8 @@ public class UserController implements DataAccess<User> {
 
     @Override
     public void update(final User alterableUser) {
-        entityManager.merge(alterableUser);
+        if (entityManager.find(User.class, alterableUser.getId()) != null) {
+            entityManager.merge(alterableUser);
+        }
     }
 }

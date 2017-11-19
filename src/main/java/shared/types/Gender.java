@@ -8,14 +8,9 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 public enum Gender {
-    MALE(0, "Мужский"), FEMALE(1, "Женский");
-
-    /** Gender code. */
-    @Getter
-    private int code;
+    MALE("Мужской"), FEMALE("Женский");
 
     /** Name of constant. */
     @Getter
     private String name;
-
 }

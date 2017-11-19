@@ -1,13 +1,12 @@
 package client.widgets.user.elements;
 
+import client.data.DataObserver;
+import client.data.repositories.DataRepository;
 import client.widgets.custom.CustomListBox;
 import client.widgets.user.HasValidation;
 import com.google.gwt.user.client.ui.Composite;
-import client.data.DataObserver;
-import client.data.repositories.DataRepository;
-import shared.models.CityDto;
-
 import java.util.List;
+import shared.models.CityDto;
 
 /**
  * Panel for selection city.

@@ -2,9 +2,8 @@ package client.data.repositories;
 
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import shared.models.CityDto;
-
 import java.util.List;
+import shared.models.CityDto;
 
 /**
  * Repository for cities.
