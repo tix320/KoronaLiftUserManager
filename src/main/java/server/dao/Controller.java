@@ -1,7 +1,7 @@
 package server.dao;
 
 import lombok.Getter;
-import server.entity.User;
+import lombok.Setter;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,6 +15,9 @@ import java.util.List;
  */
 @Transactional
 public abstract class Controller<D> {
+
+    @Setter
+    private Class<D> entityClass;
 
     @Getter
     @PersistenceContext(unitName = "TestUnit")
@@ -35,8 +38,8 @@ public abstract class Controller<D> {
      * @param removableEntity is removing data object.
      */
     public void delete(D removableEntity) {
-        User user = entityManager.find(User.class, removableEntity.hashCode());
-        entityManager.remove(user);
+        D entity = entityManager.find(entityClass, removableEntity.hashCode());
+        entityManager.remove(entity);
     }
 
     /**
@@ -45,7 +48,7 @@ public abstract class Controller<D> {
      * @param alterableEntity is updating data object.
      */
     public void update(D alterableEntity) {
-        if (entityManager.find(User.class, alterableEntity.hashCode()) != null) {
+        if (entityManager.find(entityClass, alterableEntity.hashCode()) != null) {
             entityManager.merge(alterableEntity);
         }
     }

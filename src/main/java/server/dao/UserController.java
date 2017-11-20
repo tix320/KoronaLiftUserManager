@@ -14,6 +14,10 @@ import java.util.List;
 @DataAccessor(type = EntityType.USER)
 public class UserController extends Controller<User> {
 
+    public UserController() {
+        setEntityClass(User.class);
+    }
+
     @Override
     public List<User> getAll() {
         return getEntityManager().createQuery("FROM User ORDER BY id", User.class).getResultList();

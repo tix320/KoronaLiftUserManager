@@ -14,6 +14,10 @@ import java.util.List;
 @DataAccessor(type = EntityType.CITY)
 public class CityController extends Controller<City> {
 
+    public CityController() {
+        setEntityClass(City.class);
+    }
+
     @Override
     public List<City> getAll() {
         return getEntityManager().createQuery("FROM City ORDER BY id", City.class).getResultList();
