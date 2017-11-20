@@ -1,9 +1,10 @@
 package client.ServerAPI;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import java.util.List;
 import shared.models.CityDto;
 import shared.models.UserDto;
+
+import java.util.List;
 
 public interface ServerServiceAsync {
 

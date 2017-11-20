@@ -2,6 +2,7 @@ package client.widgets.user.elements;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.datepicker.client.DatePicker;
+
 import java.util.Date;
 
 /**

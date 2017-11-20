@@ -6,9 +6,10 @@ import client.data.DataObservable;
 import client.data.DataObserver;
 import client.data.DataSource;
 import com.google.gwt.core.client.GWT;
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
-import lombok.Getter;
 
 /**
  * Abstraction for creating any repository.

@@ -4,10 +4,11 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.typedarrays.shared.ArrayBuffer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import java.util.List;
 import org.realityforge.gwt.websockets.client.WebSocket;
 import org.realityforge.gwt.websockets.client.WebSocketListener;
 import shared.models.UserDto;
+
+import java.util.List;
 
 /**
  * Repository for usersList.

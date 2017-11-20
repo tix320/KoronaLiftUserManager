@@ -2,20 +2,15 @@ package client.widgets.tables;
 
 import client.data.DataObserver;
 import client.data.repositories.DataRepository;
-import client.widgets.tables.columns.ColumnCity;
-import client.widgets.tables.columns.ColumnDateOfBirth;
-import client.widgets.tables.columns.ColumnDelete;
-import client.widgets.tables.columns.ColumnFirstName;
-import client.widgets.tables.columns.ColumnLastName;
-import client.widgets.tables.columns.ColumnPatronymic;
-import client.widgets.tables.columns.ColumnSex;
+import client.widgets.tables.columns.*;
 import com.google.gwt.cell.client.ButtonCell;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SingleSelectionModel;
-import java.util.List;
 import shared.models.UserDto;
+
+import java.util.List;
 
 /**
  * Create custom widget to keep the users.

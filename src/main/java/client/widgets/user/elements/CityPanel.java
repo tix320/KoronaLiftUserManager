@@ -5,8 +5,9 @@ import client.data.repositories.DataRepository;
 import client.widgets.custom.CustomListBox;
 import client.widgets.user.HasValidation;
 import com.google.gwt.user.client.ui.Composite;
-import java.util.List;
 import shared.models.CityDto;
+
+import java.util.List;
 
 /**
  * Panel for selection city.

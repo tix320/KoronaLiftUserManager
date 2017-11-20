@@ -1,8 +1,9 @@
 package shared.models;
 
-import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serializable;
 
 /**
  * DTO for cities.

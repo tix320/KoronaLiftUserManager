@@ -1,10 +1,11 @@
 package server.converters;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.ejb.Stateless;
 import server.entity.City;
 import shared.models.CityDto;
+
+import javax.ejb.Stateless;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Converter to convert city objects.

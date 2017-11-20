@@ -1,13 +1,14 @@
 package server.converters;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
 import server.entity.City;
 import server.entity.User;
 import shared.models.CityDto;
 import shared.models.UserDto;
+
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Converter to convert user objects.

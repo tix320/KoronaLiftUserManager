@@ -1,10 +1,11 @@
 package shared.models;
 
-import java.io.Serializable;
-import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
 import shared.types.Gender;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * DTO for users.
