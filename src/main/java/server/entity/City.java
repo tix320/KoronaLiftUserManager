@@ -3,7 +3,9 @@ package server.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * Entity of cities.
@@ -12,15 +14,10 @@ import javax.persistence.*;
 @Getter
 @Entity
 @Table(name = "cities")
-public class City {
+public class City extends IdentityEntity {
 
     /** Length of city name in database. */
     private static final int CITY_NAME_LENGTH = 30;
-
-    /** Unique number of city. */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
 
     /** Name of city. */
     @Column(length = CITY_NAME_LENGTH)

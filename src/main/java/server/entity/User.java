@@ -14,15 +14,10 @@ import java.util.Date;
 @Getter
 @Entity
 @Table(name = "users")
-public class User {
+public class User extends IdentityEntity {
 
     /** Length of full name in database. */
     private static final int FULL_NAME_LENGTH = 30;
-
-    /** Users unique number. */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
 
     /** User's first name. */
     @Column(length = FULL_NAME_LENGTH)
@@ -46,9 +41,4 @@ public class User {
 
     /** User's date of birth. */
     private Date dateOfBirth;
-
-    @Override
-    public int hashCode() {
-        return id;
-    }
 }

@@ -2,6 +2,7 @@ package server.dao;
 
 import lombok.Getter;
 import lombok.Setter;
+import server.entity.EntityI;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,6 +17,7 @@ import java.util.List;
 @Transactional
 public abstract class Controller<D> {
 
+    /** Class of entity. */
     @Setter
     private Class<D> entityClass;
 
@@ -28,8 +30,9 @@ public abstract class Controller<D> {
      *
      * @param newEntity is adding data object.
      */
-    public void add(D newEntity) {
+    public void add(EntityI newEntity) {
         entityManager.persist(newEntity);
+
     }
 
     /**
@@ -37,9 +40,11 @@ public abstract class Controller<D> {
      *
      * @param removableEntity is removing data object.
      */
-    public void delete(D removableEntity) {
-        D entity = entityManager.find(entityClass, removableEntity.hashCode());
-        entityManager.remove(entity);
+    public void delete(EntityI removableEntity) {
+        D entity = entityManager.find(entityClass, removableEntity.getId());
+        if (entity != null) {
+            entityManager.remove(entity);
+        }
     }
 
     /**
@@ -47,8 +52,8 @@ public abstract class Controller<D> {
      *
      * @param alterableEntity is updating data object.
      */
-    public void update(D alterableEntity) {
-        if (entityManager.find(entityClass, alterableEntity.hashCode()) != null) {
+    public void update(EntityI alterableEntity) {
+        if (entityManager.find(entityClass, alterableEntity.getId()) != null) {
             entityManager.merge(alterableEntity);
         }
     }
