@@ -3,13 +3,11 @@ package server.dao;
 import server.entity.User;
 
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
 import java.util.List;
 
 /**
  * Data transfer of users.
  */
-@Named
 @RequestScoped
 @DataAccessor(type = EntityType.USER)
 public class UserController extends Controller<User> {

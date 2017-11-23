@@ -31,8 +31,7 @@ public abstract class Controller<D> {
      * @param newEntity is adding data object.
      */
     public void add(EntityI newEntity) {
-        entityManager.persist(newEntity);
-
+        entityManager.merge(newEntity);
     }
 
     /**

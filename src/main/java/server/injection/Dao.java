@@ -7,10 +7,10 @@ import server.dao.EntityType;
 import server.entity.City;
 import server.entity.User;
 
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
 
-@Named
+@RequestScoped
 @Getter
 public class Dao {
 

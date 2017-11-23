@@ -1,5 +1,7 @@
 package server.entity;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
@@ -11,7 +13,7 @@ public class IdentityEntity implements EntityI<Integer> {
 
     /** Unique number of entity. */
     @Id
-    // @GeneratedValue(strategy = GenerationType.IDENTITY) FIXME : bug
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Override

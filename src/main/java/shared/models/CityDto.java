@@ -1,5 +1,6 @@
 package shared.models;
 
+import client.widgets.user.HasUniqueness;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +11,7 @@ import java.io.Serializable;
  */
 @Setter
 @Getter
-public class CityDto implements Serializable {
+public class CityDto implements Serializable, HasUniqueness {
 
     private static final long serialVersionUID = -1355704257405143045L;
 
@@ -21,28 +22,12 @@ public class CityDto implements Serializable {
     private String name;
 
     @Override
-    public final String toString() {
+    public int uniqueNumber() {
+        return id;
+    }
+
+    @Override
+    public String getValue() {
         return name;
-    }
-
-    @Override
-    public final boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        CityDto city = (CityDto) o;
-
-        return id == city.id && name.equals(city.name);
-    }
-
-    @Override
-    public final int hashCode() {
-        int result = id;
-        result = 31 * result + name.hashCode();
-        return result;
     }
 }
