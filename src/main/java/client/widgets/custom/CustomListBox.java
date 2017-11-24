@@ -1,6 +1,5 @@
 package client.widgets.custom;
 
-import client.widgets.user.HasUniqueness;
 import com.google.gwt.user.client.ui.ListBox;
 
 import java.util.ArrayList;
@@ -13,13 +12,13 @@ import java.util.List;
  * @param <T> is type of object.
  * @author Tigran Sargsyan and Tiran Manukyan :).
  */
-public class CustomListBox<T extends HasUniqueness> extends ListBox {
+public abstract class CustomListBox<T> extends ListBox {
 
     /** List of objects. */
     private List<T> objectsList;
 
-    /** List of unique numbers. */
-    private List<Integer> uniqueItems;
+    /** List of strings. */
+    private List<String> stringList;
 
     /**
      * Init objects list.
@@ -29,22 +28,18 @@ public class CustomListBox<T extends HasUniqueness> extends ListBox {
     public void setList(List<T> list) {
         objectsList = list;
         addItems();
-        initUniqueList();
     }
 
     /**
-     * Add items to list box.
+     * Add items to list box and strings list.
      */
     private void addItems() {
-        objectsList.stream().map(T::getValue).forEach(this::addItem);
-    }
-
-    /**
-     * Init unique list.
-     */
-    private void initUniqueList() {
-        uniqueItems = new ArrayList<>();
-        objectsList.stream().map(T::uniqueNumber).forEach(uniqueItems::add);
+        stringList = new ArrayList<>(objectsList.size());
+        for (T object : objectsList) {
+            String tmp = getValue(object);
+            stringList.add(tmp);
+            addItem(tmp);
+        }
     }
 
     /**
@@ -62,6 +57,14 @@ public class CustomListBox<T extends HasUniqueness> extends ListBox {
      * @param object is selecting object.
      */
     public void selectObject(T object) {
-        setSelectedIndex(uniqueItems.indexOf(object.uniqueNumber()));
+        setSelectedIndex(stringList.indexOf(getValue(object)));
     }
+
+    /**
+     * Get string value from object of generic type.
+     *
+     * @param object of generic type.
+     * @return string value.
+     */
+    public abstract String getValue(T object);
 }

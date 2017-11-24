@@ -22,7 +22,13 @@ public class CityPanel extends Composite implements HasValidation, DataObserver<
      */
     public CityPanel() {
         DataRepository.getCitiesRepository().registerObserver(this);
-        listBoxCity = new CustomListBox<>();
+        listBoxCity = new CustomListBox<CityDto>() {
+
+            @Override
+            public String getValue(CityDto object) {
+                return object.getName();
+            }
+        };
         setDefaultStyles();
         initWidget(listBoxCity);
     }
@@ -64,8 +70,10 @@ public class CityPanel extends Composite implements HasValidation, DataObserver<
 
     @Override
     public final void update(final List<CityDto> data) {
-        listBoxCity.addItem("Город");
-        listBoxCity.getElement().getFirstChildElement().setAttribute("disabled", "disabled");
+        CityDto cityDto = new CityDto();
+        cityDto.setName("Город");
+        data.set(0, cityDto);
         listBoxCity.setList(data);
+        listBoxCity.getElement().getFirstChildElement().setAttribute("disabled", "disabled");
     }
 }
