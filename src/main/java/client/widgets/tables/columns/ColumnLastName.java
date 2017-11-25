@@ -1,7 +1,7 @@
 package client.widgets.tables.columns;
 
 import com.google.gwt.user.cellview.client.TextColumn;
-import shared.models.UserDto;
+import shared.dto.UserDto;
 
 /**
  * Last name column of Table.

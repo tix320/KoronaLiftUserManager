@@ -17,7 +17,7 @@ public class GenderPanel extends Composite implements HasValidation {
     /** Group name of radio buttons. */
     private String radioGroup;
 
-    /** Panel, where will radio buttons. */
+    /** Panel where will radio buttons. */
     private HorizontalPanel panelGender;
 
     /** Radio button of male. */
@@ -27,9 +27,9 @@ public class GenderPanel extends Composite implements HasValidation {
     private RadioButton radioFemale;
 
     /**
-     * Create the gender selection panel.
+     * Create gender selection panel.
      *
-     * @param group is group of radio buttons.
+     * @param group of radio buttons.
      */
     public GenderPanel(final String group) {
         this.radioGroup = group;
@@ -63,7 +63,7 @@ public class GenderPanel extends Composite implements HasValidation {
     }
 
     /**
-     * Get button,which is selected.
+     * Get button, which is selected.
      *
      * @return selected button.
      */
@@ -78,9 +78,9 @@ public class GenderPanel extends Composite implements HasValidation {
     }
 
     /**
-     * Select button.
+     * Select radio button.
      *
-     * @param gender checks, what button is selected.
+     * @param gender will be selected.
      */
     public void setSelectedButton(final Gender gender) {
         if (gender == Gender.MALE) {
@@ -91,9 +91,9 @@ public class GenderPanel extends Composite implements HasValidation {
     }
 
     /**
-     * Get selected userGender.
+     * Get selected gender.
      *
-     * @return userGender.
+     * @return gender.
      */
     public Gender getGender() {
         if (getSelectedButton() == radioMale) {

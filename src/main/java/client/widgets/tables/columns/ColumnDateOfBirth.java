@@ -2,7 +2,7 @@ package client.widgets.tables.columns;
 
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.cellview.client.TextColumn;
-import shared.models.UserDto;
+import shared.dto.UserDto;
 
 /**
  * Date of birth column of Table.

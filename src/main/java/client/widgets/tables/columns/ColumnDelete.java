@@ -2,7 +2,7 @@ package client.widgets.tables.columns;
 
 import com.google.gwt.cell.client.Cell;
 import com.google.gwt.user.cellview.client.Column;
-import shared.models.UserDto;
+import shared.dto.UserDto;
 
 /**
  * Column with button to remove users.

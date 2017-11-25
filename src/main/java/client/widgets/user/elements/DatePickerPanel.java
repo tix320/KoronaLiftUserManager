@@ -36,7 +36,7 @@ public class DatePickerPanel extends Composite {
     }
 
     /**
-     * Get selected date on date picker.
+     * Get selected date from date picker.
      *
      * @return value of Date.
      */
@@ -45,7 +45,7 @@ public class DatePickerPanel extends Composite {
     }
 
     /**
-     * Set date on date picker.
+     * Set date to date picker.
      *
      * @param date is a value of date.
      */

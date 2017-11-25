@@ -3,7 +3,7 @@ package client.data;
 import java.util.List;
 
 /**
- * To become an observer of information, need to implement an interface.
+ * To become an observer of information, need to implement this interface.
  *
  * @param <D> is a type of data.
  */

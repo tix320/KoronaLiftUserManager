@@ -2,8 +2,8 @@ package client.ServerAPI;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
-import shared.models.CityDto;
-import shared.models.UserDto;
+import shared.dto.CityDto;
+import shared.dto.UserDto;
 
 import java.util.List;
 

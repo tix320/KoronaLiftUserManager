@@ -12,7 +12,7 @@ import javax.inject.Inject;
 
 @RequestScoped
 @Getter
-public class Dao {
+public class DaoManager {
 
     @Inject
     @DataAccessor(type = EntityType.USER)

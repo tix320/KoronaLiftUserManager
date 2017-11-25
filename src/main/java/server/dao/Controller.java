@@ -1,8 +1,9 @@
 package server.dao;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import server.entity.EntityI;
+import server.entity.IsEntity;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,7 +19,7 @@ import java.util.List;
 public abstract class Controller<D> {
 
     /** Class of entity. */
-    @Setter
+    @Setter(value = AccessLevel.PROTECTED)
     private Class<D> entityClass;
 
     @Getter
@@ -30,7 +31,7 @@ public abstract class Controller<D> {
      *
      * @param newEntity is adding data object.
      */
-    public void add(EntityI newEntity) {
+    public void add(IsEntity newEntity) {
         entityManager.merge(newEntity);
     }
 
@@ -39,7 +40,7 @@ public abstract class Controller<D> {
      *
      * @param removableEntity is removing data object.
      */
-    public void delete(EntityI removableEntity) {
+    public void delete(IsEntity removableEntity) {
         D entity = entityManager.find(entityClass, removableEntity.getId());
         if (entity != null) {
             entityManager.remove(entity);
@@ -51,7 +52,7 @@ public abstract class Controller<D> {
      *
      * @param alterableEntity is updating data object.
      */
-    public void update(EntityI alterableEntity) {
+    public void update(IsEntity alterableEntity) {
         if (entityManager.find(entityClass, alterableEntity.getId()) != null) {
             entityManager.merge(alterableEntity);
         }

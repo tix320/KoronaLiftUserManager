@@ -14,7 +14,7 @@ import java.util.Date;
 @Getter
 @Entity
 @Table(name = "users")
-public class User extends IdentityEntity {
+public class User extends IdentityIsEntity {
 
     /** Length of full name in database. */
     private static final int FULL_NAME_LENGTH = 30;
@@ -32,11 +32,12 @@ public class User extends IdentityEntity {
     private String lastName;
 
     /** User's gender. */
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     /** User's city name. */
     @ManyToOne
-    @JoinColumn(name = "city_id", nullable = false)
+    @JoinColumn(nullable = false)
     private City city;
 
     /** User's date of birth. */

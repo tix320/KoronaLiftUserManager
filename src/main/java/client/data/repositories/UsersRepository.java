@@ -6,7 +6,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import org.realityforge.gwt.websockets.client.WebSocket;
 import org.realityforge.gwt.websockets.client.WebSocketListener;
-import shared.models.UserDto;
+import shared.dto.UserDto;
 
 import java.util.List;
 
@@ -35,11 +35,9 @@ public final class UsersRepository extends Repository<UserDto> {
     private void connectWebSocket() {
         webSocket.setListener(new WebSocketListener() {
             @Override public void onOpen(WebSocket webSocket) {
-
             }
 
             @Override public void onClose(WebSocket webSocket, boolean b, int i, String s) {
-
             }
 
             @Override public void onMessage(WebSocket webSocket, String s) {
@@ -78,12 +76,12 @@ public final class UsersRepository extends Repository<UserDto> {
         SERVER_SERVICE.addUser(user, new AsyncCallback<Void>() {
             @Override
             public void onFailure(final Throwable throwable) {
-                Window.alert("Failed to add user.");
+                Window.alert("Failed while adding user.");
             }
 
             @Override
             public void onSuccess(final Void aVoid) {
-                webSocket.send("true");
+                webSocket.send("Hello Server");
             }
         });
     }
@@ -97,12 +95,12 @@ public final class UsersRepository extends Repository<UserDto> {
         SERVER_SERVICE.editUser(user, new AsyncCallback<Void>() {
             @Override
             public void onFailure(final Throwable throwable) {
-                Window.alert("Failed to edit user.");
+                Window.alert("Failed while editing user.");
             }
 
             @Override
             public void onSuccess(final Void aVoid) {
-                webSocket.send("true");
+                webSocket.send("Hello Server");
             }
         });
     }
@@ -116,12 +114,12 @@ public final class UsersRepository extends Repository<UserDto> {
         SERVER_SERVICE.removeUser(user, new AsyncCallback<Void>() {
             @Override
             public void onFailure(final Throwable throwable) {
-                Window.alert("Failed to remove user.");
+                Window.alert("Failed while removing user.");
             }
 
             @Override
             public void onSuccess(final Void aVoid) {
-                webSocket.send("true");
+                webSocket.send("Hello Server");
             }
         });
     }
@@ -133,7 +131,7 @@ public final class UsersRepository extends Repository<UserDto> {
         SERVER_SERVICE.getUsers(new AsyncCallback<List<UserDto>>() {
             @Override
             public void onFailure(final Throwable throwable) {
-                Window.alert("Failed to load users list.");
+                Window.alert("Failed while loading users list.");
             }
 
             @Override

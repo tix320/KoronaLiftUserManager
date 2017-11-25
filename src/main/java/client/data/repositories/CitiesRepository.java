@@ -2,7 +2,7 @@ package client.data.repositories;
 
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import shared.models.CityDto;
+import shared.dto.CityDto;
 
 import java.util.List;
 
@@ -34,13 +34,13 @@ public final class CitiesRepository extends Repository<CityDto> {
     }
 
     /**
-     * Get cities from Data base.
+     * Get cities from database.
      */
     private void getCitiesFromDB() {
         SERVER_SERVICE.getCities(new AsyncCallback<List<CityDto>>() {
             @Override
             public void onFailure(final Throwable throwable) {
-                Window.alert("Failed to load cities.");
+                Window.alert("Failed while loading cities.");
             }
 
             @Override

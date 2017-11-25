@@ -1,7 +1,7 @@
 package server.converters;
 
 import server.entity.City;
-import shared.models.CityDto;
+import shared.dto.CityDto;
 
 import javax.ejb.Stateless;
 import java.util.ArrayList;

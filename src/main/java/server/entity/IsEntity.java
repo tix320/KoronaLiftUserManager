@@ -5,7 +5,7 @@ package server.entity;
  *
  * @param <T> is type of ID.
  */
-public interface EntityI<T> {
+public interface IsEntity<T> {
 
     T getId();
 

@@ -35,11 +35,17 @@ public abstract class CustomListBox<T> extends ListBox {
      */
     private void addItems() {
         stringList = new ArrayList<>(objectsList.size());
-        for (T object : objectsList) {
-            String tmp = getValue(object);
-            stringList.add(tmp);
-            addItem(tmp);
-        }
+        objectsList.forEach(object -> addItemToList(getValue(object)));
+    }
+
+    /**
+     * Add item to lists.
+     *
+     * @param item for adding.
+     */
+    private void addItemToList(String item) {
+        stringList.add(item);
+        addItem(item);
     }
 
     /**

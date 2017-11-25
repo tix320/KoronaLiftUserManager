@@ -12,7 +12,7 @@ public interface DataObservable<D> {
     /**
      * Add object, who will observe.
      *
-     * @param observer is adding observer.
+     * @param observer for addition in observer list.
      */
     void registerObserver(DataObserver<D> observer);
 

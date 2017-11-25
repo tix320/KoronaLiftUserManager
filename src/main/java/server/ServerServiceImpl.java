@@ -2,46 +2,45 @@ package server;
 
 import client.ServerAPI.ServerService;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-import server.injection.Converter;
-import server.injection.Dao;
-import shared.models.CityDto;
-import shared.models.UserDto;
+import server.injection.ConverterManager;
+import server.injection.DaoManager;
+import shared.dto.CityDto;
+import shared.dto.UserDto;
 
 import javax.inject.Inject;
 import java.util.List;
 
 public class ServerServiceImpl extends RemoteServiceServlet implements ServerService {
-
     private static final long serialVersionUID = -2615428359694308574L;
 
     @Inject
-    private Converter converter;
+    private ConverterManager converterManager;
 
     @Inject
-    private Dao dao;
+    private DaoManager daoManager;
 
     @Override
     public void addUser(final UserDto userDto) {
-        dao.getUserController().add(converter.getUserConverter().convertToEntity(userDto));
+        daoManager.getUserController().add(converterManager.getUserConverter().convertToEntity(userDto));
     }
 
     @Override
     public void editUser(final UserDto userDto) {
-        dao.getUserController().update(converter.getUserConverter().convertToEntity(userDto));
+        daoManager.getUserController().update(converterManager.getUserConverter().convertToEntity(userDto));
     }
 
     @Override
     public void removeUser(final UserDto userDto) {
-        dao.getUserController().delete(converter.getUserConverter().convertToEntity(userDto));
+        daoManager.getUserController().delete(converterManager.getUserConverter().convertToEntity(userDto));
     }
 
     @Override
     public List<UserDto> getUsers() {
-        return converter.getUserConverter().convertToDto(dao.getUserController().getAll());
+        return converterManager.getUserConverter().convertToDto(daoManager.getUserController().getAll());
     }
 
     @Override
     public List<CityDto> getCities() {
-        return converter.getCityConverter().convertToDto(dao.getCityController().getAll());
+        return converterManager.getCityConverter().convertToDto(daoManager.getCityController().getAll());
     }
 }

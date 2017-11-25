@@ -1,5 +1,6 @@
 package client.widgets.user;
 
+import client.data.repositories.DataRepository;
 import client.widgets.user.elements.CityPanel;
 import client.widgets.user.elements.DatePickerPanel;
 import client.widgets.user.elements.FullNamePanel;
@@ -7,8 +8,7 @@ import client.widgets.user.elements.GenderPanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
-import lombok.Getter;
-import shared.models.UserDto;
+import shared.dto.UserDto;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -30,20 +30,20 @@ public abstract class BaseUserForm extends Composite implements Form<UserDto> {
     /** Date selection panel. */
     private DatePickerPanel datePickerPanel;
 
-    /** Submit button - add new user or edit. */
-    @Getter
-    private Button buttonSubmit;
+    /** Submit button. */
+    protected Button buttonSubmit;
 
-    /** Current user's index. */
-    private UserDto currentUser;
+    /** Current user. */
+    protected UserDto currentUser;
 
     /**
      * Constructor is a main part for creating a user form.
      * All methods of its elements are called here.
      *
-     * @param genderPanelGroup is group of gender panel.
+     * @param genderPanelGroup of gender panel.
      */
     protected BaseUserForm(final String genderPanelGroup) {
+        DataRepository.getUsersRepository().registerSource(this);
         final FlowPanel panelSubmit = new FlowPanel();
         fullNamePanel = new FullNamePanel();
         genderPanel = new GenderPanel(genderPanelGroup);
@@ -69,32 +69,11 @@ public abstract class BaseUserForm extends Composite implements Form<UserDto> {
     }
 
     /**
-     * Create new user taking data from inputs.
-     *
-     * @return created user.
-     */
-    protected UserDto sendNewUser() {
-        UserDto newUser = new UserDto();
-        setUserDataFromInputs(newUser);
-        return newUser;
-    }
-
-    /**
-     * Edit current user taking data from inputs.
-     *
-     * @return edited user.
-     */
-    protected UserDto sendCurrentUser() {
-        setUserDataFromInputs(currentUser);
-        return currentUser;
-    }
-
-    /**
      * Set user data from inputs.
      *
      * @param user is a using user.
      */
-    private void setUserDataFromInputs(final UserDto user) {
+    protected void setUserDataFromInputs(final UserDto user) {
         user.setFirstName(fullNamePanel.getFirstName());
         user.setPatronymic(fullNamePanel.getPatronymic());
         user.setLastName(fullNamePanel.getLastName());

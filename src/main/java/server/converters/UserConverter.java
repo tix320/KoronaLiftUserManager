@@ -2,8 +2,8 @@ package server.converters;
 
 import server.entity.City;
 import server.entity.User;
-import shared.models.CityDto;
-import shared.models.UserDto;
+import shared.dto.CityDto;
+import shared.dto.UserDto;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;

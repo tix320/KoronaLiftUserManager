@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Getter
 @Entity
 @Table(name = "cities")
-public class City extends IdentityEntity {
+public class City extends IdentityIsEntity {
 
     /** Length of city name in database. */
     private static final int CITY_NAME_LENGTH = 30;

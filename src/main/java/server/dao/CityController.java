@@ -18,6 +18,6 @@ public class CityController extends Controller<City> {
 
     @Override
     public List<City> getAll() {
-        return getEntityManager().createQuery("FROM City ORDER BY id", City.class).getResultList();
+        return getEntityManager().createQuery("FROM City ORDER BY name", City.class).getResultList();
     }
 }

@@ -2,10 +2,9 @@ package client.widgets.user.elements;
 
 import client.data.DataObserver;
 import client.data.repositories.DataRepository;
-import client.widgets.custom.CustomListBox;
 import client.widgets.user.HasValidation;
 import com.google.gwt.user.client.ui.Composite;
-import shared.models.CityDto;
+import shared.dto.CityDto;
 
 import java.util.List;
 
@@ -15,20 +14,14 @@ import java.util.List;
 public class CityPanel extends Composite implements HasValidation, DataObserver<CityDto> {
 
     /** List box of cities. */
-    private CustomListBox<CityDto> listBoxCity;
+    private CityListBox listBoxCity;
 
     /**
      * Initialize cities and list box.
      */
     public CityPanel() {
         DataRepository.getCitiesRepository().registerObserver(this);
-        listBoxCity = new CustomListBox<CityDto>() {
-
-            @Override
-            public String getValue(CityDto object) {
-                return object.getName();
-            }
-        };
+        listBoxCity = new CityListBox();
         setDefaultStyles();
         initWidget(listBoxCity);
     }
@@ -70,10 +63,6 @@ public class CityPanel extends Composite implements HasValidation, DataObserver<
 
     @Override
     public final void update(final List<CityDto> data) {
-        CityDto cityDto = new CityDto();
-        cityDto.setName("Город");
-        data.set(0, cityDto);
-        listBoxCity.setList(data);
-        listBoxCity.getElement().getFirstChildElement().setAttribute("disabled", "disabled");
+        listBoxCity.setItems(data);
     }
 }

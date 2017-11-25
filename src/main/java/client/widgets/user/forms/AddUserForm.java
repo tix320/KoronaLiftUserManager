@@ -2,9 +2,10 @@ package client.widgets.user.forms;
 
 import client.data.repositories.DataRepository;
 import client.widgets.user.BaseUserForm;
+import shared.dto.UserDto;
 
 /**
- * Form to add users in repository.
+ * Form for add users to repository.
  */
 public class AddUserForm extends BaseUserForm {
 
@@ -16,12 +17,18 @@ public class AddUserForm extends BaseUserForm {
      */
     public AddUserForm() {
         super("gender_group_add");
-        DataRepository.getUsersRepository().registerSource(this);
-        getButtonSubmit().setText(SUBMIT_BUTTON_TEXT);
+        buttonSubmit.setText(SUBMIT_BUTTON_TEXT);
     }
 
     @Override
     public final void submitAction() {
-        DataRepository.getUsersRepository().addUser(sendNewUser());
+        currentUser = new UserDto();
+        setUserDataFromInputs(currentUser);
+        sendData();
+    }
+
+    @Override
+    public void sendData() {
+        DataRepository.getUsersRepository().addUser(currentUser);
     }
 }

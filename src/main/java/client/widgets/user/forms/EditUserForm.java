@@ -16,12 +16,17 @@ public class EditUserForm extends BaseUserForm {
      */
     public EditUserForm() {
         super("gender_group_edit");
-        DataRepository.getUsersRepository().registerSource(this);
-        getButtonSubmit().setText(SUBMIT_BUTTON_TEXT);
+        buttonSubmit.setText(SUBMIT_BUTTON_TEXT);
     }
 
     @Override
     public final void submitAction() {
-        DataRepository.getUsersRepository().editUser(sendCurrentUser());
+        setUserDataFromInputs(currentUser);
+        sendData();
+    }
+
+    @Override
+    public void sendData() {
+        DataRepository.getUsersRepository().editUser(currentUser);
     }
 }

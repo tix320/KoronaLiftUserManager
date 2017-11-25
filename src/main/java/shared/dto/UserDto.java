@@ -1,4 +1,4 @@
-package shared.models;
+package shared.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +13,6 @@ import java.util.Date;
 @Setter
 @Getter
 public class UserDto implements Serializable {
-
     private static final long serialVersionUID = -3940035670218210064L;
 
     /** User's unique number. */

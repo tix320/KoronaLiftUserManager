@@ -26,6 +26,6 @@ public class ClientUpdater {
 
     @OnMessage
     public void onMessage(final String s, final Session session) {
-        sessions.forEach(ses -> ses.getAsyncRemote().sendText("true"));
+        sessions.forEach(ses -> ses.getAsyncRemote().sendText("Hello clients!"));
     }
 }
