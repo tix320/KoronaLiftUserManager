@@ -9,7 +9,7 @@ import javax.persistence.MappedSuperclass;
  * Base class for identity entities.
  */
 @MappedSuperclass
-public class IdentityIsEntity implements IsEntity<Integer> {
+public class IdentityEntity implements IsEntity<Integer> {
 
     /** Unique number of entity. */
     @Id

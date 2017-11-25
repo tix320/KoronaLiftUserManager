@@ -14,7 +14,7 @@ import java.util.Date;
 @Getter
 @Entity
 @Table(name = "users")
-public class User extends IdentityIsEntity {
+public class User extends IdentityEntity {
 
     /** Length of full name in database. */
     private static final int FULL_NAME_LENGTH = 30;
