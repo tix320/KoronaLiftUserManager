@@ -12,6 +12,9 @@ import java.util.List;
 @DataAccessor(type = EntityType.USER)
 public class UserController extends Controller<User> {
 
+    /**
+     * Set entity class.
+     */
     public UserController() {
         setEntityClass(User.class);
     }

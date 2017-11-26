@@ -2,6 +2,7 @@ package client.widgets.user.forms;
 
 import client.data.repositories.DataRepository;
 import client.widgets.user.BaseUserForm;
+import shared.dto.UserDto;
 
 /**
  * Form to edit users in repository.
@@ -22,11 +23,11 @@ public class EditUserForm extends BaseUserForm {
     @Override
     public final void submitAction() {
         setUserDataFromInputs(currentUser);
-        sendData();
+        sendData(currentUser);
     }
 
     @Override
-    public void sendData() {
-        DataRepository.getUsersRepository().editUser(currentUser);
+    public void sendData(UserDto user) {
+        DataRepository.getUsersRepository().editUser(user);
     }
 }

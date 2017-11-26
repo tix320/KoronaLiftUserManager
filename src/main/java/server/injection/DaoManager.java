@@ -10,6 +10,9 @@ import server.entity.User;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
+/**
+ * Manager of data accessors.
+ */
 @RequestScoped
 @Getter
 public class DaoManager {

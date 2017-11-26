@@ -9,8 +9,9 @@ public interface DataSource<D> {
 
     /**
      * Send data.
+     * @param data to send.
      */
-    void sendData();
+    void sendData(D data);
 
     /**
      * Response from target.

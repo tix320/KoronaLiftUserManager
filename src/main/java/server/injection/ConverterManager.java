@@ -10,6 +10,9 @@ import shared.dto.UserDto;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 
+/**
+ * Manager of converters.
+ */
 @RequestScoped
 @Getter
 public class ConverterManager {

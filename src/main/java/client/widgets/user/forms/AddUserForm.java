@@ -24,11 +24,11 @@ public class AddUserForm extends BaseUserForm {
     public final void submitAction() {
         currentUser = new UserDto();
         setUserDataFromInputs(currentUser);
-        sendData();
+        sendData(currentUser);
     }
 
     @Override
-    public void sendData() {
-        DataRepository.getUsersRepository().addUser(currentUser);
+    public void sendData(final UserDto user) {
+        DataRepository.getUsersRepository().addUser(user);
     }
 }

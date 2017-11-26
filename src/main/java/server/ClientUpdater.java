@@ -9,9 +9,15 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Server endpoint to notify clients for any updates.
+ */
 @ServerEndpoint(value = "/users")
 public class ClientUpdater {
 
+    /**
+     * Set of sessions.
+     */
     private static Set<Session> sessions = Collections.synchronizedSet(new HashSet<Session>());
 
     @OnOpen

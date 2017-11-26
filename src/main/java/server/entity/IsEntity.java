@@ -7,7 +7,17 @@ package server.entity;
  */
 public interface IsEntity<T> {
 
+    /**
+     * Get entity id.
+     *
+     * @return id.
+     */
     T getId();
 
+    /**
+     * Set entity id.
+     *
+     * @param id of entity.
+     */
     void setId(T id);
 }

@@ -12,6 +12,9 @@ import java.util.List;
 @DataAccessor(type = EntityType.CITY)
 public class CityController extends Controller<City> {
 
+    /**
+     * Set entity class.
+     */
     public CityController() {
         setEntityClass(City.class);
     }

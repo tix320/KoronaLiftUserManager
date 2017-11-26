@@ -22,6 +22,7 @@ public abstract class Controller<D> {
     @Setter(value = AccessLevel.PROTECTED)
     private Class<D> entityClass;
 
+    /** Instance of entity manager. */
     @Getter
     @PersistenceContext(unitName = "TestUnit")
     private EntityManager entityManager;
