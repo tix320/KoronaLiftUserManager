@@ -1,15 +1,15 @@
 package client.widgets.tables.columns;
 
-import client.models.User;
 import com.google.gwt.user.cellview.client.TextColumn;
+import shared.dto.UserDto;
 
 /**
  * City's column of Table.
  */
-public class ColumnCity extends TextColumn<User> {
-    
+public class ColumnCity extends TextColumn<UserDto> {
+
     @Override
-    public String getValue(User user) {
-        return user.getCity();
+    public final String getValue(final UserDto user) {
+        return user.getCity().getName();
     }
 }

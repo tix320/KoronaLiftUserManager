@@ -1,16 +1,16 @@
 package client.widgets.tables.columns;
 
-import client.models.Gender;
-import client.models.User;
 import com.google.gwt.user.cellview.client.TextColumn;
+import shared.dto.UserDto;
+
 
 /**
  * Sex column of Table.
  */
-public class ColumnSex extends TextColumn<User> {
+public class ColumnSex extends TextColumn<UserDto> {
 
     @Override
-    public String getValue(User user) {
+    public final String getValue(final UserDto user) {
         return user.getGender().getName();
     }
 }

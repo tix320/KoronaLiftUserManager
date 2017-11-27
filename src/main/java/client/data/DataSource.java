@@ -6,14 +6,18 @@ package client.data;
  * @param <D> is a type of data.
  */
 public interface DataSource<D> {
-    
+
+    /**
+     * Send data.
+     * @param data to send.
+     */
+    void sendData(D data);
+
     /**
      * Response from target.
      *
-     * @param ID of data.
      * @param data from target.
      */
-    default void response(Integer ID, D data) {
-    
+    default void response(D data) {
     }
 }

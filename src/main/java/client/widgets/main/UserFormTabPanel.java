@@ -1,7 +1,7 @@
 package client.widgets.main;
 
-import client.widgets.forms.AddUserForm;
-import client.widgets.forms.EditUserForm;
+import client.widgets.user.forms.AddUserForm;
+import client.widgets.user.forms.EditUserForm;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.TabPanel;
 
