@@ -21,16 +21,12 @@ public class CityListBox extends CustomListBox<CityDto> {
         return object.getName();
     }
 
-    /**
-     * Set items to city list box.
-     *
-     * @param data is list of items.
-     */
-    void setItems(List<CityDto> data) {
+    @Override
+    public void setList(List<CityDto> list) {
         CityDto cityDto = new CityDto();
         cityDto.setName(CITY);
-        data.set(0, cityDto);
-        setList(data);
+        list.add(0, cityDto);
+        super.setList(list);
         this.getElement().getFirstChildElement().setAttribute(DISABLED, DISABLED);
     }
 }
