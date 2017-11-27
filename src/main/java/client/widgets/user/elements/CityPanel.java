@@ -63,6 +63,6 @@ public class CityPanel extends Composite implements HasValidation, DataObserver<
 
     @Override
     public final void update(final List<CityDto> data) {
-        listBoxCity.setItems(data);
+        listBoxCity.setList(data);
     }
 }
