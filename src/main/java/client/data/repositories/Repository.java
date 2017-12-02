@@ -2,11 +2,10 @@ package client.data.repositories;
 
 import client.ServerAPI.ServerService;
 import client.ServerAPI.ServerServiceAsync;
-import client.data.DataObservable;
-import client.data.DataObserver;
-import client.data.DataSource;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,34 +15,33 @@ import java.util.List;
  *
  * @param <D> is a type of data.
  */
-public abstract class Repository<D> implements DataObservable<D> {
+public abstract class Repository<D> {
 
     /** Instance for requests. */
     static final ServerServiceAsync SERVER_SERVICE = GWT.create(ServerService.class);
 
-    /** List of observers. */
-    private List<DataObserver<D>> observers = new ArrayList<>();
-
-    /** List of data sources. */
+    /** Users list. */
     @Getter
-    private List<DataSource<D>> sources = new ArrayList<>();
+    @Setter
+    private List<D> resultList;
+
+    /** List of observers. */
+    @Getter
+    private final List<ChangeHandler> listeners = new ArrayList<>();
 
     /**
-     * Add data source.
+     * Add object, who will listener.
      *
-     * @param source is a data source.
+     * @param listener for addition in listeners list.
      */
-    public void registerSource(final DataSource<D> source) {
-        sources.add(source);
+    public final void registerListener(final ChangeHandler listener) {
+        listeners.add(listener);
     }
 
-    @Override
-    public final void registerObserver(final DataObserver<D> observer) {
-        observers.add(observer);
-    }
-
-    @Override
-    public final void updateObservers(final List<D> data) {
-        observers.forEach(dataObserver -> dataObserver.update(data));
+    /**
+     * Notify listeners.
+     */
+    void handleEvent() {
+        listeners.forEach(listener -> listener.onChange(null));
     }
 }

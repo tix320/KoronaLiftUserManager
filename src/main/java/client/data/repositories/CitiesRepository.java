@@ -45,7 +45,8 @@ public final class CitiesRepository extends Repository<CityDto> {
 
             @Override
             public void onSuccess(final List<CityDto> cities) {
-                updateObservers(cities);
+                setResultList(cities);
+                handleEvent();
             }
         });
     }

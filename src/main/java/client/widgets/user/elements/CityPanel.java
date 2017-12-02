@@ -1,17 +1,16 @@
 package client.widgets.user.elements;
 
-import client.data.DataObserver;
 import client.data.repositories.DataRepository;
 import client.widgets.user.HasValidation;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.user.client.ui.Composite;
 import shared.dto.CityDto;
-
-import java.util.List;
 
 /**
  * Panel for selection city.
  */
-public class CityPanel extends Composite implements HasValidation, DataObserver<CityDto> {
+public class CityPanel extends Composite implements HasValidation, ChangeHandler {
 
     /** List box of cities. */
     private CityListBox listBoxCity;
@@ -20,10 +19,10 @@ public class CityPanel extends Composite implements HasValidation, DataObserver<
      * Initialize cities and list box.
      */
     public CityPanel() {
-        DataRepository.getCitiesRepository().registerObserver(this);
         listBoxCity = new CityListBox();
         setDefaultStyles();
         initWidget(listBoxCity);
+        DataRepository.getCitiesRepository().registerListener(this);
     }
 
     /**
@@ -62,7 +61,7 @@ public class CityPanel extends Composite implements HasValidation, DataObserver<
     }
 
     @Override
-    public final void update(final List<CityDto> data) {
-        listBoxCity.setList(data);
+    public void onChange(ChangeEvent event) {
+        listBoxCity.setList(DataRepository.getCitiesRepository().getResultList());
     }
 }
