@@ -1,13 +1,16 @@
 package client.data.repositories;
 
+import client.data.DataSource;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.typedarrays.shared.ArrayBuffer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import lombok.Getter;
 import org.realityforge.gwt.websockets.client.WebSocket;
 import org.realityforge.gwt.websockets.client.WebSocketListener;
 import shared.dto.UserDto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,6 +23,11 @@ public final class UsersRepository extends Repository<UserDto> {
 
     /** Web socket instance. */
     private final WebSocket webSocket = WebSocket.newWebSocketIfSupported();
+
+    /** List of data sources. */
+    @Getter
+    private List<DataSource<UserDto>> sources = new ArrayList<>();
+
 
     /**
      * Private constructor for singleton.
@@ -34,25 +42,30 @@ public final class UsersRepository extends Repository<UserDto> {
      */
     private void connectWebSocket() {
         webSocket.setListener(new WebSocketListener() {
-            @Override public void onOpen(WebSocket webSocket) {
+            @Override
+            public void onOpen(WebSocket webSocket) {
             }
 
-            @Override public void onClose(WebSocket webSocket, boolean b, int i, String s) {
+            @Override
+            public void onClose(WebSocket webSocket, boolean b, int i, String s) {
             }
 
-            @Override public void onMessage(WebSocket webSocket, String s) {
+            @Override
+            public void onMessage(WebSocket webSocket, String s) {
                 getUsersFromDB();
             }
 
-            @Override public void onMessage(WebSocket webSocket, ArrayBuffer arrayBuffer) {
+            @Override
+            public void onMessage(WebSocket webSocket, ArrayBuffer arrayBuffer) {
                 getUsersFromDB();
             }
 
-            @Override public void onError(WebSocket webSocket) {
+            @Override
+            public void onError(WebSocket webSocket) {
                 Window.alert("WebSocket error.");
             }
         });
-        webSocket.connect(GWT.getHostPageBaseURL().replaceFirst("^http\\:", "ws:") + "users");
+        webSocket.connect(GWT.getHostPageBaseURL().replaceFirst("^http:", "ws:") + "users");
     }
 
     /**
@@ -135,10 +148,20 @@ public final class UsersRepository extends Repository<UserDto> {
             }
 
             @Override
-            public void onSuccess(final List<UserDto> users) {
-                updateObservers(users);
+            public void onSuccess(final List<UserDto> result) {
+                setResultList(result);
+                handleEvent();
             }
         });
+    }
+
+    /**
+     * Add data source.
+     *
+     * @param source is a data source.
+     */
+    public void registerSource(final DataSource<UserDto> source) {
+        sources.add(source);
     }
 
     /**

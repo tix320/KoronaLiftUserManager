@@ -65,5 +65,4 @@ public abstract class Controller<D> {
      * @return list of data objects.
      */
     public abstract List<D> getAll();
-
 }
