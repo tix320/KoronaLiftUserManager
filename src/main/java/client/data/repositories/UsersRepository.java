@@ -8,6 +8,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import lombok.Getter;
 import org.realityforge.gwt.websockets.client.WebSocket;
 import org.realityforge.gwt.websockets.client.WebSocketListener;
+import shared.dto.CityDto;
 import shared.dto.UserDto;
 
 import java.util.ArrayList;
@@ -95,6 +96,7 @@ public final class UsersRepository extends Repository<UserDto> {
             @Override
             public void onSuccess(final Void aVoid) {
                 webSocket.send("Hello Server");
+                getUsersQuantityFromCity(user.getCity());
             }
         });
     }
@@ -114,6 +116,7 @@ public final class UsersRepository extends Repository<UserDto> {
             @Override
             public void onSuccess(final Void aVoid) {
                 webSocket.send("Hello Server");
+                getUsersQuantityFromCity(user.getCity());
             }
         });
     }
@@ -133,6 +136,7 @@ public final class UsersRepository extends Repository<UserDto> {
             @Override
             public void onSuccess(final Void aVoid) {
                 webSocket.send("Hello Server");
+                getUsersQuantityFromCity(user.getCity());
             }
         });
     }
@@ -151,6 +155,23 @@ public final class UsersRepository extends Repository<UserDto> {
             public void onSuccess(final List<UserDto> result) {
                 setResultList(result);
                 handleEvent();
+            }
+        });
+    }
+
+    /**
+     * Get users quantity from this city.
+     */
+    private void getUsersQuantityFromCity(CityDto city) {
+        SERVER_SERVICE.getUsersQuantityFromCity(city, new AsyncCallback<Long>() {
+            @Override
+            public void onFailure(Throwable caught) {
+                Window.alert("Failed while loading users quantity from this city");
+            }
+
+            @Override
+            public void onSuccess(Long result) {
+                Window.alert("Ползователи из города " + city.getName() + ": " + result);
             }
         });
     }

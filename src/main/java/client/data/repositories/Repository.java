@@ -4,6 +4,7 @@ import client.ServerAPI.ServerService;
 import client.ServerAPI.ServerServiceAsync;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeHandler;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,13 +22,21 @@ public abstract class Repository<D> {
     static final ServerServiceAsync SERVER_SERVICE = GWT.create(ServerService.class);
 
     /** Users list. */
-    @Getter
-    @Setter
+    @Setter(value = AccessLevel.PROTECTED)
     private List<D> resultList;
 
     /** List of observers. */
     @Getter
     private final List<ChangeHandler> listeners = new ArrayList<>();
+
+    /**
+     * Get result list by creating new list.
+     *
+     * @return result list.
+     */
+    public List<D> getResultList() {
+        return new ArrayList<>(resultList);
+    }
 
     /**
      * Add object, who will listener.

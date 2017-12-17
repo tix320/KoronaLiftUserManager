@@ -26,6 +26,7 @@ public abstract class CustomListBox<T> extends ListBox {
      * @param list of objects.
      */
     public void setList(List<T> list) {
+        clear();
         objectsList = list;
         addItems();
     }

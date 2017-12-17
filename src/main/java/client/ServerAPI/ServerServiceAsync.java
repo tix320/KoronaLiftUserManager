@@ -45,4 +45,20 @@ public interface ServerServiceAsync {
      * @param async is asynchronous callback.
      */
     void getCities(AsyncCallback<List<CityDto>> async);
+
+
+    /**
+     * Add new city.
+     *
+     * @param city  is adding city.
+     * @param async is asynchronous callback.
+     */
+    void addCity(CityDto city, AsyncCallback<Void> async);
+
+    /**
+     * Get users quantity from this city.
+     *
+     * @param async is asynchronous callback.
+     */
+    void getUsersQuantityFromCity(CityDto city, AsyncCallback<Long> async);
 }

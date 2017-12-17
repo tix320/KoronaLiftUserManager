@@ -43,20 +43,29 @@ button {
     width: 100%;
 }
 
-.user-form-list-city {
+.user-form-city-panel {
+    width: 100%;
+}
+
+.user-form-city-panel-box {
     border-color: lightseagreen;
+    border-width: 3px;
+    border-style: solid;
+    margin: 5px 0;
+    height: 25px;
+    width: 100%;
+}
+
+.user-form-city-panel-box-error {
+    border-color: red;
     border-width: 3px;
     margin: 5px 0;
     height: 25px;
     width: 100%;
 }
 
-.user-form-list-city-error {
-    border-color: red;
-    border-width: 3px;
-    margin: 5px 0;
-    height: 25px;
-    width: 100%;
+.user-form-city-panel-add-button {
+    margin: 5px 0 5px 5px !important;
 }
 
 .user-form-date-of-birthday-picker {
@@ -121,6 +130,3 @@ button {
 .datePickerDayIsHighlighted {
     background: rgba(102, 179, 171, .5) !important;
 }
-
-
-

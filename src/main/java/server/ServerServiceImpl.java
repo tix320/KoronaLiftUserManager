@@ -2,6 +2,7 @@ package server;
 
 import client.ServerAPI.ServerService;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import server.dao.UserController;
 import server.injection.ConverterManager;
 import server.injection.DaoManager;
 import shared.dto.CityDto;
@@ -37,6 +38,16 @@ public class ServerServiceImpl extends RemoteServiceServlet implements ServerSer
     @Override
     public List<UserDto> getUsers() {
         return converterManager.getUserConverter().convertToDto(daoManager.getUserController().getAll());
+    }
+
+    @Override
+    public long getUsersQuantityFromCity(CityDto cityDto) {
+        return ((UserController) daoManager.getUserController()).getClientsQuantity(converterManager.getCityConverter().convertToEntity(cityDto));
+    }
+
+    @Override
+    public void addCity(CityDto cityDto) {
+        daoManager.getCityController().add(converterManager.getCityConverter().convertToEntity(cityDto));
     }
 
     @Override

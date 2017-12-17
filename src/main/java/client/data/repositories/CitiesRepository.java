@@ -50,4 +50,23 @@ public final class CitiesRepository extends Repository<CityDto> {
             }
         });
     }
+
+    /**
+     * Add new city.
+     *
+     * @param city is adding city.
+     */
+    public void addCity(CityDto city) {
+        SERVER_SERVICE.addCity(city, new AsyncCallback<Void>() {
+            @Override
+            public void onFailure(Throwable caught) {
+                Window.alert("Failed while adding city.");
+            }
+
+            @Override
+            public void onSuccess(Void result) {
+                getCitiesFromDB();
+            }
+        });
+    }
 }

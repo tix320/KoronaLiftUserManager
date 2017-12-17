@@ -39,6 +39,20 @@ public interface ServerService extends RemoteService {
     List<UserDto> getUsers();
 
     /**
+     * Get users quantity from this city.
+     *
+     * @return quantity of users.
+     */
+    long getUsersQuantityFromCity(CityDto city);
+
+    /**
+     * Add new city.
+     *
+     * @param city is adding city.
+     */
+    void addCity(CityDto city);
+
+    /**
      * Get list of cities from database.
      *
      * @return list of cities.

@@ -1,10 +1,15 @@
 package client.widgets.user.elements;
 
 import client.data.repositories.DataRepository;
+import client.widgets.custom.CustomTextBox;
 import client.widgets.user.HasValidation;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import shared.dto.CityDto;
 
 /**
@@ -12,16 +17,38 @@ import shared.dto.CityDto;
  */
 public class CityPanel extends Composite implements HasValidation, ChangeHandler {
 
+    private static final String EMPTY_TEXT = "";
+
     /** List box of cities. */
     private CityListBox listBoxCity;
+
+    /** Text box for the new city's name. */
+    private CustomTextBox newCityTextBox;
+
+    /** Button to add new city. */
+    private Button addButton;
 
     /**
      * Initialize cities and list box.
      */
     public CityPanel() {
+        VerticalPanel mainPanel = new VerticalPanel();
+        mainPanel.setStyleName("user-form-city-panel");
+
         listBoxCity = new CityListBox();
+        initTextBox();
+        initAddButton();
+
+        HorizontalPanel addCityPanel = new HorizontalPanel();
+        addCityPanel.add(newCityTextBox);
+        addCityPanel.add(addButton);
+
+        mainPanel.add(listBoxCity);
+        mainPanel.add(addCityPanel);
+
         setDefaultStyles();
-        initWidget(listBoxCity);
+        initWidget(mainPanel);
+
         DataRepository.getCitiesRepository().registerListener(this);
     }
 
@@ -29,7 +56,44 @@ public class CityPanel extends Composite implements HasValidation, ChangeHandler
      * Set default styles on widgets.
      */
     public void setDefaultStyles() {
-        listBoxCity.setStyleName("user-form-list-city");
+        listBoxCity.setStyleName("user-form-city-panel-box");
+    }
+
+    /**
+     * Initialize text box for input name of city.
+     */
+    private void initTextBox() {
+        newCityTextBox = new CustomTextBox();
+        newCityTextBox.setPlaceHolder("Другой город");
+        newCityTextBox.setStyleName("user-form-city-panel-box");
+    }
+
+    /**
+     * Initialize button for adding new city.
+     */
+    private void initAddButton() {
+        addButton = new Button("+");
+        addButton.setStyleName("user-form-city-panel-add-button");
+        addButton.addClickHandler(event -> {
+            if (!newCityTextBox.getText().isEmpty()) {
+                newCityTextBox.setStyleName("user-form-city-panel-box");
+                addCity();
+            } else {
+                newCityTextBox.setStyleName("user-form-city-panel-box-error");
+            }
+        });
+    }
+
+    /**
+     * Send request to add new city.
+     */
+    private void addCity() {
+        if (Window.confirm("Добавить новый город: " + newCityTextBox.getText())) {
+            CityDto cityDto = new CityDto();
+            cityDto.setName(newCityTextBox.getText());
+            DataRepository.getCitiesRepository().addCity(cityDto);
+            newCityTextBox.setText(EMPTY_TEXT);
+        }
     }
 
     /**
@@ -57,7 +121,7 @@ public class CityPanel extends Composite implements HasValidation, ChangeHandler
 
     @Override
     public final void showError() {
-        listBoxCity.setStyleName("user-form-list-city-error");
+        listBoxCity.setStyleName("user-form-city-panel-box-error");
     }
 
     @Override
