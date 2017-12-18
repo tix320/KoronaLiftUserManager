@@ -31,7 +31,7 @@ public class UserController extends Controller<User> {
      * @param city for filter.
      * @return quantity of users.
      */
-    public Long getClientsQuantity(City city) {
+    public Long getUsersQuantityFromThisCity(City city) {
         return getEntityManager().createQuery("SELECT count (user) FROM User user where user.city = :city", Long.class)
                 .setParameter("city", city)
                 .getSingleResult();

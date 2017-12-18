@@ -2,7 +2,6 @@ package server;
 
 import client.ServerAPI.ServerService;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-import server.dao.UserController;
 import server.injection.ConverterManager;
 import server.injection.DaoManager;
 import shared.dto.CityDto;
@@ -23,19 +22,23 @@ public class ServerServiceImpl extends RemoteServiceServlet implements ServerSer
     @Override
     public long addUser(final UserDto userDto) {
         daoManager.getUserController().add(converterManager.getUserConverter().convertToEntity(userDto));
-        return ((UserController) daoManager.getUserController()).getClientsQuantity(converterManager.getCityConverter().convertToEntity(userDto.getCity()));
+        return getUsersQuantityFromThisCity(userDto.getCity());
     }
 
     @Override
     public long editUser(final UserDto userDto) {
         daoManager.getUserController().update(converterManager.getUserConverter().convertToEntity(userDto));
-        return ((UserController) daoManager.getUserController()).getClientsQuantity(converterManager.getCityConverter().convertToEntity(userDto.getCity()));
+        return getUsersQuantityFromThisCity(userDto.getCity());
     }
 
     @Override
     public long removeUser(final UserDto userDto) {
         daoManager.getUserController().delete(converterManager.getUserConverter().convertToEntity(userDto));
-        return ((UserController) daoManager.getUserController()).getClientsQuantity(converterManager.getCityConverter().convertToEntity(userDto.getCity()));
+        return getUsersQuantityFromThisCity(userDto.getCity());
+    }
+
+    private long getUsersQuantityFromThisCity(CityDto cityDto) {
+        return daoManager.getUserController().getUsersQuantityFromThisCity(converterManager.getCityConverter().convertToEntity(cityDto));
     }
 
     @Override
