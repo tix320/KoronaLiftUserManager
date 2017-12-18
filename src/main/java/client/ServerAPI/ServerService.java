@@ -14,22 +14,25 @@ public interface ServerService extends RemoteService {
      * Add new user.
      *
      * @param user is adding user.
+     * @return quantity of users from this city.
      */
-    void addUser(UserDto user);
+    long addUser(UserDto user);
 
     /**
      * Edit user.
      *
      * @param user is editing user.
+     * @return quantity of users from this city.
      */
-    void editUser(UserDto user);
+    long editUser(UserDto user);
 
     /**
      * Remove user.
      *
      * @param user is removing user.
+     * @return quantity of users from this city.
      */
-    void removeUser(UserDto user);
+    long removeUser(UserDto user);
 
     /**
      * Get list of users from database.
@@ -37,13 +40,6 @@ public interface ServerService extends RemoteService {
      * @return list of users
      */
     List<UserDto> getUsers();
-
-    /**
-     * Get users quantity from this city.
-     *
-     * @return quantity of users.
-     */
-    long getUsersQuantityFromCity(CityDto city);
 
     /**
      * Add new city.

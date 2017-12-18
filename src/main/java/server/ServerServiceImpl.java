@@ -21,28 +21,26 @@ public class ServerServiceImpl extends RemoteServiceServlet implements ServerSer
     private DaoManager daoManager;
 
     @Override
-    public void addUser(final UserDto userDto) {
+    public long addUser(final UserDto userDto) {
         daoManager.getUserController().add(converterManager.getUserConverter().convertToEntity(userDto));
+        return ((UserController) daoManager.getUserController()).getClientsQuantity(converterManager.getCityConverter().convertToEntity(userDto.getCity()));
     }
 
     @Override
-    public void editUser(final UserDto userDto) {
+    public long editUser(final UserDto userDto) {
         daoManager.getUserController().update(converterManager.getUserConverter().convertToEntity(userDto));
+        return ((UserController) daoManager.getUserController()).getClientsQuantity(converterManager.getCityConverter().convertToEntity(userDto.getCity()));
     }
 
     @Override
-    public void removeUser(final UserDto userDto) {
+    public long removeUser(final UserDto userDto) {
         daoManager.getUserController().delete(converterManager.getUserConverter().convertToEntity(userDto));
+        return ((UserController) daoManager.getUserController()).getClientsQuantity(converterManager.getCityConverter().convertToEntity(userDto.getCity()));
     }
 
     @Override
     public List<UserDto> getUsers() {
         return converterManager.getUserConverter().convertToDto(daoManager.getUserController().getAll());
-    }
-
-    @Override
-    public long getUsersQuantityFromCity(CityDto cityDto) {
-        return ((UserController) daoManager.getUserController()).getClientsQuantity(converterManager.getCityConverter().convertToEntity(cityDto));
     }
 
     @Override

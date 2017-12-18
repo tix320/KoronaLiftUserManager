@@ -8,7 +8,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import lombok.Getter;
 import org.realityforge.gwt.websockets.client.WebSocket;
 import org.realityforge.gwt.websockets.client.WebSocketListener;
-import shared.dto.CityDto;
 import shared.dto.UserDto;
 
 import java.util.ArrayList;
@@ -87,16 +86,16 @@ public final class UsersRepository extends Repository<UserDto> {
      * @param user is adding user.
      */
     public void addUser(final UserDto user) {
-        SERVER_SERVICE.addUser(user, new AsyncCallback<Void>() {
+        SERVER_SERVICE.addUser(user, new AsyncCallback<Long>() {
             @Override
             public void onFailure(final Throwable throwable) {
                 Window.alert("Failed while adding user.");
             }
 
             @Override
-            public void onSuccess(final Void aVoid) {
+            public void onSuccess(final Long quantity) {
                 webSocket.send("Hello Server");
-                getUsersQuantityFromCity(user.getCity());
+                Window.alert("Ползователи из города " + user.getCity().getName() + ": " + quantity);
             }
         });
     }
@@ -107,16 +106,16 @@ public final class UsersRepository extends Repository<UserDto> {
      * @param user is a new data of user.
      */
     public void editUser(final UserDto user) {
-        SERVER_SERVICE.editUser(user, new AsyncCallback<Void>() {
+        SERVER_SERVICE.editUser(user, new AsyncCallback<Long>() {
             @Override
             public void onFailure(final Throwable throwable) {
                 Window.alert("Failed while editing user.");
             }
 
             @Override
-            public void onSuccess(final Void aVoid) {
+            public void onSuccess(final Long quantity) {
                 webSocket.send("Hello Server");
-                getUsersQuantityFromCity(user.getCity());
+                Window.alert("Ползователи из города " + user.getCity().getName() + ": " + quantity);
             }
         });
     }
@@ -127,16 +126,16 @@ public final class UsersRepository extends Repository<UserDto> {
      * @param user is a removing user.
      */
     public void removeUser(final UserDto user) {
-        SERVER_SERVICE.removeUser(user, new AsyncCallback<Void>() {
+        SERVER_SERVICE.removeUser(user, new AsyncCallback<Long>() {
             @Override
             public void onFailure(final Throwable throwable) {
                 Window.alert("Failed while removing user.");
             }
 
             @Override
-            public void onSuccess(final Void aVoid) {
+            public void onSuccess(final Long quantity) {
                 webSocket.send("Hello Server");
-                getUsersQuantityFromCity(user.getCity());
+                Window.alert("Ползователи из города " + user.getCity().getName() + ": " + quantity);
             }
         });
     }
@@ -155,23 +154,6 @@ public final class UsersRepository extends Repository<UserDto> {
             public void onSuccess(final List<UserDto> result) {
                 setResultList(result);
                 handleEvent();
-            }
-        });
-    }
-
-    /**
-     * Get users quantity from this city.
-     */
-    private void getUsersQuantityFromCity(CityDto city) {
-        SERVER_SERVICE.getUsersQuantityFromCity(city, new AsyncCallback<Long>() {
-            @Override
-            public void onFailure(Throwable caught) {
-                Window.alert("Failed while loading users quantity from this city");
-            }
-
-            @Override
-            public void onSuccess(Long result) {
-                Window.alert("Ползователи из города " + city.getName() + ": " + result);
             }
         });
     }

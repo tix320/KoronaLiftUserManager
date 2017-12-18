@@ -75,20 +75,31 @@ public class CityPanel extends Composite implements HasValidation, ChangeHandler
         addButton = new Button("+");
         addButton.setStyleName("user-form-city-panel-add-button");
         addButton.addClickHandler(event -> {
-            if (!newCityTextBox.getText().isEmpty()) {
-                newCityTextBox.setStyleName("user-form-city-panel-box");
+            if (validateTextBox()) {
                 addCity();
-            } else {
-                newCityTextBox.setStyleName("user-form-city-panel-box-error");
             }
         });
+    }
+
+    /**
+     * Validate the city input.
+     *
+     * @return true, if is correct.
+     */
+    private boolean validateTextBox() {
+        if (newCityTextBox.getText().isEmpty()) {
+            newCityTextBox.setStyleName("user-form-city-panel-box-error");
+            return false;
+        }
+        newCityTextBox.setStyleName("user-form-city-panel-box");
+        return true;
     }
 
     /**
      * Send request to add new city.
      */
     private void addCity() {
-        if (Window.confirm("Добавить новый город: " + newCityTextBox.getText())) {
+        if (Window.confirm("Добавить новый город: " + newCityTextBox.getText() + " ?")) {
             CityDto cityDto = new CityDto();
             cityDto.setName(newCityTextBox.getText());
             DataRepository.getCitiesRepository().addCity(cityDto);
