@@ -37,7 +37,7 @@ public interface ServerService extends RemoteService {
     /**
      * Get list of users from database.
      *
-     * @return list of users
+     * @return list of users.
      */
     List<UserDto> getUsers();
 

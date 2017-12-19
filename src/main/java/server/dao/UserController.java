@@ -10,7 +10,6 @@ import java.util.List;
  * Data transfer of users.
  */
 @RequestScoped
-@DataAccessor(type = EntityType.USER)
 public class UserController extends Controller<User> {
 
     /**
@@ -31,7 +30,7 @@ public class UserController extends Controller<User> {
      * @param city for filter.
      * @return quantity of users.
      */
-    public Long getUsersQuantityFromThisCity(City city) {
+    public Long getUsersQuantityFromThisCity(final City city) {
         return getEntityManager().createQuery("SELECT count (user) FROM User user where user.city = :city", Long.class)
                 .setParameter("city", city)
                 .getSingleResult();

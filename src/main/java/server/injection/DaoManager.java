@@ -18,7 +18,6 @@ import javax.inject.Inject;
 public class DaoManager {
 
     @Inject
-    @DataAccessor(type = EntityType.USER)
     private UserController userController;
 
     @Inject

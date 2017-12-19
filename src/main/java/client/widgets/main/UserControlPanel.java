@@ -1,6 +1,6 @@
 package client.widgets.main;
 
-import client.widgets.tables.UserTable;
+import client.widgets.tables.Table;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 
@@ -15,7 +15,7 @@ public class UserControlPanel extends Composite {
     public UserControlPanel() {
         FlowPanel mainPanel = new FlowPanel();
         mainPanel.add(new UserFormTabPanel());
-        mainPanel.add(new UserTable());
+        mainPanel.add(new Table());
 
         initWidget(mainPanel);
     }

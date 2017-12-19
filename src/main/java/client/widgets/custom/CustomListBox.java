@@ -25,7 +25,7 @@ public abstract class CustomListBox<T> extends ListBox {
      *
      * @param list of objects.
      */
-    public void setList(List<T> list) {
+    public void setList(final List<T> list) {
         clear();
         objectsList = list;
         addItems();
@@ -44,7 +44,7 @@ public abstract class CustomListBox<T> extends ListBox {
      *
      * @param item for adding.
      */
-    private void addItemToList(String item) {
+    private void addItemToList(final String item) {
         stringList.add(item);
         addItem(item);
     }
@@ -63,7 +63,7 @@ public abstract class CustomListBox<T> extends ListBox {
      *
      * @param object is selecting object.
      */
-    public void selectObject(T object) {
+    public void selectObject(final T object) {
         setSelectedIndex(stringList.indexOf(getValue(object)));
     }
 

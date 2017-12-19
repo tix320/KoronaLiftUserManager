@@ -151,9 +151,8 @@ public final class UsersRepository extends Repository<UserDto> {
             }
 
             @Override
-            public void onSuccess(final List<UserDto> result) {
-                setResultList(result);
-                handleEvent();
+            public void onSuccess(final List<UserDto> users) {
+                handleEvent(users);
             }
         });
     }

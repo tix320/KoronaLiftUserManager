@@ -18,7 +18,7 @@ public class ClientUpdater {
     /**
      * Set of sessions.
      */
-    private static Set<Session> sessions = Collections.synchronizedSet(new HashSet<Session>());
+    private static final Set<Session> sessions = Collections.synchronizedSet(new HashSet<Session>());
 
     @OnOpen
     public void onOpen(final Session session) {

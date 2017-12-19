@@ -20,6 +20,6 @@ public class City extends IdentityEntity {
     private static final int CITY_NAME_LENGTH = 30;
 
     /** Name of city. */
-    @Column(length = CITY_NAME_LENGTH)
+    @Column(length = CITY_NAME_LENGTH, unique = true)
     private String name;
 }

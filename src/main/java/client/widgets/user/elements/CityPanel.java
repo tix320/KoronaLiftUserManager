@@ -1,10 +1,10 @@
 package client.widgets.user.elements;
 
+import client.data.DataChangeEvent;
+import client.data.DataChangeHandler;
 import client.data.repositories.DataRepository;
 import client.widgets.custom.CustomTextBox;
 import client.widgets.user.HasValidation;
-import com.google.gwt.event.dom.client.ChangeEvent;
-import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
@@ -15,8 +15,9 @@ import shared.dto.CityDto;
 /**
  * Panel for selection city.
  */
-public class CityPanel extends Composite implements HasValidation, ChangeHandler {
+public class CityPanel extends Composite implements HasValidation, DataChangeHandler<CityDto> {
 
+    /** Empty string text. */
     private static final String EMPTY_TEXT = "";
 
     /** List box of cities. */
@@ -49,7 +50,7 @@ public class CityPanel extends Composite implements HasValidation, ChangeHandler
         setDefaultStyles();
         initWidget(mainPanel);
 
-        DataRepository.getCitiesRepository().registerListener(this);
+        DataRepository.getCitiesRepository().addChangeHandler(this);
     }
 
     /**
@@ -136,7 +137,7 @@ public class CityPanel extends Composite implements HasValidation, ChangeHandler
     }
 
     @Override
-    public void onChange(ChangeEvent event) {
-        listBoxCity.setList(DataRepository.getCitiesRepository().getResultList());
+    public void update(final DataChangeEvent<CityDto> event) {
+        listBoxCity.setList(event.getDataList());
     }
 }

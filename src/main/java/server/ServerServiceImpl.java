@@ -2,8 +2,8 @@ package server;
 
 import client.ServerAPI.ServerService;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-import server.injection.ConverterManager;
-import server.injection.DaoManager;
+import server.serviceHelpers.CityServiceHelper;
+import server.serviceHelpers.UserServiceHelper;
 import shared.dto.CityDto;
 import shared.dto.UserDto;
 
@@ -14,45 +14,41 @@ public class ServerServiceImpl extends RemoteServiceServlet implements ServerSer
     private static final long serialVersionUID = -2615428359694308574L;
 
     @Inject
-    private ConverterManager converterManager;
+    private UserServiceHelper userServiceHelper;
 
     @Inject
-    private DaoManager daoManager;
+    private CityServiceHelper cityServiceHelper;
 
     @Override
     public long addUser(final UserDto userDto) {
-        daoManager.getUserController().add(converterManager.getUserConverter().convertToEntity(userDto));
-        return getUsersQuantityFromThisCity(userDto.getCity());
+        userServiceHelper.addUser(userDto);
+        return userServiceHelper.getUsersQuantityFromThisCity(userDto.getCity());
     }
 
     @Override
     public long editUser(final UserDto userDto) {
-        daoManager.getUserController().update(converterManager.getUserConverter().convertToEntity(userDto));
-        return getUsersQuantityFromThisCity(userDto.getCity());
+        userServiceHelper.editUser(userDto);
+        return userServiceHelper.getUsersQuantityFromThisCity(userDto.getCity());
     }
 
     @Override
     public long removeUser(final UserDto userDto) {
-        daoManager.getUserController().delete(converterManager.getUserConverter().convertToEntity(userDto));
-        return getUsersQuantityFromThisCity(userDto.getCity());
-    }
-
-    private long getUsersQuantityFromThisCity(CityDto cityDto) {
-        return daoManager.getUserController().getUsersQuantityFromThisCity(converterManager.getCityConverter().convertToEntity(cityDto));
+        userServiceHelper.removeUser(userDto);
+        return userServiceHelper.getUsersQuantityFromThisCity(userDto.getCity());
     }
 
     @Override
     public List<UserDto> getUsers() {
-        return converterManager.getUserConverter().convertToDto(daoManager.getUserController().getAll());
+        return userServiceHelper.getUsers();
     }
 
     @Override
     public void addCity(CityDto cityDto) {
-        daoManager.getCityController().add(converterManager.getCityConverter().convertToEntity(cityDto));
+        cityServiceHelper.addCity(cityDto);
     }
 
     @Override
     public List<CityDto> getCities() {
-        return converterManager.getCityConverter().convertToDto(daoManager.getCityController().getAll());
+        return cityServiceHelper.getCities();
     }
 }

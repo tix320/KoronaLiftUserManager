@@ -17,12 +17,12 @@ public class CityListBox extends CustomListBox<CityDto> {
     private static final String DISABLED = "disabled";
 
     @Override
-    public String getValue(CityDto object) {
+    public String getValue(final CityDto object) {
         return object.getName();
     }
 
     @Override
-    public void setList(List<CityDto> list) {
+    public void setList(final List<CityDto> list) {
         CityDto cityDto = new CityDto();
         cityDto.setName(CITY);
         list.add(0, cityDto);

@@ -27,7 +27,7 @@ public class EditUserForm extends BaseUserForm {
     }
 
     @Override
-    public void sendData(UserDto user) {
+    public void sendData(final UserDto user) {
         DataRepository.getUsersRepository().editUser(user);
     }
 }
