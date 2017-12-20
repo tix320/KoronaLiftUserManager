@@ -45,8 +45,26 @@ public final class CitiesRepository extends Repository<CityDto> {
 
             @Override
             public void onSuccess(final List<CityDto> cities) {
-                setResultList(cities);
-                handleEvent();
+                handleEvent(cities);
+            }
+        });
+    }
+
+    /**
+     * Add new city.
+     *
+     * @param city is adding city.
+     */
+    public void addCity(final CityDto city) {
+        SERVER_SERVICE.addCity(city, new AsyncCallback<Void>() {
+            @Override
+            public void onFailure(final Throwable caught) {
+                Window.alert("Failed while adding city.");
+            }
+
+            @Override
+            public void onSuccess(final Void result) {
+                getCitiesFromDB();
             }
         });
     }

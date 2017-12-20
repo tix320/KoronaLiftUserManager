@@ -14,7 +14,7 @@ public interface ServerServiceAsync {
      * @param user  is adding user.
      * @param async is asynchronous callback.
      */
-    void addUser(UserDto user, AsyncCallback<Void> async);
+    void addUser(UserDto user, AsyncCallback<Long> async);
 
     /**
      * Edit user.
@@ -22,7 +22,7 @@ public interface ServerServiceAsync {
      * @param user  is editing user.
      * @param async is asynchronous callback.
      */
-    void editUser(UserDto user, AsyncCallback<Void> async);
+    void editUser(UserDto user, AsyncCallback<Long> async);
 
     /**
      * Remove user.
@@ -30,7 +30,7 @@ public interface ServerServiceAsync {
      * @param user  is removing user.
      * @param async is asynchronous callback.
      */
-    void removeUser(UserDto user, AsyncCallback<Void> async);
+    void removeUser(UserDto user, AsyncCallback<Long> async);
 
     /**
      * Get list of users from database.
@@ -45,4 +45,13 @@ public interface ServerServiceAsync {
      * @param async is asynchronous callback.
      */
     void getCities(AsyncCallback<List<CityDto>> async);
+
+
+    /**
+     * Add new city.
+     *
+     * @param city  is adding city.
+     * @param async is asynchronous callback.
+     */
+    void addCity(CityDto city, AsyncCallback<Void> async);
 }

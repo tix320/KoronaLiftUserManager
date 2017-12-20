@@ -1,10 +1,10 @@
 package client.widgets.tables;
 
+import client.data.DataChangeEvent;
+import client.data.DataChangeHandler;
 import client.data.repositories.DataRepository;
 import client.widgets.tables.columns.*;
 import com.google.gwt.cell.client.ButtonCell;
-import com.google.gwt.event.dom.client.ChangeEvent;
-import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.view.client.ListDataProvider;
@@ -15,7 +15,7 @@ import shared.dto.UserDto;
  * Create custom widget to keep the users.
  * Users will be added from UserAddForm or edited from EditAddForm.
  */
-public class UserTable extends Composite implements ChangeHandler {
+public class Table extends Composite implements DataChangeHandler<UserDto> {
 
     /** List of users. */
     private ListDataProvider<UserDto> users;
@@ -26,8 +26,8 @@ public class UserTable extends Composite implements ChangeHandler {
     /**
      * Constructor for creating user table.
      */
-    public UserTable() {
-        DataRepository.getUsersRepository().registerListener(this);
+    public Table() {
+        DataRepository.getUsersRepository().addChangeHandler(this);
         SingleSelectionModel<UserDto> selModel = new SingleSelectionModel<>();
 
         cellTable = new CellTable<>();
@@ -89,7 +89,7 @@ public class UserTable extends Composite implements ChangeHandler {
     }
 
     @Override
-    public void onChange(ChangeEvent event) {
-        users.setList(DataRepository.getUsersRepository().getResultList());
+    public void update(final DataChangeEvent<UserDto> event) {
+        users.setList(event.getDataList());
     }
 }

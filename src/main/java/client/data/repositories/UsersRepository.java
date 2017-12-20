@@ -86,15 +86,16 @@ public final class UsersRepository extends Repository<UserDto> {
      * @param user is adding user.
      */
     public void addUser(final UserDto user) {
-        SERVER_SERVICE.addUser(user, new AsyncCallback<Void>() {
+        SERVER_SERVICE.addUser(user, new AsyncCallback<Long>() {
             @Override
             public void onFailure(final Throwable throwable) {
                 Window.alert("Failed while adding user.");
             }
 
             @Override
-            public void onSuccess(final Void aVoid) {
+            public void onSuccess(final Long quantity) {
                 webSocket.send("Hello Server");
+                Window.alert("Ползователи из города " + user.getCity().getName() + ": " + quantity);
             }
         });
     }
@@ -105,15 +106,16 @@ public final class UsersRepository extends Repository<UserDto> {
      * @param user is a new data of user.
      */
     public void editUser(final UserDto user) {
-        SERVER_SERVICE.editUser(user, new AsyncCallback<Void>() {
+        SERVER_SERVICE.editUser(user, new AsyncCallback<Long>() {
             @Override
             public void onFailure(final Throwable throwable) {
                 Window.alert("Failed while editing user.");
             }
 
             @Override
-            public void onSuccess(final Void aVoid) {
+            public void onSuccess(final Long quantity) {
                 webSocket.send("Hello Server");
+                Window.alert("Ползователи из города " + user.getCity().getName() + ": " + quantity);
             }
         });
     }
@@ -124,15 +126,16 @@ public final class UsersRepository extends Repository<UserDto> {
      * @param user is a removing user.
      */
     public void removeUser(final UserDto user) {
-        SERVER_SERVICE.removeUser(user, new AsyncCallback<Void>() {
+        SERVER_SERVICE.removeUser(user, new AsyncCallback<Long>() {
             @Override
             public void onFailure(final Throwable throwable) {
                 Window.alert("Failed while removing user.");
             }
 
             @Override
-            public void onSuccess(final Void aVoid) {
+            public void onSuccess(final Long quantity) {
                 webSocket.send("Hello Server");
+                Window.alert("Ползователи из города " + user.getCity().getName() + ": " + quantity);
             }
         });
     }
@@ -148,9 +151,8 @@ public final class UsersRepository extends Repository<UserDto> {
             }
 
             @Override
-            public void onSuccess(final List<UserDto> result) {
-                setResultList(result);
-                handleEvent();
+            public void onSuccess(final List<UserDto> users) {
+                handleEvent(users);
             }
         });
     }
