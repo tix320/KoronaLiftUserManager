@@ -33,7 +33,7 @@ public abstract class Controller<D> {
      * @param newEntity is adding data object.
      */
     public void add(IsEntity newEntity) {
-        entityManager.merge(newEntity);
+        entityManager.persist(newEntity);
     }
 
     /**
