@@ -12,13 +12,25 @@ import java.util.List;
  * @param <T> is type of object.
  * @author Tigran Sargsyan and Tiran Manukyan :).
  */
-public abstract class CustomListBox<T> extends ListBox {
+public class CustomListBox<T> extends ListBox {
+
+    /** Analyzer for getting object's string submission. */
+    private final Analyzer<T, String> analyzer;
 
     /** List of objects. */
     private List<T> objectsList;
 
     /** List of strings. */
     private List<String> stringList;
+
+    /**
+     * Constructor for initializing analyzer.
+     *
+     * @param analyzer to init list box analyzer.
+     */
+    public CustomListBox(Analyzer<T, String> analyzer) {
+        this.analyzer = analyzer;
+    }
 
     /**
      * Init objects list.
@@ -36,7 +48,7 @@ public abstract class CustomListBox<T> extends ListBox {
      */
     private void addItems() {
         stringList = new ArrayList<>(objectsList.size());
-        objectsList.forEach(object -> addItemToList(getValue(object)));
+        objectsList.forEach(object -> addItemToList(analyzer.getValue(object)));
     }
 
     /**
@@ -64,14 +76,6 @@ public abstract class CustomListBox<T> extends ListBox {
      * @param object is selecting object.
      */
     public void selectObject(final T object) {
-        setSelectedIndex(stringList.indexOf(getValue(object)));
+        setSelectedIndex(stringList.indexOf(analyzer.getValue(object)));
     }
-
-    /**
-     * Get string value from object of generic type.
-     *
-     * @param object of generic type.
-     * @return string value.
-     */
-    public abstract String getValue(T object);
 }

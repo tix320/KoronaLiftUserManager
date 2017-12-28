@@ -16,10 +16,13 @@ public class CityListBox extends CustomListBox<CityDto> {
     /** HTML attribute. */
     private static final String DISABLED = "disabled";
 
-    @Override
-    public String getValue(final CityDto object) {
-        return object.getName();
+    /**
+     * Init super analyzer for the city.
+     */
+    public CityListBox() {
+        super(CityDto::getName);
     }
+
 
     @Override
     public void setList(final List<CityDto> list) {
