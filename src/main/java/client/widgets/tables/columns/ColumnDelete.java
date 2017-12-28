@@ -9,6 +9,9 @@ import shared.dto.UserDto;
  */
 public class ColumnDelete extends Column<UserDto, String> {
 
+    /** Delete button's text. */
+    private static final String DELETE = "Удалить";
+
     /**
      * Construct a new Column with a given {@link Cell}.
      *
@@ -20,6 +23,6 @@ public class ColumnDelete extends Column<UserDto, String> {
 
     @Override
     public final String getValue(final UserDto user) {
-        return "Удалить";
+        return DELETE;
     }
 }

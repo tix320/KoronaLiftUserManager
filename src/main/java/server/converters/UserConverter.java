@@ -28,6 +28,7 @@ public class UserConverter implements DataConverter<UserDto, User> {
         userDto.setLastName(user.getLastName());
         userDto.setGender(user.getGender());
         userDto.setCity(cityConverter.convertToDto(user.getCity()));
+        userDto.setAvatar(user.getAvatar());
         userDto.setDateOfBirth(user.getDateOfBirth());
         return userDto;
     }
@@ -50,6 +51,7 @@ public class UserConverter implements DataConverter<UserDto, User> {
         user.setLastName(userDto.getLastName());
         user.setGender(userDto.getGender());
         user.setCity(cityConverter.convertToEntity(userDto.getCity()));
+        user.setAvatar(userDto.getAvatar());
         user.setDateOfBirth(userDto.getDateOfBirth());
         return user;
     }

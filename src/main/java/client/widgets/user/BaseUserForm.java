@@ -1,10 +1,7 @@
 package client.widgets.user;
 
 import client.data.repositories.DataRepository;
-import client.widgets.user.elements.CityPanel;
-import client.widgets.user.elements.DatePickerPanel;
-import client.widgets.user.elements.FullNamePanel;
-import client.widgets.user.elements.GenderPanel;
+import client.widgets.user.elements.*;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
@@ -18,17 +15,20 @@ import java.util.stream.Stream;
  */
 public abstract class BaseUserForm extends Composite implements Form<UserDto> {
 
-    /** Full name inputs. */
-    private FullNamePanel fullNamePanel;
+    /** Date selection panel. */
+    private final DatePickerPanel datePickerPanel = new DatePickerPanel();
 
-    /** Gender selection panel. */
-    private GenderPanel genderPanel;
+    /** Full name inputs. */
+    private final FullNamePanel fullNamePanel = new FullNamePanel();
+
+    /** Avatar selection panel. */
+    private final AvatarPanel avatarPanel = new AvatarPanel();
 
     /** City selection panel. */
-    private CityPanel cityPanel;
+    private final CityPanel cityPanel = new CityPanel();
 
-    /** Date selection panel. */
-    private DatePickerPanel datePickerPanel;
+    /** Gender selection panel. */
+    private final GenderPanel genderPanel;
 
     /** Submit button. */
     protected Button buttonSubmit;
@@ -45,12 +45,9 @@ public abstract class BaseUserForm extends Composite implements Form<UserDto> {
     protected BaseUserForm(final String genderPanelGroup) {
         DataRepository.getUsersRepository().registerSource(this);
         final FlowPanel panelSubmit = new FlowPanel();
-        fullNamePanel = new FullNamePanel();
         genderPanel = new GenderPanel(genderPanelGroup);
-        cityPanel = new CityPanel();
-        datePickerPanel = new DatePickerPanel();
         initButtonSubmit();
-        Stream.of(fullNamePanel, genderPanel, cityPanel, datePickerPanel, buttonSubmit)
+        Stream.of(fullNamePanel, genderPanel, cityPanel, avatarPanel, datePickerPanel, buttonSubmit)
                 .forEach(panelSubmit::add);
 
         initWidget(panelSubmit);
@@ -63,6 +60,7 @@ public abstract class BaseUserForm extends Composite implements Form<UserDto> {
         buttonSubmit = new Button();
         buttonSubmit.addClickHandler(event -> {
             if (isCorrect()) {
+                avatarPanel.sendAvatar();
                 submitAction();
             }
         });
@@ -79,6 +77,7 @@ public abstract class BaseUserForm extends Composite implements Form<UserDto> {
         user.setLastName(fullNamePanel.getLastName());
         user.setGender(genderPanel.getGender());
         user.setCity(cityPanel.getSelectedCity());
+        user.setAvatar(avatarPanel.getAvatarFileName());
         user.setDateOfBirth(datePickerPanel.getDate());
     }
 

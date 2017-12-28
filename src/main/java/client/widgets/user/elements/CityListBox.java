@@ -23,7 +23,6 @@ public class CityListBox extends CustomListBox<CityDto> {
         super(CityDto::getName);
     }
 
-
     @Override
     public void setList(final List<CityDto> list) {
         CityDto cityDto = new CityDto();

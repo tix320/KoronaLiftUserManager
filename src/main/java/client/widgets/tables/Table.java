@@ -2,11 +2,14 @@ package client.widgets.tables;
 
 import client.data.DataChangeEvent;
 import client.data.DataChangeHandler;
+import client.data.PathUtils;
 import client.data.repositories.DataRepository;
 import client.widgets.tables.columns.*;
 import com.google.gwt.cell.client.ButtonCell;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SingleSelectionModel;
 import shared.dto.UserDto;
@@ -54,7 +57,20 @@ public class Table extends Composite implements DataChangeHandler<UserDto> {
         cellTable.addColumn(new ColumnSex(), "Пол");
         cellTable.addColumn(new ColumnCity(), "Город");
         cellTable.addColumn(new ColumnDateOfBirth(), "Дата рождения");
+        cellTable.addColumn(createColumnAvatar(), "Аватар");
         cellTable.addColumn(createColumnDelete(), "Удалить");
+    }
+
+    /**
+     * Create avatar column for showing users avatars.
+     *
+     * @return created column.
+     */
+    private ColumnAvatar createColumnAvatar() {
+        ColumnAvatar columnAvatar = new ColumnAvatar(new ButtonCell());
+        columnAvatar.setFieldUpdater((index, object, value) ->
+                showAvatar(object));
+        return columnAvatar;
     }
 
     /**
@@ -67,6 +83,19 @@ public class Table extends Composite implements DataChangeHandler<UserDto> {
         columnDelete.setFieldUpdater((index, object, value) ->
                 deleteButtonAction(object));
         return columnDelete;
+    }
+
+    /**
+     * Action of avatar column button.
+     * Show user's avatar.
+     *
+     * @param user is current user.
+     */
+    private void showAvatar(final UserDto user) {
+        DialogBox dialogBox = new DialogBox();
+        dialogBox.setAutoHideEnabled(true);
+        dialogBox.add(new Image(PathUtils.IMAGES_PATH + user.getAvatar()));
+        dialogBox.show();
     }
 
     /**

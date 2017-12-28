@@ -35,4 +35,7 @@ public class UserDto implements Serializable {
 
     /** User's date of birth. */
     private Date dateOfBirth;
+
+    /** User's avatar link. */
+    private String avatar;
 }

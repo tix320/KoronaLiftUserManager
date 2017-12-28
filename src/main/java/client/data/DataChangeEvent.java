@@ -2,9 +2,9 @@ package client.data;
 
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerManager;
-import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,8 +19,11 @@ public class DataChangeEvent<D> extends GwtEvent<DataChangeHandler> {
 
     /** Data list. */
     @Setter
-    @Getter
     private List<D> dataList;
+
+    public List<D> getDataList() {
+        return new ArrayList<>(dataList);
+    }
 
     @Override
     public Type<DataChangeHandler> getAssociatedType() {
