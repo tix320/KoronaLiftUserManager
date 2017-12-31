@@ -21,6 +21,11 @@ public class DataChangeEvent<D> extends GwtEvent<DataChangeHandler> {
     @Setter
     private List<D> dataList;
 
+    /**
+     * Get data list by using new list.
+     *
+     * @return data list.
+     */
     public List<D> getDataList() {
         return new ArrayList<>(dataList);
     }
