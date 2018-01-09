@@ -4,6 +4,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FileUpload;
 import com.google.gwt.user.client.ui.FormPanel;
+import shared.utils.UserAvatarUtils;
 
 /**
  * Panel for selection avatar.
@@ -20,12 +21,12 @@ public class AvatarPanel extends Composite {
      * Configure form and file uploader.
      */
     public AvatarPanel() {
-        fileUpload.setName("file");
+        fileUpload.setName(UserAvatarUtils.FILE_INPUT_NAME);
         fileUpload.getElement().setAttribute("accept", "image/*");
 
         formPanel.setMethod(FormPanel.METHOD_POST);
         formPanel.setEncoding(FormPanel.ENCODING_MULTIPART);
-        formPanel.setAction(GWT.getHostPageBaseURL() + "file");
+        formPanel.setAction(GWT.getHostPageBaseURL() + UserAvatarUtils.SERVLET_URL_PATTERN);
         formPanel.setWidget(fileUpload);
 
         initWidget(formPanel);

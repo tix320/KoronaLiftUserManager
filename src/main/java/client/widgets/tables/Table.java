@@ -2,7 +2,6 @@ package client.widgets.tables;
 
 import client.data.DataChangeEvent;
 import client.data.DataChangeHandler;
-import client.data.PathUtils;
 import client.data.repositories.DataRepository;
 import client.widgets.tables.columns.*;
 import com.google.gwt.cell.client.ButtonCell;
@@ -13,6 +12,7 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SingleSelectionModel;
 import shared.dto.UserDto;
+import shared.utils.PathUtils;
 
 /**
  * Create custom widget to keep the users.
@@ -94,7 +94,7 @@ public class Table extends Composite implements DataChangeHandler<UserDto> {
     private void showAvatar(final UserDto user) {
         DialogBox dialogBox = new DialogBox();
         dialogBox.setAutoHideEnabled(true);
-        dialogBox.add(new Image(PathUtils.IMAGES_PATH + user.getAvatar()));
+        dialogBox.add(new Image(PathUtils.IMAGES_FULL_PATH + user.getAvatar()));
         dialogBox.show();
     }
 

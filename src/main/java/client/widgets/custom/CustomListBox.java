@@ -4,6 +4,7 @@ import com.google.gwt.user.client.ui.ListBox;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * Custom list box for working with objects.
@@ -14,8 +15,8 @@ import java.util.List;
  */
 public class CustomListBox<T> extends ListBox {
 
-    /** Analyzer for getting object's string submission. */
-    private final Analyzer<T, String> analyzer;
+    /** Function for getting object's string submission. */
+    private final Function<T, String> function;
 
     /** List of objects. */
     private List<T> objectsList;
@@ -24,12 +25,12 @@ public class CustomListBox<T> extends ListBox {
     private List<String> stringList;
 
     /**
-     * Constructor for initializing analyzer.
+     * Constructor for initializing function.
      *
-     * @param analyzer to init list box analyzer.
+     * @param function to init list box function.
      */
-    public CustomListBox(Analyzer<T, String> analyzer) {
-        this.analyzer = analyzer;
+    public CustomListBox(Function<T, String> function) {
+        this.function = function;
     }
 
     /**
@@ -48,7 +49,7 @@ public class CustomListBox<T> extends ListBox {
      */
     private void addItems() {
         stringList = new ArrayList<>(objectsList.size());
-        objectsList.forEach(object -> addItemToList(analyzer.getValue(object)));
+        objectsList.forEach(object -> addItemToList(function.apply(object)));
     }
 
     /**
@@ -76,6 +77,6 @@ public class CustomListBox<T> extends ListBox {
      * @param object is selecting object.
      */
     public void selectObject(final T object) {
-        setSelectedIndex(stringList.indexOf(analyzer.getValue(object)));
+        setSelectedIndex(stringList.indexOf(function.apply(object)));
     }
 }

@@ -1,5 +1,8 @@
 package server;
 
+import shared.utils.PathUtils;
+import shared.utils.UserAvatarUtils;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +18,7 @@ import java.io.InputStream;
 /**
  * Servlet for save avatar on server.
  */
-@WebServlet(urlPatterns = "/file")
+@WebServlet(urlPatterns = "/" + UserAvatarUtils.SERVLET_URL_PATTERN)
 @MultipartConfig
 public class UserAvatarServlet extends HttpServlet {
     private static final long serialVersionUID = 5989313933863110345L;
@@ -23,13 +26,13 @@ public class UserAvatarServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        Part avatar = req.getPart("file");
+        Part avatar = req.getPart(UserAvatarUtils.FILE_INPUT_NAME);
 
         byte[] array = new byte[(int) avatar.getSize()];
 
-        readFileFromRequest(avatar.getInputStream(), array);
+        readFileFromRequest(avatar, array);
 
-        File file = new File(getServletContext().getRealPath("/images/" + avatar.getSubmittedFileName()));
+        File file = new File(getServletContext().getRealPath("/" + PathUtils.IMAGES_DIRECTORY + avatar.getSubmittedFileName()));
         file.createNewFile();
 
         writeFileToDisk(file, array);
@@ -38,13 +41,15 @@ public class UserAvatarServlet extends HttpServlet {
     /**
      * Read file from request.
      *
-     * @param inputStream for reading from request and write to array.
-     * @param bytes       of avatar's array.
+     * @param avatar to get input stream from request and write to array.
+     * @param bytes of avatar's array.
      */
-    private void readFileFromRequest(InputStream inputStream, byte[] bytes) throws IOException {
-        inputStream.read(bytes);
-        inputStream.close();
-
+    private void readFileFromRequest(Part avatar, byte[] bytes) {
+        try (InputStream inputStream = avatar.getInputStream()) {
+            inputStream.read(bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -53,10 +58,12 @@ public class UserAvatarServlet extends HttpServlet {
      * @param file  where be written.
      * @param bytes of avatar's array.
      */
-    private void writeFileToDisk(File file, byte[] bytes) throws IOException {
-        FileOutputStream fileOutputStream = new FileOutputStream(file);
-        fileOutputStream.write(bytes);
-        fileOutputStream.close();
+    private void writeFileToDisk(File file, byte[] bytes) {
+        try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
+            fileOutputStream.write(bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
