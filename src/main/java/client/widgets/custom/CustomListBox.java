@@ -16,21 +16,21 @@ import java.util.function.Function;
 public class CustomListBox<T> extends ListBox {
 
     /** Function for getting object's string submission. */
-    private final Function<T, String> function;
+    private final Function<T, String> displayExecutor;
 
     /** List of objects. */
-    private List<T> objectsList;
+    private List<T> objectList;
 
-    /** List of strings. */
-    private List<String> stringList;
+    /** List of strings to display objects. */
+    private List<String> displayObjectList;
 
     /**
-     * Constructor for initializing function.
+     * Constructor for initializing display executor.
      *
-     * @param function to init list box function.
+     * @param displayExecutor to init displayExecutor.
      */
-    public CustomListBox(Function<T, String> function) {
-        this.function = function;
+    public CustomListBox(Function<T, String> displayExecutor) {
+        this.displayExecutor = displayExecutor;
     }
 
     /**
@@ -40,7 +40,7 @@ public class CustomListBox<T> extends ListBox {
      */
     public void setList(final List<T> list) {
         clear();
-        objectsList = list;
+        objectList = list;
         addItems();
     }
 
@@ -48,8 +48,8 @@ public class CustomListBox<T> extends ListBox {
      * Add items to list box and strings list.
      */
     private void addItems() {
-        stringList = new ArrayList<>(objectsList.size());
-        objectsList.forEach(object -> addItemToList(function.apply(object)));
+        displayObjectList = new ArrayList<>(objectList.size());
+        objectList.forEach(object -> addItemToList(displayExecutor.apply(object)));
     }
 
     /**
@@ -58,7 +58,7 @@ public class CustomListBox<T> extends ListBox {
      * @param item for adding.
      */
     private void addItemToList(final String item) {
-        stringList.add(item);
+        displayObjectList.add(item);
         addItem(item);
     }
 
@@ -68,7 +68,7 @@ public class CustomListBox<T> extends ListBox {
      * @return selected object.
      */
     public T getSelectedObject() {
-        return objectsList.get(getSelectedIndex());
+        return objectList.get(getSelectedIndex());
     }
 
     /**
@@ -77,6 +77,6 @@ public class CustomListBox<T> extends ListBox {
      * @param object is selecting object.
      */
     public void selectObject(final T object) {
-        setSelectedIndex(stringList.indexOf(function.apply(object)));
+        setSelectedIndex(displayObjectList.indexOf(displayExecutor.apply(object)));
     }
 }
