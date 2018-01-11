@@ -14,7 +14,7 @@ public class CityDto implements Serializable {
     private static final long serialVersionUID = -1355704257405143045L;
 
     /** Unique number of city. */
-    private int id;
+    private Integer id;
 
     /** Name of city. */
     private String name;

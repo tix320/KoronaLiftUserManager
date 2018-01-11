@@ -33,7 +33,7 @@ public abstract class Controller<D> {
      * @param newEntity is adding data object.
      */
     public void add(IsEntity newEntity) {
-        entityManager.merge(newEntity);
+        entityManager.persist(newEntity);
     }
 
     /**
@@ -42,10 +42,7 @@ public abstract class Controller<D> {
      * @param removableEntity is removing data object.
      */
     public void delete(IsEntity removableEntity) {
-        D entity = entityManager.find(entityClass, removableEntity.getId());
-        if (entity != null) {
-            entityManager.remove(entity);
-        }
+        entityManager.remove(entityManager.find(entityClass, removableEntity.getId()));
     }
 
     /**

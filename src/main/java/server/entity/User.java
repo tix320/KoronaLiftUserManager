@@ -42,4 +42,7 @@ public class User extends IdentityEntity {
 
     /** User's date of birth. */
     private Date dateOfBirth;
+
+    /** User's avatar link. */
+    private String avatar;
 }

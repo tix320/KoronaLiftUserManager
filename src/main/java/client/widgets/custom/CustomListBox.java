@@ -4,6 +4,7 @@ import com.google.gwt.user.client.ui.ListBox;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * Custom list box for working with objects.
@@ -12,13 +13,25 @@ import java.util.List;
  * @param <T> is type of object.
  * @author Tigran Sargsyan and Tiran Manukyan :).
  */
-public abstract class CustomListBox<T> extends ListBox {
+public class CustomListBox<T> extends ListBox {
+
+    /** Function for getting object's string submission. */
+    private final Function<T, String> displayExecutor;
 
     /** List of objects. */
-    private List<T> objectsList;
+    private List<T> objectList;
 
-    /** List of strings. */
-    private List<String> stringList;
+    /** List of strings to display objects. */
+    private List<String> displayObjectList;
+
+    /**
+     * Constructor for initializing display executor.
+     *
+     * @param displayExecutor to init displayExecutor.
+     */
+    public CustomListBox(Function<T, String> displayExecutor) {
+        this.displayExecutor = displayExecutor;
+    }
 
     /**
      * Init objects list.
@@ -27,7 +40,7 @@ public abstract class CustomListBox<T> extends ListBox {
      */
     public void setList(final List<T> list) {
         clear();
-        objectsList = list;
+        objectList = list;
         addItems();
     }
 
@@ -35,8 +48,8 @@ public abstract class CustomListBox<T> extends ListBox {
      * Add items to list box and strings list.
      */
     private void addItems() {
-        stringList = new ArrayList<>(objectsList.size());
-        objectsList.forEach(object -> addItemToList(getValue(object)));
+        displayObjectList = new ArrayList<>(objectList.size());
+        objectList.forEach(object -> addItemToList(displayExecutor.apply(object)));
     }
 
     /**
@@ -45,7 +58,7 @@ public abstract class CustomListBox<T> extends ListBox {
      * @param item for adding.
      */
     private void addItemToList(final String item) {
-        stringList.add(item);
+        displayObjectList.add(item);
         addItem(item);
     }
 
@@ -55,7 +68,7 @@ public abstract class CustomListBox<T> extends ListBox {
      * @return selected object.
      */
     public T getSelectedObject() {
-        return objectsList.get(getSelectedIndex());
+        return objectList.get(getSelectedIndex());
     }
 
     /**
@@ -64,14 +77,6 @@ public abstract class CustomListBox<T> extends ListBox {
      * @param object is selecting object.
      */
     public void selectObject(final T object) {
-        setSelectedIndex(stringList.indexOf(getValue(object)));
+        setSelectedIndex(displayObjectList.indexOf(displayExecutor.apply(object)));
     }
-
-    /**
-     * Get string value from object of generic type.
-     *
-     * @param object of generic type.
-     * @return string value.
-     */
-    public abstract String getValue(T object);
 }
