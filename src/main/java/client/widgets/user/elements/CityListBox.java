@@ -17,9 +17,9 @@ public class CityListBox extends CustomListBox<CityDto> {
     private static final String DISABLED = "disabled";
 
     /**
-     * Init super analyzer for the city.
+     * Init super display executor for the city.
      */
-    public CityListBox() {
+    CityListBox() {
         super(CityDto::getName);
     }
 
