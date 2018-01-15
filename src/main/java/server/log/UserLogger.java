@@ -1,14 +1,11 @@
 package server.log;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.Schedule;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.io.IOException;
-import java.util.logging.FileHandler;
+import java.io.File;
 import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 
 /**
  * Logger of users information.
@@ -16,29 +13,14 @@ import java.util.logging.SimpleFormatter;
 @Stateless
 public class UserLogger {
 
-    /** Logger instance. */
-    private static final Logger LOGGER = Logger.getLogger(UserLogger.class.getName());
-
     /** Path of log file. */
-    private static final String LOG_PATH = System.getProperty("user.home") + "\\user.log";
+    private static final String LOG_PATH = System.getProperty("user.home") + File.separator + "user.log";
+
+    /** Logger instance. */
+    private static final Logger LOGGER = FileLoggerCreator.createLogger(UserLogger.class, LOG_PATH);
 
     @PersistenceContext(unitName = "TestUnit")
     private EntityManager entityManager;
-
-    /**
-     * Initialize file handler of logger.
-     */
-    @PostConstruct
-    public void initLogger() {
-        try {
-            FileHandler fileHandler = new FileHandler(LOG_PATH);
-            fileHandler.setFormatter(new SimpleFormatter());
-            LOGGER.setUseParentHandlers(false);
-            LOGGER.addHandler(fileHandler);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * Log count of users every 5 minutes.
