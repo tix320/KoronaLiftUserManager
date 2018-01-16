@@ -1,8 +1,10 @@
 package server;
 
+import server.log.AvatarLogger;
 import shared.utils.PathUtils;
 import shared.utils.UserAvatarUtils;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -23,19 +25,21 @@ import java.io.InputStream;
 public class UserAvatarServlet extends HttpServlet {
     private static final long serialVersionUID = 5989313933863110345L;
 
+    @EJB
+    private AvatarLogger avatarLogger;
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         Part avatar = req.getPart(UserAvatarUtils.FILE_INPUT_NAME);
-
         byte[] array = new byte[(int) avatar.getSize()];
-
         readFileFromRequest(avatar, array);
 
         File file = new File(getServletContext().getRealPath("/" + PathUtils.IMAGES_DIRECTORY + avatar.getSubmittedFileName()));
         file.createNewFile();
-
         writeFileToDisk(file, array);
+
+        avatarLogger.writeAvatarInfo(file.getName());
     }
 
     /**
